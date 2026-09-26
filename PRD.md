@@ -36,7 +36,7 @@
 
 | ID | Módulo / Funcionalidade | Descrição & Regra de Negócio | Prioridade (MoSCoW) | Tier IA Indicado |
 |---|---|---|---|---|
-| `RF-01` | **Leitor Webtoon Seam-Free** | Renderização vertical contínua dos painéis PNG (Capítulo 1: 21 painéis; Capítulo 2: 37 painéis) sem nenhum espaçamento, margem ou borda branca entre imagens. | Must Have | Tier 2 |
+| `RF-01` | **Leitor Webtoon Seam-Free** | Renderização vertical contínua dos painéis PNG (Capítulo 1: 20 painéis; Capítulo 2: 36 painéis) sem nenhum espaçamento, margem ou borda branca entre imagens. Cada pasta contém ainda um arquivo de logo separado, que não integra a sequência de leitura. | Must Have | Tier 2 |
 | `RF-02` | **Navegação de Capítulos** | Seletor intuitivo para alternar entre Capítulo 1 ("Céu Azul") e Capítulo 2 ("A Vizinha"), com botão de "Próximo Capítulo" no rodapé e indicador de leitura. | Must Have | Tier 2 |
 | `RF-03` | **Mini-Jogo: Quebra-Cabeça Zen (Jigsaw)** | Jogo interativo de montar peças baseado na arte original da webtoon, com níveis de dificuldade (Fácil, Médio, Desafio), mecânica de drag-and-drop/touch e feedback sereno. | Must Have | Tier 2 |
 | `RF-04` | **Wiki do Universo & Botânica Mágica** | Enciclopédia dividida em Personagens (Ariel, Peinha, Pizeudo, Plenitude, Seu Neves, Dona Ana, Laurinho, Pérola, etc.) e Botânica (Flor do Luar, Bau Bau Loo, etc.), com filtros de busca. | Must Have | Tier 2 |
@@ -73,7 +73,7 @@
 
 ## 6. Critérios de Aceite para Auditoria (Definition of Done)
 
-- [ ] Os 21 painéis do Cap. 1 e os 37 painéis do Cap. 2 são exibidos em ordem contínua e sem emenda em qualquer tela.
+- [ ] Os 20 painéis do Cap. 1 e os 36 painéis do Cap. 2 são exibidos em ordem contínua e sem emenda em qualquer tela; os arquivos de logo ficam fora da sequência.
 - [ ] O mini-jogo de quebra-cabeça permite carregar arte da obra, mover peças e detectar a vitória.
 - [ ] A Wiki exibe todos os personagens e elementos botânicos catalogados em `weboon-info.txt`.
 - [ ] O backend FastAPI responde às rotas de `/api/chapters` e `/api/wiki` com tipagem Pydantic e testes automatizados aprovados no terminal.

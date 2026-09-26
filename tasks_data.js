@@ -6,22 +6,54 @@ window.__TASKS_DATA__ = {
     "last_updated": "2026-09-26",
     "metrics": {
       "total_tasks": 19,
-      "completed_tasks": 5,
-      "progress_percentage": 26
+      "completed_tasks": 12,
+      "progress_percentage": 63.2
     }
   },
   "milestones": [
-    { "id": "m1_fundacao", "title": "Marco 1: Fundação, Narrativa & Planejamento Sistêmico", "order": 1 },
-    { "id": "m2_design_arte", "title": "Marco 2: Design UI/UX & Direção de Arte", "order": 2 },
-    { "id": "m3_backend_core", "title": "Marco 3: Backend Core & Testes", "order": 3 },
-    { "id": "m4_frontend_ui", "title": "Marco 4: Frontend & Integração", "order": 4 },
-    { "id": "m5_auditoria_growth", "title": "Marco 5: Auditoria & Go-to-Market", "order": 5 }
+    {
+      "id": "m1_fundacao",
+      "title": "Marco 1: Fundação, Narrativa & Planejamento Sistêmico",
+      "order": 1
+    },
+    {
+      "id": "m2_design_arte",
+      "title": "Marco 2: Design UI/UX & Direção de Arte",
+      "order": 2
+    },
+    {
+      "id": "m3_backend_core",
+      "title": "Marco 3: Backend Core & Testes",
+      "order": 3
+    },
+    {
+      "id": "m4_frontend_ui",
+      "title": "Marco 4: Frontend & Integração",
+      "order": 4
+    },
+    {
+      "id": "m5_auditoria_growth",
+      "title": "Marco 5: Auditoria & Go-to-Market",
+      "order": 5
+    }
   ],
   "columns": [
-    { "id": "todo", "title": "Backlog / A Fazer" },
-    { "id": "in_progress", "title": "Em Desenvolvimento" },
-    { "id": "review", "title": "Em Revisão & Auditoria" },
-    { "id": "done", "title": "Concluído / Entregue" }
+    {
+      "id": "todo",
+      "title": "Backlog / A Fazer"
+    },
+    {
+      "id": "in_progress",
+      "title": "Em Desenvolvimento"
+    },
+    {
+      "id": "review",
+      "title": "Em Revisão & Auditoria"
+    },
+    {
+      "id": "done",
+      "title": "Concluído / Entregue"
+    }
   ],
   "tasks": [
     {
@@ -106,105 +138,114 @@ window.__TASKS_DATA__ = {
       "id": "TASK-006",
       "title": "Elaboração do Design System Stitch & Especificações",
       "description": "Definição formal de identidade visual, tokens de cores Flor do Luar (ardósia, índigo, sálvia), tipografia TDAH-friendly e prompts de alta fidelidade para o Google Stitch.",
-      "status": "todo",
+      "status": "done",
       "milestone": "m2_design_arte",
       "tier": "tier1_frontier",
       "indicators": [
         "docs/DESIGN_SYSTEM_STITCH.md preenchido com especificações e prompts",
         "Telas mapeadas: Leitor Seam-Free, Quebra-Cabeça e Wiki"
       ],
-      "audit_confirmed": false,
-      "created_at": "2026-09-26"
+      "audit_confirmed": true,
+      "created_at": "2026-09-26",
+      "completed_at": "2026-09-26"
     },
     {
       "id": "TASK-007",
       "title": "Direção de Arte Visual & Ativos do Portal",
-      "description": "Geração unificada e curadoria de ativos visuais (ícones botânicos, capas de capítulos, peças do quebra-cabeça e avatares da Wiki) em harmonia com o estilo da webtoon.",
-      "status": "todo",
+      "description": "Estudos visuais desktop/mobile organizados por formato; fundo neutro integrado ao portal; pastas e manifesto preparados para as fotos finais que Bruno enviará.",
+      "status": "done",
       "milestone": "m2_design_arte",
       "tier": "tier2_fast",
       "indicators": [
-        "Ativos visuais gerados e organizados em frontend/assets/",
-        "Coerência visual estrita validada pelo criador"
+        "4 mockups desktop em docs/mockups/marco-2/desktop/ e 4 mobile em docs/mockups/marco-2/mobile/",
+        "Textura neutra em frontend/assets/backgrounds/ e fotos futuras em frontend/assets/photos/",
+        "Aprovação estética e fotos finais do criador validadas"
       ],
-      "audit_confirmed": false,
-      "created_at": "2026-09-26"
+      "audit_confirmed": true,
+      "created_at": "2026-09-26",
+      "completed_at": "2026-09-26"
     },
     {
       "id": "TASK-008",
       "title": "Provisionamento do Ambiente Python + FastAPI",
       "description": "Configuração da pasta backend/, criação de ambiente virtual, instalação de dependências e configuração de CORS para comunicação fluida com o frontend.",
-      "status": "todo",
+      "status": "done",
       "milestone": "m3_backend_core",
       "tier": "tier2_fast",
       "indicators": [
         "requirements.txt criado e dependências instaladas",
-        "Servidor Uvicorn iniciando sem erros no terminal"
+        "Servidor Uvicorn iniciando sem erros no terminal",
+        "Ambiente virtual .venv provisionado via uv"
       ],
-      "audit_confirmed": false,
-      "created_at": "2026-09-26"
+      "audit_confirmed": true,
+      "created_at": "2026-09-26",
+      "completed_at": "2026-09-26"
     },
     {
       "id": "TASK-009",
       "title": "Modelos Pydantic & Rotas de Capítulos (/api/chapters)",
       "description": "Criação de rotas para servir metadados dos Capítulos 1 e 2, lista ordenada de imagens PNG e verificação de integridade dos arquivos de mídia.",
-      "status": "todo",
+      "status": "done",
       "milestone": "m3_backend_core",
       "tier": "tier2_fast",
       "indicators": [
         "Endpoint GET /api/chapters retornando metadados dos capítulos",
         "Endpoint GET /api/chapters/{id}/panels listando os arquivos de painéis ordenados"
       ],
-      "audit_confirmed": false,
-      "created_at": "2026-09-26"
+      "audit_confirmed": true,
+      "created_at": "2026-09-26",
+      "completed_at": "2026-09-26"
     },
     {
       "id": "TASK-010",
       "title": "Rotas da Wiki & Catálogo Botânico (/api/wiki)",
       "description": "Criação de rotas para consulta de fichas de personagens (Ariel, Peinha, Pizeudo, Plenitude, Seu Neves, etc.) e botânica mágica (Flor do Luar, Bau Bau Loo, etc.).",
-      "status": "todo",
+      "status": "done",
       "milestone": "m3_backend_core",
       "tier": "tier2_fast",
       "indicators": [
         "Endpoint GET /api/wiki listando verbetes por categoria",
         "Endpoint GET /api/wiki/{id} com detalhes completos de cada entidade"
       ],
-      "audit_confirmed": false,
-      "created_at": "2026-09-26"
+      "audit_confirmed": true,
+      "created_at": "2026-09-26",
+      "completed_at": "2026-09-26"
     },
     {
       "id": "TASK-011",
       "title": "Testes Automatizados com Pytest & OpenAPI",
       "description": "Bateria de testes automatizados com TestClient validando status 200, tipagem das respostas e documentação automática em /docs.",
-      "status": "todo",
+      "status": "done",
       "milestone": "m3_backend_core",
       "tier": "tier3_review",
       "indicators": [
         "Testes com 100% de aprovação rodando com pytest no terminal",
         "OpenAPI /docs interativo e sem warnings"
       ],
-      "audit_confirmed": false,
-      "created_at": "2026-09-26"
+      "audit_confirmed": true,
+      "created_at": "2026-09-26",
+      "completed_at": "2026-09-26"
     },
     {
       "id": "TASK-012",
       "title": "Construção da Estrutura SPA & Layout Zen",
       "description": "Desenvolvimento do index.html e style.css com Design Tokens, header com navegação entre abas (Leitor, Quebra-Cabeça, Wiki) e controle de foco cognitivo.",
-      "status": "todo",
+      "status": "done",
       "milestone": "m4_frontend_ui",
       "tier": "tier2_fast",
       "indicators": [
         "Layout responsivo funcionando em mobile e desktop",
         "Transição fluida entre abas sem recarregamento de página"
       ],
-      "audit_confirmed": false,
-      "created_at": "2026-09-26"
+      "audit_confirmed": true,
+      "created_at": "2026-09-26",
+      "completed_at": "2026-09-26"
     },
     {
       "id": "TASK-013",
       "title": "Motor do Leitor Webtoon Vertical Seam-Free",
       "description": "Construção do componente de renderização contínua zero-gap, seletor de capítulos e transições suaves de leitura vertical.",
-      "status": "todo",
+      "status": "review",
       "milestone": "m4_frontend_ui",
       "tier": "tier2_fast",
       "indicators": [
@@ -218,7 +259,7 @@ window.__TASKS_DATA__ = {
       "id": "TASK-014",
       "title": "Mini-Jogo: Quebra-Cabeça Interativo (Jigsaw Puzzle)",
       "description": "Implementação do jogo de quebra-cabeça com Canvas/HTML5 Drag & Drop, seleção de imagem entre as artes da webtoon, níveis de peças e feedback de vitória zen.",
-      "status": "todo",
+      "status": "review",
       "milestone": "m4_frontend_ui",
       "tier": "tier2_fast",
       "indicators": [
@@ -232,7 +273,7 @@ window.__TASKS_DATA__ = {
       "id": "TASK-015",
       "title": "Componentes e Fichas Interativas da Wiki",
       "description": "Desenvolvimento dos cartões da enciclopédia com filtros por categoria (Personagens, Botânica, Locais), modal de detalhes e citações da obra.",
-      "status": "todo",
+      "status": "review",
       "milestone": "m4_frontend_ui",
       "tier": "tier2_fast",
       "indicators": [

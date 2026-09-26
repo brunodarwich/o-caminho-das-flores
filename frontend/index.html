@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101a1b">
+  <meta name="description" content="Leia O Caminho das Flores, explore o universo da história e monte um quebra-cabeça com a arte original.">
+  <title>O Caminho das Flores</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/media.js" defer></script>
+  <script src="js/app.js" defer></script>
+  <script src="js/reader.js" defer></script>
+  <script src="js/puzzle.js" defer></script>
+  <script src="js/wiki.js" defer></script>
+</head>
+<body>
+  <header class="site-header" id="site-header">
+    <a class="brand" href="#inicio" aria-label="O Caminho das Flores, início">
+      <img src="../capitulo-01/Logo%20-%20Cap%C3%ADtulo%2001.png" alt="O Caminho das Flores">
+    </a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav" aria-label="Abrir menu"><span></span><span></span><span></span></button>
+    <nav class="main-nav" id="main-nav" aria-label="Navegação principal">
+      <a href="#inicio" data-view-link="inicio" class="nav-link is-active">Início</a>
+      <a href="#leitor" data-view-link="leitor" class="nav-link">Leitor</a>
+      <a href="#quebra-cabeca" data-view-link="quebra-cabeca" class="nav-link">Quebra-cabeça</a>
+      <a href="#wiki" data-view-link="wiki" class="nav-link">Wiki</a>
+    </nav>
+    <button class="focus-toggle" id="focus-toggle" type="button" aria-pressed="false" title="Ocultar a navegação durante a leitura">Modo foco</button>
+  </header>
+  <button class="focus-exit" id="focus-exit" type="button">Sair do modo foco <span aria-hidden="true">×</span></button>
+
+  <main>
+    <section class="view is-visible" id="view-inicio" data-view="inicio">
+      <div class="hero-shell">
+        <div class="hero-copy">
+          <p class="eyebrow"><span class="eyebrow-mark"></span> UMA WEBTOON SOBRE PRESENÇA</p>
+          <h1>Encontre o céu azul<br><em>entre as nuvens.</em></h1>
+          <p class="hero-intro">Acompanhe Ariel em uma jornada de flores, encontros e descobertas sobre a própria mente.</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#leitor" data-open-chapter="1">Começar a ler <span aria-hidden="true">↗</span></a>
+            <a class="button button-quiet" href="#wiki">Conhecer o universo</a>
+          </div>
+          <div class="hero-note"><span class="note-icon" aria-hidden="true">✳</span><span>Uma pausa tranquila para ler no seu ritmo.</span></div>
+        </div>
+        <div class="hero-art-wrap" aria-label="Arte original de O Caminho das Flores">
+          <div class="hero-art-frame"><img class="hero-art" data-photo-slot="home.hero" src="../capitulo-01/c1-p%20(1).png" alt="Ariel na primeira página do Capítulo 1" fetchpriority="high"></div>
+          <div class="hero-art-caption"><span>ARTE ORIGINAL</span><span>CAPÍTULO 1 · CÉU AZUL</span></div>
+          <span class="hero-orbit orbit-one" aria-hidden="true"></span><span class="hero-orbit orbit-two" aria-hidden="true"></span>
+        </div>
+      </div>
+      <section class="chapter-section content-width" aria-labelledby="chapters-heading">
+        <div class="section-heading"><div><p class="eyebrow">COMECE POR AQUI</p><h2 id="chapters-heading">Capítulos</h2></div><span class="section-aside">A história continua no seu tempo.</span></div>
+        <div class="chapter-grid">
+          <button class="chapter-card chapter-card-featured" type="button" data-open-chapter="1">
+            <span class="chapter-number">01</span><span class="chapter-card-copy"><span class="chapter-kicker">CAPÍTULO 1</span><strong>Céu Azul</strong><span>A caminhada de Ariel e o encontro que muda sua forma de olhar os pensamentos.</span><span class="chapter-link">Ler capítulo <b aria-hidden="true">↗</b></span></span>
+            <span class="chapter-art chapter-art-one"><img data-photo-slot="home.chapter1" src="../capitulo-01/c1-p%20(1).png" alt="" loading="lazy"></span>
+          </button>
+          <button class="chapter-card" type="button" data-open-chapter="2">
+            <span class="chapter-number">02</span><span class="chapter-card-copy"><span class="chapter-kicker">CAPÍTULO 2</span><strong>A Vizinha</strong><span>Novas entregas levam Ariel a encontros inesperados na vila.</span><span class="chapter-link">Ler capítulo <b aria-hidden="true">↗</b></span></span>
+            <span class="chapter-art chapter-art-two"><img data-photo-slot="home.chapter2" src="../capitulo-02/c2-p%20(2).png" alt="" loading="lazy"></span>
+          </button>
+        </div>
+      </section>
+      <section class="home-explore content-width"><div><p class="eyebrow">DEPOIS DA LEITURA</p><h2>Fique um pouco mais.</h2></div><div class="explore-links"><a href="#quebra-cabeca"><span class="explore-symbol">▦</span><span><b>Monte uma cena</b><small>Um quebra-cabeça com a arte da webtoon</small></span><span class="arrow">↗</span></a><a href="#wiki"><span class="explore-symbol">✳</span><span><b>Explore o universo</b><small>Personagens, plantas e lugares</small></span><span class="arrow">↗</span></a></div></section>
+    </section>
+
+    <section class="view" id="view-leitor" data-view="leitor" hidden>
+      <div class="reader-toolbar content-width">
+        <div class="reader-select-wrap"><label class="sr-only" for="chapter-select">Escolha o capítulo</label><select id="chapter-select"><option value="1">Capítulo 1 · Céu Azul</option><option value="2">Capítulo 2 · A Vizinha</option></select><span class="select-chevron">⌄</span></div>
+        <div class="reader-progress"><span id="reader-progress-label">Capítulo 1</span><div class="progress-track"><span id="reader-progress-bar"></span></div></div>
+        <button id="share-button" class="icon-button" type="button" aria-label="Compartilhar capítulo" title="Compartilhar">↗</button>
+      </div>
+      <div class="reader-intro content-width"><span class="eyebrow">LEITURA CONTÍNUA</span><h1 id="reader-title">Céu Azul</h1><p id="reader-subtitle">Role no seu ritmo. Os painéis originais seguem sem intervalos.</p></div>
+      <div class="reader-page" id="reader-page" aria-label="Painéis do capítulo"></div>
+      <nav class="reader-footer content-width" aria-label="Navegação entre capítulos"><a href="#inicio">← Voltar ao início</a><button class="button button-primary" type="button" id="next-chapter">Próximo capítulo <span aria-hidden="true">→</span></button></nav>
+    </section>
+
+    <section class="view content-width" id="view-quebra-cabeca" data-view="quebra-cabeca" hidden>
+      <div class="page-heading"><div><p class="eyebrow">UM MOMENTO DE PAUSA</p><h1>Quebra-cabeça</h1><p>Monte uma cena da história, uma peça de cada vez.</p></div><span class="heading-flower" aria-hidden="true">✳</span></div>
+      <div class="puzzle-layout">
+        <aside class="puzzle-controls panel-card">
+          <label class="control-label" for="puzzle-scene">Cena</label><select id="puzzle-scene"><option value="1">Ariel · Capítulo 1</option><option value="2">A vizinhança · Capítulo 2</option></select>
+          <label class="control-label" for="puzzle-difficulty">Dificuldade</label><select id="puzzle-difficulty"><option value="3">Fácil · 9 peças</option><option value="4">Médio · 16 peças</option><option value="5">Desafio · 25 peças</option></select>
+          <button class="button button-primary puzzle-start" id="puzzle-start" type="button">Embaralhar peças</button>
+          <div class="puzzle-status" id="puzzle-status" aria-live="polite">Escolha a cena e comece quando quiser.</div>
+          <div class="puzzle-help"><span aria-hidden="true">↔</span><span>Toque em duas peças para trocar de lugar. No computador, arraste uma peça sobre outra.</span></div>
+        </aside>
+        <div class="puzzle-board-wrap"><div class="puzzle-board" id="puzzle-board" aria-label="Tabuleiro do quebra-cabeça"></div><div class="puzzle-board-caption"><span id="puzzle-count">9 peças</span><span id="puzzle-counter">0 de 9 no lugar</span></div></div>
+      </div>
+    </section>
+
+    <section class="view content-width" id="view-wiki" data-view="wiki" hidden>
+      <div class="page-heading wiki-heading"><div><p class="eyebrow">GUIA DO UNIVERSO</p><h1>Wiki</h1><p>Conheça as pessoas, plantas e lugares de O Caminho das Flores.</p></div><span class="heading-flower" aria-hidden="true">✳</span></div>
+      <div class="wiki-tools"><label class="search-box"><span aria-hidden="true">⌕</span><input id="wiki-search" type="search" placeholder="Buscar no universo..." aria-label="Buscar na Wiki" autocomplete="off"><kbd>/</kbd></label><div class="wiki-filters" role="group" aria-label="Filtrar verbetes"><button class="filter-button is-active" data-filter="Todos" type="button">Todos</button><button class="filter-button" data-filter="Personagens" type="button">Personagens</button><button class="filter-button" data-filter="Botânica" type="button">Botânica</button><button class="filter-button" data-filter="Lugares" type="button">Lugares</button></div></div>
+      <div class="wiki-grid" id="wiki-grid"></div><p class="wiki-empty" id="wiki-empty" hidden>Nenhum verbete encontrado. Tente outra busca.</p>
+    </section>
+  </main>
+  <footer class="site-footer"><a href="#inicio">O Caminho das Flores</a><span>Uma webtoon autoral de Bruno Darwich</span><span>Leia no seu ritmo <i aria-hidden="true">✳</i></span></footer>
+</body>
+</html>

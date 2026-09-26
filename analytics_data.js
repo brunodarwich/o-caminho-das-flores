@@ -1,7 +1,7 @@
 window.__ANALYTICS_DATA__ = {
   "project": {
-    "name": "Framework de Desenvolvimento & Orquestração com IA",
-    "last_updated": "2026-09-24",
+    "name": "O Caminho das Flores — Plataforma Webtoon",
+    "last_updated": "2026-09-26",
     "currency_primary": "BRL",
     "currency_secondary": "USD"
   },
@@ -12,7 +12,7 @@ window.__ANALYTICS_DATA__ = {
     "mrr_brl": 0.0,
     "mrr_usd": 0.0,
     "checkout_conversion_rate": 0.0,
-    "activation_rate": 0.0
+    "activation_rate": 1.0
   },
   "funnel": [
     {
@@ -63,5 +63,14 @@ window.__ANALYTICS_DATA__ = {
       "target_kpi": "mrr_brl"
     }
   ],
-  "recent_events": []
+  "recent_events": [
+    {
+      "event_name": "chapter_finished",
+      "payload": {
+        "chapter_id": 1,
+        "read_time_seconds": 120
+      },
+      "recorded_at": "2026-09-26T20:30:55.981023+00:00"
+    }
+  ]
 };

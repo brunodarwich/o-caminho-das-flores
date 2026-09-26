@@ -86,8 +86,8 @@ ocdf/
 │   │   ├── puzzle.js            # Motor do Mini-Jogo de Quebra-Cabeça (HTML5 Canvas/Drag)
 │   │   └── wiki.js              # Renderizador dinâmico de cards da Wiki
 │   └── assets/                  # Ícones, capas e favicons
-├── capitulo-01/                 # 21 painéis originais em PNG
-├── capitulo-02/                 # 37 painéis originais em PNG
+├── capitulo-01/                 # 20 painéis originais em PNG + logo
+├── capitulo-02/                 # 36 painéis originais em PNG + logo
 ├── docs/                        # Documentação viva e Canvas
 ├── tasks.json                   # Gestor de tarefas sincronizado
 └── dashboard.html               # Painel visual executivo
@@ -96,6 +96,12 @@ ocdf/
 ---
 
 ## 5. Variáveis de Ambiente e Segurança (`.env.example`)
+
+### Estado da implementação visual
+
+O protótipo funcional atual está em `frontend/` e usa HTML, CSS e JavaScript sem dependências. Ele serve os PNGs originais diretamente das pastas `capitulo-01/` e `capitulo-02/`; por isso, o servidor local deve iniciar na **raiz do repositório** (o arquivo `abrir_portal.bat` faz isso). A textura discreta `frontend/assets/backgrounds/neutral-background.png` é decorativa e fica fora da coluna de leitura. O catálogo local da Wiki e os metadados dos capítulos serão substituídos pela integração com as APIs FastAPI quando o backend estiver disponível. A publicação deve preservar a mesma estrutura de pastas ou ajustar os caminhos dos arquivos de mídia.
+
+As imagens finais enviadas por Bruno serão organizadas em `frontend/assets/photos/home/`, `wiki/` e `puzzle/`, com os caminhos opcionais centralizados em `frontend/js/media.js`. Enquanto cada entrada estiver `null`, os desenhos originais já presentes funcionam como visual provisório. Os mockups gerados estão arquivados em `docs/mockups/marco-2/` e não são usados como conteúdo da página.
 
 ```env
 # Backend FastAPI

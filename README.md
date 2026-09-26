@@ -1,5 +1,17 @@
 # Framework de Desenvolvimento & Orquestração com IA
 
+## Abrir o portal O Caminho das Flores
+
+1. Na pasta do projeto, dê dois cliques em **`abrir_portal.bat`**.
+2. O navegador abrirá `http://localhost:8001/frontend/`.
+3. Use o menu **Início**, **Leitor**, **Quebra-cabeça** e **Wiki**. Para encerrar o servidor, feche a janela preta aberta pelo arquivo `.bat`.
+
+O portal usa a logo e os painéis PNG originais das pastas `capitulo-01/` e `capitulo-02/`. O fundo neutro fica em `frontend/assets/backgrounds/neutral-background.png`. O frontend funciona com dados locais enquanto a integração com o backend FastAPI aguarda implementação.
+
+As fotos que Bruno enviar para a entrada, Wiki ou quebra-cabeça terão lugar em `frontend/assets/photos/`. Os espaços correspondentes estão definidos em `frontend/js/media.js` e aguardam os arquivos finais. Os mockups gerados para revisão ficam separados em `docs/mockups/marco-2/desktop/`, `mobile/` e `rascunhos/`.
+
+---
+
 Um kit operacional e metodológico desenhado sob medida para desenvolvimento ágil de projetos e produtos digitais com agentes de inteligência artificial (compatível com Google Antigravity, OpenAI Codex, Cursor, Claude Code e similares).
 
 Este repositório consolida **21 princípios práticos** de desenvolvimento orientados ao perfil multidisciplinar do criador (criativo/quadrinista, formação jurídica, analista de negócios Sebrae com startups e neurodivergência TDAH).
