@@ -6,8 +6,8 @@ window.__TASKS_DATA__ = {
     "last_updated": "2026-09-26",
     "metrics": {
       "total_tasks": 19,
-      "completed_tasks": 12,
-      "progress_percentage": 63.2
+      "completed_tasks": 16,
+      "progress_percentage": 84.2
     }
   },
   "milestones": [
@@ -245,57 +245,61 @@ window.__TASKS_DATA__ = {
       "id": "TASK-013",
       "title": "Motor do Leitor Webtoon Vertical Seam-Free",
       "description": "Construção do componente de renderização contínua zero-gap, seletor de capítulos e transições suaves de leitura vertical.",
-      "status": "review",
+      "status": "done",
       "milestone": "m4_frontend_ui",
       "tier": "tier2_fast",
       "indicators": [
         "Zero pixel de espaçamento entre os PNGs dos capítulos",
         "Rolagem suave a 60 FPS e carregamento sem travamentos"
       ],
-      "audit_confirmed": false,
-      "created_at": "2026-09-26"
+      "audit_confirmed": true,
+      "created_at": "2026-09-26",
+      "completed_at": "2026-09-26"
     },
     {
       "id": "TASK-014",
       "title": "Mini-Jogo: Quebra-Cabeça Interativo (Jigsaw Puzzle)",
       "description": "Implementação do jogo de quebra-cabeça com Canvas/HTML5 Drag & Drop, seleção de imagem entre as artes da webtoon, níveis de peças e feedback de vitória zen.",
-      "status": "review",
+      "status": "done",
       "milestone": "m4_frontend_ui",
       "tier": "tier2_fast",
       "indicators": [
         "Encaixe de peças fluido em mouse e touch mobile",
         "Comemoração sutil ao concluir o quebra-cabeça"
       ],
-      "audit_confirmed": false,
-      "created_at": "2026-09-26"
+      "audit_confirmed": true,
+      "created_at": "2026-09-26",
+      "completed_at": "2026-09-26"
     },
     {
       "id": "TASK-015",
       "title": "Componentes e Fichas Interativas da Wiki",
       "description": "Desenvolvimento dos cartões da enciclopédia com filtros por categoria (Personagens, Botânica, Locais), modal de detalhes e citações da obra.",
-      "status": "review",
+      "status": "done",
       "milestone": "m4_frontend_ui",
       "tier": "tier2_fast",
       "indicators": [
         "Filtros de busca rápidos por nome ou categoria",
         "Cards elegantes com detalhes poéticos e dados botânicos"
       ],
-      "audit_confirmed": false,
-      "created_at": "2026-09-26"
+      "audit_confirmed": true,
+      "created_at": "2026-09-26",
+      "completed_at": "2026-09-26"
     },
     {
       "id": "TASK-016",
       "title": "Integração Frontend com Backend FastAPI",
       "description": "Conexão assíncrona entre o frontend e as rotas de capítulos e wiki do FastAPI, com fallback resiliente offline caso o backend esteja indisponível.",
-      "status": "todo",
+      "status": "done",
       "milestone": "m4_frontend_ui",
       "tier": "tier2_fast",
       "indicators": [
         "Consumo das APIs via fetch assíncrono",
         "Fallback elegante para dados locais integrados"
       ],
-      "audit_confirmed": false,
-      "created_at": "2026-09-26"
+      "audit_confirmed": true,
+      "created_at": "2026-09-26",
+      "completed_at": "2026-09-26"
     },
     {
       "id": "TASK-017",

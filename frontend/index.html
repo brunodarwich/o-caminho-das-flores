@@ -5,7 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#101a1b">
   <meta name="description" content="Leia O Caminho das Flores, explore o universo da história e monte um quebra-cabeça com a arte original.">
-  <title>O Caminho das Flores</title>
+  <title>O Caminho das Flores — Webtoon Oficial</title>
+  
+  <!-- Fontes do Google: Cormorant Garamond (Display nobre editorial) & Plus Jakarta Sans (Interface moderna e focada) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
   <link rel="stylesheet" href="css/style.css">
   <script src="js/media.js" defer></script>
   <script src="js/app.js" defer></script>
@@ -14,87 +20,335 @@
   <script src="js/wiki.js" defer></script>
 </head>
 <body>
+
+  <!-- Top Navigation Header -->
   <header class="site-header" id="site-header">
-    <a class="brand" href="#inicio" aria-label="O Caminho das Flores, início">
-      <img src="../capitulo-01/Logo%20-%20Cap%C3%ADtulo%2001.png" alt="O Caminho das Flores">
-    </a>
-    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav" aria-label="Abrir menu"><span></span><span></span><span></span></button>
-    <nav class="main-nav" id="main-nav" aria-label="Navegação principal">
-      <a href="#inicio" data-view-link="inicio" class="nav-link is-active">Início</a>
-      <a href="#leitor" data-view-link="leitor" class="nav-link">Leitor</a>
-      <a href="#quebra-cabeca" data-view-link="quebra-cabeca" class="nav-link">Quebra-cabeça</a>
-      <a href="#wiki" data-view-link="wiki" class="nav-link">Wiki</a>
-    </nav>
-    <button class="focus-toggle" id="focus-toggle" type="button" aria-pressed="false" title="Ocultar a navegação durante a leitura">Modo foco</button>
+    <div class="header-inner content-width">
+      <a class="brand" href="#inicio" aria-label="O Caminho das Flores, início">
+        <img src="../capitulo-01/Logo%20-%20Cap%C3%ADtulo%2001.png" alt="O Caminho das Flores">
+      </a>
+      
+      <!-- Central Navigation Pill Capsule -->
+      <nav class="main-nav" id="main-nav" aria-label="Navegação principal">
+        <div class="nav-pill-group">
+          <a href="#leitor" data-view-link="leitor" class="nav-link">Ler</a>
+          <a href="#quebra-cabeca" data-view-link="quebra-cabeca" class="nav-link">
+            <span class="nav-flower-icon">🌸</span> Quebra-Cabeça
+          </a>
+          <a href="#wiki" data-view-link="wiki" class="nav-link">Wiki</a>
+        </div>
+      </nav>
+      
+      <!-- Right Side Poetic Motto (Desktop) / Mobile Toggle -->
+      <div class="header-right">
+        <span class="header-quote">Pequenas histórias. Grandes florescimentos. 🌿</span>
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav" aria-label="Abrir menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
   </header>
-  <button class="focus-exit" id="focus-exit" type="button">Sair do modo foco <span aria-hidden="true">×</span></button>
+
+  <!-- Mobile Drawer Backdrop -->
+  <div class="drawer-backdrop" id="drawer-backdrop" hidden></div>
 
   <main>
+    <!-- ==================== TELA 1: ENTRADA / HOME ==================== -->
     <section class="view is-visible" id="view-inicio" data-view="inicio">
-      <div class="hero-shell">
-        <div class="hero-copy">
-          <p class="eyebrow"><span class="eyebrow-mark"></span> UMA WEBTOON SOBRE PRESENÇA</p>
-          <h1>Encontre o céu azul<br><em>entre as nuvens.</em></h1>
-          <p class="hero-intro">Acompanhe Ariel em uma jornada de flores, encontros e descobertas sobre a própria mente.</p>
-          <div class="hero-actions">
-            <a class="button button-primary" href="#leitor" data-open-chapter="1">Começar a ler <span aria-hidden="true">↗</span></a>
-            <a class="button button-quiet" href="#wiki">Conhecer o universo</a>
+      <!-- Hero Banner Imersivo de Ariel -->
+      <div class="hero-banner-wrap">
+        <div class="hero-shell content-width">
+          <div class="hero-copy">
+            <span class="hero-eyebrow">BEM-VINDO A O CAMINHO DAS FLORES</span>
+            <h1 class="hero-heading">Um refúgio entre<br>histórias e flores</h1>
+            <p class="hero-subtext">Acompanhe Ariel em uma jornada de descoberta e presença.</p>
+            
+            <div class="hero-buttons">
+              <a class="btn-hero-primary" href="#leitor" data-open-chapter="1">
+                <span class="btn-leaf-icon">🌿</span> Começar a ler <span class="btn-chevron">›</span>
+              </a>
+              <a class="btn-hero-secondary" href="#wiki">
+                Explorar a Wiki <span class="btn-chevron">›</span>
+              </a>
+            </div>
+            
+            <div class="hero-flourish">
+              <span class="flourish-line"></span>
+              <span class="flourish-text">Histórias que florescem por dentro.</span>
+              <span class="flourish-line"></span>
+            </div>
           </div>
-          <div class="hero-note"><span class="note-icon" aria-hidden="true">✳</span><span>Uma pausa tranquila para ler no seu ritmo.</span></div>
-        </div>
-        <div class="hero-art-wrap" aria-label="Arte original de O Caminho das Flores">
-          <div class="hero-art-frame"><img class="hero-art" data-photo-slot="home.hero" src="../capitulo-01/c1-p%20(1).png" alt="Ariel na primeira página do Capítulo 1" fetchpriority="high"></div>
-          <div class="hero-art-caption"><span>ARTE ORIGINAL</span><span>CAPÍTULO 1 · CÉU AZUL</span></div>
-          <span class="hero-orbit orbit-one" aria-hidden="true"></span><span class="hero-orbit orbit-two" aria-hidden="true"></span>
+          
+          <!-- Placa de madeira decorativa (Desktop) -->
+          <div class="hero-wooden-sign" aria-hidden="true">
+            <div class="wooden-board">
+              <span>Aqui</span>
+              <span>também</span>
+              <span>há</span>
+              <span>vida boa.</span>
+              <span class="sign-leaf">🌿</span>
+            </div>
+          </div>
         </div>
       </div>
-      <section class="chapter-section content-width" aria-labelledby="chapters-heading">
-        <div class="section-heading"><div><p class="eyebrow">COMECE POR AQUI</p><h2 id="chapters-heading">Capítulos</h2></div><span class="section-aside">A história continua no seu tempo.</span></div>
-        <div class="chapter-grid">
-          <button class="chapter-card chapter-card-featured" type="button" data-open-chapter="1">
-            <span class="chapter-number">01</span><span class="chapter-card-copy"><span class="chapter-kicker">CAPÍTULO 1</span><strong>Céu Azul</strong><span>A caminhada de Ariel e o encontro que muda sua forma de olhar os pensamentos.</span><span class="chapter-link">Ler capítulo <b aria-hidden="true">↗</b></span></span>
-            <span class="chapter-art chapter-art-one"><img data-photo-slot="home.chapter1" src="../capitulo-01/c1-p%20(1).png" alt="" loading="lazy"></span>
-          </button>
-          <button class="chapter-card" type="button" data-open-chapter="2">
-            <span class="chapter-number">02</span><span class="chapter-card-copy"><span class="chapter-kicker">CAPÍTULO 2</span><strong>A Vizinha</strong><span>Novas entregas levam Ariel a encontros inesperados na vila.</span><span class="chapter-link">Ler capítulo <b aria-hidden="true">↗</b></span></span>
-            <span class="chapter-art chapter-art-two"><img data-photo-slot="home.chapter2" src="../capitulo-02/c2-p%20(2).png" alt="" loading="lazy"></span>
-          </button>
+
+      <!-- Seção Comece sua jornada -->
+      <section class="journey-section content-width">
+        <div class="journey-header">
+          <div class="section-divider">
+            <span class="divider-line"></span>
+            <span class="divider-leaf">🌿</span>
+            <h2>Comece sua jornada</h2>
+            <span class="divider-leaf">🌿</span>
+            <span class="divider-line"></span>
+          </div>
+        </div>
+        
+        <div class="journey-content-grid">
+          <div class="journey-cards-grid">
+            <!-- Card Capítulo 1 -->
+            <button class="journey-card" type="button" data-open-chapter="1" aria-label="Abrir Capítulo 1: Céu Azul">
+              <div class="journey-card-image" style="background-image: url('../capitulo-01/c1-p%20(1).png'); background-position: center 25%;"></div>
+              <div class="journey-card-pill">
+                <span class="pill-leaf">🌿</span>
+                <span class="pill-label">Capítulo 1 · Céu Azul</span>
+                <span class="pill-arrow">›</span>
+              </div>
+            </button>
+            
+            <!-- Card Capítulo 2 -->
+            <button class="journey-card" type="button" data-open-chapter="2" aria-label="Abrir Capítulo 2: A Vizinha">
+              <div class="journey-card-image" style="background-image: url('../capitulo-02/c2-p%20(3).png'); background-position: center 38%;"></div>
+              <div class="journey-card-pill">
+                <span class="pill-leaf">🌿</span>
+                <span class="pill-label">Capítulo 2 · A Vizinha</span>
+                <span class="pill-arrow">›</span>
+              </div>
+            </button>
+          </div>
+          
+          <!-- Poetic Side Quote (Desktop) -->
+          <aside class="journey-side-quote">
+            <p>Mais flores.<br>Mais histórias.<br>Sempre adiante. 🌿</p>
+          </aside>
         </div>
       </section>
-      <section class="home-explore content-width"><div><p class="eyebrow">DEPOIS DA LEITURA</p><h2>Fique um pouco mais.</h2></div><div class="explore-links"><a href="#quebra-cabeca"><span class="explore-symbol">▦</span><span><b>Monte uma cena</b><small>Um quebra-cabeça com a arte da webtoon</small></span><span class="arrow">↗</span></a><a href="#wiki"><span class="explore-symbol">✳</span><span><b>Explore o universo</b><small>Personagens, plantas e lugares</small></span><span class="arrow">↗</span></a></div></section>
     </section>
 
+    <!-- ==================== TELA 2: LEITOR WEBTOON ==================== -->
     <section class="view" id="view-leitor" data-view="leitor" hidden>
-      <div class="reader-toolbar content-width">
-        <div class="reader-select-wrap"><label class="sr-only" for="chapter-select">Escolha o capítulo</label><select id="chapter-select"><option value="1">Capítulo 1 · Céu Azul</option><option value="2">Capítulo 2 · A Vizinha</option></select><span class="select-chevron">⌄</span></div>
-        <div class="reader-progress"><span id="reader-progress-label">Capítulo 1</span><div class="progress-track"><span id="reader-progress-bar"></span></div></div>
-        <button id="share-button" class="icon-button" type="button" aria-label="Compartilhar capítulo" title="Compartilhar">↗</button>
+      <!-- Barra Superior Flutuante do Leitor -->
+      <div class="reader-floating-toolbar content-width">
+        <button class="reader-nav-circle-btn" id="prev-chapter-btn" type="button" aria-label="Capítulo anterior">‹</button>
+        
+        <div class="reader-select-capsule">
+          <label class="sr-only" for="chapter-select">Escolha o capítulo</label>
+          <select id="chapter-select">
+            <option value="1">Capítulo 1 · Céu Azul</option>
+            <option value="2">Capítulo 2 · A Vizinha</option>
+          </select>
+          <span class="capsule-chevron">⌄</span>
+        </div>
+        
+        <button class="reader-nav-circle-btn" id="next-chapter-btn" type="button" aria-label="Próximo capítulo">›</button>
+        
+        <!-- Progresso no Desktop -->
+        <div class="reader-desktop-progress">
+          <span class="reader-counter-label" id="reader-counter-label">01 / 20</span>
+          <div class="reader-progress-track">
+            <div class="reader-progress-bar" id="reader-progress-bar"></div>
+          </div>
+        </div>
+        
+        <button id="share-button" class="reader-icon-action-btn" type="button" aria-label="Compartilhar capítulo" title="Compartilhar">↗</button>
       </div>
-      <div class="reader-intro content-width"><span class="eyebrow">LEITURA CONTÍNUA</span><h1 id="reader-title">Céu Azul</h1><p id="reader-subtitle">Role no seu ritmo. Os painéis originais seguem sem intervalos.</p></div>
-      <div class="reader-page" id="reader-page" aria-label="Painéis do capítulo"></div>
-      <nav class="reader-footer content-width" aria-label="Navegação entre capítulos"><a href="#inicio">← Voltar ao início</a><button class="button button-primary" type="button" id="next-chapter">Próximo capítulo <span aria-hidden="true">→</span></button></nav>
-    </section>
 
-    <section class="view content-width" id="view-quebra-cabeca" data-view="quebra-cabeca" hidden>
-      <div class="page-heading"><div><p class="eyebrow">UM MOMENTO DE PAUSA</p><h1>Quebra-cabeça</h1><p>Monte uma cena da história, uma peça de cada vez.</p></div><span class="heading-flower" aria-hidden="true">✳</span></div>
-      <div class="puzzle-layout">
-        <aside class="puzzle-controls panel-card">
-          <label class="control-label" for="puzzle-scene">Cena</label><select id="puzzle-scene"><option value="1">Ariel · Capítulo 1</option><option value="2">A vizinhança · Capítulo 2</option></select>
-          <label class="control-label" for="puzzle-difficulty">Dificuldade</label><select id="puzzle-difficulty"><option value="3">Fácil · 9 peças</option><option value="4">Médio · 16 peças</option><option value="5">Desafio · 25 peças</option></select>
-          <button class="button button-primary puzzle-start" id="puzzle-start" type="button">Embaralhar peças</button>
-          <div class="puzzle-status" id="puzzle-status" aria-live="polite">Escolha a cena e comece quando quiser.</div>
-          <div class="puzzle-help"><span aria-hidden="true">↔</span><span>Toque em duas peças para trocar de lugar. No computador, arraste uma peça sobre outra.</span></div>
+      <!-- Container do Leitor com Citações Laterais -->
+      <div class="reader-stage-wrapper">
+        <aside class="reader-floating-poetry poetry-left" aria-hidden="true">
+          <span class="poetry-leaf-mark">🌿</span>
+          <p>HÁ MAIS VIDA<br>NOS PEQUENOS<br>CAMINHOS.</p>
+          <span class="poetry-sub-rule"></span>
         </aside>
-        <div class="puzzle-board-wrap"><div class="puzzle-board" id="puzzle-board" aria-label="Tabuleiro do quebra-cabeça"></div><div class="puzzle-board-caption"><span id="puzzle-count">9 peças</span><span id="puzzle-counter">0 de 9 no lugar</span></div></div>
+
+        <!-- Coluna de Painéis Contínuos (Zero Gap) -->
+        <div class="reader-canvas-column">
+          <div class="reader-page" id="reader-page" aria-label="Painéis da webtoon em rolagem contínua"></div>
+        </div>
+
+        <aside class="reader-floating-poetry poetry-right" aria-hidden="true">
+          <span class="poetry-leaf-mark">🌿</span>
+          <p>TODA FLOR<br>CONTA UMA<br>HISTÓRIA.</p>
+          <span class="poetry-sub-rule"></span>
+        </aside>
+      </div>
+
+      <!-- Rodapé de Navegação do Leitor -->
+      <nav class="reader-bottom-nav content-width" aria-label="Navegação ao fim do capítulo">
+        <a href="#inicio" class="back-home-btn">← Voltar ao início</a>
+        <button class="btn-hero-primary" type="button" id="next-chapter">
+          Próximo capítulo <span class="btn-chevron">→</span>
+        </button>
+      </nav>
+
+      <!-- Barra Inferior Fixa de Progresso no Mobile -->
+      <div class="reader-mobile-bottom-bar" id="reader-mobile-bottom-bar">
+        <span id="mobile-reader-counter">01 / 20</span>
+        <div class="reader-mobile-track">
+          <div class="reader-mobile-fill" id="mobile-reader-fill"></div>
+        </div>
       </div>
     </section>
 
+    <!-- ==================== TELA 3: QUEBRA-CABEÇA ==================== -->
+    <section class="view content-width" id="view-quebra-cabeca" data-view="quebra-cabeca" hidden>
+      <!-- Cabeçalho Elegante do Quebra-Cabeça -->
+      <div class="puzzle-header-block">
+        <h1 class="puzzle-main-title">Um momento para montar e respirar</h1>
+        <p class="puzzle-subtitle">Escolha uma cena e encontre seu ritmo.</p>
+      </div>
+
+      <!-- Layout em 3 Colunas (Desktop) / Fluxo Inteligente (Mobile) -->
+      <div class="puzzle-workbench-grid">
+        <!-- 1. Tabuleiro Principal -->
+        <div class="puzzle-board-panel">
+          <div class="puzzle-board-frame">
+            <div class="puzzle-board" id="puzzle-board" aria-label="Tabuleiro do quebra-cabeça"></div>
+          </div>
+        </div>
+
+        <!-- 2. Bandeja de Peças -->
+        <div class="puzzle-tray-panel">
+          <div class="tray-title-bar">
+            <span>Peças</span>
+            <span class="leaf-icon">🌿</span>
+          </div>
+          <div class="puzzle-tray" id="puzzle-tray" aria-label="Bandeja de peças disponíveis"></div>
+        </div>
+
+        <!-- 3. Sidebar de Controles e Inspiração -->
+        <aside class="puzzle-controls-panel">
+          <!-- Seletor de Cena -->
+          <div class="puzzle-control-group">
+            <label class="control-group-title">
+              <span class="leaf-icon">🌿</span> Cena <span class="leaf-icon">🌿</span>
+            </label>
+            <div class="scene-select-card">
+              <div class="scene-thumb-preview" id="scene-thumb-preview">
+                <img src="../capitulo-01/c1-p%20(1).png" alt="">
+              </div>
+              <select id="puzzle-scene" aria-label="Selecione a cena do quebra-cabeça">
+                <option value="1">Ariel na floresta</option>
+                <option value="2">A vizinhança na vila</option>
+              </select>
+              <span class="select-chevron">⌄</span>
+            </div>
+          </div>
+
+          <!-- Seletor de Dificuldade -->
+          <div class="puzzle-control-group">
+            <label class="control-group-title">
+              <span class="leaf-icon">🌿</span> Dificuldade <span class="leaf-icon">🌿</span>
+            </label>
+            <div class="difficulty-capsules" role="radiogroup">
+              <button type="button" class="diff-capsule is-active" data-diff="3">Fácil</button>
+              <button type="button" class="diff-capsule" data-diff="4">Médio</button>
+              <button type="button" class="diff-capsule" data-diff="5">Desafio</button>
+            </div>
+          </div>
+
+          <!-- Botão Começar de Novo (Lavanda) -->
+          <button class="btn-puzzle-reset" id="puzzle-start" type="button">
+            <span class="btn-leaf-icon">🌿</span> Começar de novo
+          </button>
+
+          <!-- Contador Centralizado -->
+          <div class="puzzle-status-counter" id="puzzle-counter-wrapper">
+            <span class="leaf-icon">🌿</span>
+            <span id="puzzle-counter-display">0 de 9 peças</span>
+            <span class="leaf-icon">🌿</span>
+          </div>
+
+          <!-- Citação Poética -->
+          <div class="puzzle-inspiration-quote">
+            <p>"Às vezes, as melhores descobertas estão nos detalhes mais simples."</p>
+          </div>
+
+          <!-- Plaquinha Decorativa de Madeira -->
+          <div class="puzzle-wooden-plaque" aria-hidden="true">
+            <p>Respire.<br>Encaixe.<br>Floresça. 🌸</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ==================== TELA 4: WIKI ==================== -->
     <section class="view content-width" id="view-wiki" data-view="wiki" hidden>
-      <div class="page-heading wiki-heading"><div><p class="eyebrow">GUIA DO UNIVERSO</p><h1>Wiki</h1><p>Conheça as pessoas, plantas e lugares de O Caminho das Flores.</p></div><span class="heading-flower" aria-hidden="true">✳</span></div>
-      <div class="wiki-tools"><label class="search-box"><span aria-hidden="true">⌕</span><input id="wiki-search" type="search" placeholder="Buscar no universo..." aria-label="Buscar na Wiki" autocomplete="off"><kbd>/</kbd></label><div class="wiki-filters" role="group" aria-label="Filtrar verbetes"><button class="filter-button is-active" data-filter="Todos" type="button">Todos</button><button class="filter-button" data-filter="Personagens" type="button">Personagens</button><button class="filter-button" data-filter="Botânica" type="button">Botânica</button><button class="filter-button" data-filter="Lugares" type="button">Lugares</button></div></div>
-      <div class="wiki-grid" id="wiki-grid"></div><p class="wiki-empty" id="wiki-empty" hidden>Nenhum verbete encontrado. Tente outra busca.</p>
+      <!-- Cabeçalho da Wiki -->
+      <div class="wiki-header-block">
+        <h1 class="wiki-main-title">Explore o universo das flores <span class="title-leaf">🌿</span></h1>
+        <p class="wiki-subtitle">Personagens, lugares e plantas que florescem nesta história.</p>
+      </div>
+
+      <!-- Barra de Busca e Filtros em Pílulas -->
+      <div class="wiki-filter-bar">
+        <div class="wiki-search-box">
+          <span class="search-glass-icon" aria-hidden="true">🔍</span>
+          <input id="wiki-search" type="search" placeholder="Buscar na Wiki..." aria-label="Buscar na enciclopédia" autocomplete="off">
+          <span class="search-leaf-ornament" aria-hidden="true">🌿</span>
+        </div>
+
+        <div class="wiki-category-pills" role="group" aria-label="Filtrar por categoria">
+          <button class="category-pill is-active" data-filter="Todos" type="button">
+            <span class="cat-icon">🌿</span> Todos
+          </button>
+          <button class="category-pill" data-filter="Personagens" type="button">
+            <span class="cat-icon">👤</span> Personagens
+          </button>
+          <button class="category-pill" data-filter="Botânica" type="button">
+            <span class="cat-icon">🍃</span> Botânica
+          </button>
+          <button class="category-pill" data-filter="Lugares" type="button">
+            <span class="cat-icon">📍</span> Lugares
+          </button>
+        </div>
+      </div>
+
+      <!-- Grade de Cartões com Base em Pergaminho / Marfim (Estilo Referência) -->
+      <div class="wiki-cards-grid" id="wiki-grid"></div>
+      
+      <p class="wiki-empty-notice" id="wiki-empty" hidden>
+        Nenhum verbete encontrado para sua busca. Tente outro termo ou categoria.
+      </p>
+
+      <!-- Modal de Detalhes da Wiki -->
+      <div class="wiki-modal-overlay" id="wiki-modal-backdrop" hidden>
+        <div class="wiki-modal-dialog" id="wiki-modal-card" role="dialog" aria-modal="true" aria-labelledby="wiki-modal-title">
+          <button class="wiki-modal-close-btn" id="wiki-modal-close" aria-label="Fechar ficha">×</button>
+          
+          <div class="wiki-modal-media-frame">
+            <img id="wiki-modal-img" src="" alt="">
+          </div>
+          
+          <div class="wiki-modal-info-panel">
+            <span class="wiki-modal-category-tag" id="wiki-modal-tag"></span>
+            <h2 class="wiki-modal-heading" id="wiki-modal-title"></h2>
+            <p class="wiki-modal-description" id="wiki-modal-desc"></p>
+            <div class="wiki-modal-tags-list" id="wiki-modal-tags"></div>
+          </div>
+        </div>
+      </div>
     </section>
   </main>
-  <footer class="site-footer"><a href="#inicio">O Caminho das Flores</a><span>Uma webtoon autoral de Bruno Darwich</span><span>Leia no seu ritmo <i aria-hidden="true">✳</i></span></footer>
+
+  <!-- Rodapé Oficial do Portal -->
+  <footer class="site-footer">
+    <div class="footer-inner content-width">
+      <a href="#inicio" class="footer-brand-title">O Caminho das Flores</a>
+      <span class="footer-creator-text">Uma webtoon autoral de Bruno Darwich</span>
+      <span class="footer-zen-motto">Pequenas histórias. Grandes florescimentos. <i>🌿</i></span>
+    </div>
+  </footer>
+
 </body>
 </html>

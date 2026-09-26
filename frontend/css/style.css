@@ -1,14 +1,1651 @@
-:root{color-scheme:dark;--ink:#101a1b;--ink-soft:#172323;--panel:#1b2928;--panel-light:#243230;--paper:#f5f0df;--paper-dim:#d5d4c5;--muted:#9ba69a;--sage:#9eae8c;--sage-strong:#b5c59f;--lavender:#ab94c8;--line:rgba(218,225,205,.13);--radius:18px;--page:1160px;--font:'Segoe UI',Arial,sans-serif;--display:'Segoe UI',Arial,sans-serif}
-*{box-sizing:border-box}html{scroll-behavior:smooth;background:var(--ink)}body{margin:0;min-width:320px;background:var(--ink);color:var(--paper);font-family:var(--font);font-size:15px;line-height:1.55;isolation:isolate}body::before{content:"";position:fixed;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(16,26,27,.5),rgba(16,26,27,.94)),url('../assets/backgrounds/neutral-background.png') center/cover no-repeat;opacity:.42;pointer-events:none}a{color:inherit;text-decoration:none}button,input,select{font:inherit}button{color:inherit}.content-width{width:min(var(--page),calc(100% - 64px));margin-inline:auto}.site-header{height:84px;display:flex;align-items:center;gap:32px;padding:0 max(32px,calc((100vw - var(--page))/2));border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20;background:rgba(16,26,27,.92);backdrop-filter:blur(18px);transition:transform .25s,opacity .25s}.brand{display:flex;align-items:center;width:158px;flex:none}.brand img{display:block;width:100%;max-height:62px;object-fit:contain}.main-nav{display:flex;align-items:center;gap:32px;margin-left:auto}.nav-link{color:#bcc5b8;font-size:13px;padding:8px 0;position:relative;transition:color .2s}.nav-link:hover,.nav-link.is-active{color:var(--paper)}.nav-link.is-active::after{content:"";height:2px;position:absolute;left:0;right:0;bottom:-16px;background:var(--sage)}.focus-toggle{border:1px solid var(--line);background:transparent;border-radius:999px;padding:9px 14px;font-size:12px;color:var(--paper-dim);cursor:pointer}.focus-toggle[aria-pressed="true"]{background:var(--sage);color:var(--ink);border-color:var(--sage)}.menu-toggle{display:none;background:transparent;border:0}.view{min-height:calc(100vh - 142px);padding-bottom:72px}.view[hidden]{display:none}.view.is-visible{animation:appear .35s ease both}@keyframes appear{from{opacity:.35;transform:translateY(5px)}to{opacity:1;transform:none}}
-.hero-shell{width:min(var(--page),calc(100% - 64px));min-height:485px;margin:36px auto 88px;display:grid;grid-template-columns:1fr 1fr;align-items:center;position:relative}.hero-copy{max-width:510px;z-index:2;padding:24px 0}.eyebrow{margin:0 0 18px;color:var(--sage);font-size:10px;font-weight:700;letter-spacing:.17em}.eyebrow-mark{display:inline-block;width:7px;height:7px;background:var(--sage);border-radius:50%;margin-right:8px;vertical-align:1px}.hero-copy h1,.page-heading h1,.reader-intro h1{font:500 clamp(42px,5vw,65px)/1.08 var(--display);letter-spacing:-.055em;margin:0;color:var(--paper)}.hero-copy h1 em{font-style:normal;color:var(--sage)}.hero-intro{max-width:410px;color:var(--paper-dim);font-size:16px;line-height:1.7;margin:24px 0 28px}.hero-actions{display:flex;align-items:center;gap:12px}.button{display:inline-flex;align-items:center;justify-content:center;gap:18px;min-height:48px;padding:0 20px;border-radius:999px;border:1px solid transparent;cursor:pointer;font-size:13px;font-weight:600;transition:transform .18s,background .18s}.button:hover{transform:translateY(-2px)}.button-primary{background:var(--sage);color:#17201b}.button-primary:hover{background:var(--sage-strong)}.button-quiet{color:var(--paper-dim);background:transparent;border-color:var(--line)}.button-quiet:hover{border-color:rgba(218,225,205,.35)}.hero-note{display:flex;align-items:center;gap:10px;color:#aab4a8;font-size:12px;margin-top:39px}.note-icon{display:grid;place-items:center;width:27px;height:27px;border:1px solid var(--line);border-radius:50%;color:var(--lavender)}.hero-art-wrap{height:440px;position:relative;display:grid;place-items:center}.hero-art-frame{position:relative;z-index:1;width:min(78%,390px);height:100%;overflow:hidden;border-radius:46% 46% 12px 12px;background:#24312d;box-shadow:0 30px 80px rgba(0,0,0,.22)}.hero-art{height:100%;width:100%;display:block;object-fit:cover;object-position:center 63%;filter:saturate(.9)}.hero-art-frame::after{content:"";position:absolute;inset:55% 0 0;background:linear-gradient(transparent,rgba(16,26,27,.3));pointer-events:none}.hero-art-caption{position:absolute;z-index:2;bottom:13px;left:13%;right:13%;display:flex;justify-content:space-between;color:rgba(245,240,223,.8);font-size:8px;letter-spacing:.12em}.hero-orbit{position:absolute;border:1px solid rgba(158,174,140,.21);border-radius:50%;width:450px;height:450px}.orbit-two{width:500px;height:500px;opacity:.5}.chapter-section{padding-bottom:65px}.section-heading{display:flex;align-items:end;justify-content:space-between;margin-bottom:22px}.section-heading .eyebrow{margin-bottom:6px}.section-heading h2,.home-explore h2{font:500 27px/1.2 var(--display);letter-spacing:-.035em;margin:0}.section-aside{font-size:12px;color:var(--muted);padding-bottom:5px}.chapter-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.chapter-card{position:relative;display:flex;align-items:center;min-height:224px;overflow:hidden;text-align:left;border:1px solid var(--line);border-radius:var(--radius);padding:23px 24px;background:linear-gradient(120deg,rgba(30,45,41,.94),rgba(24,35,34,.92));cursor:pointer;isolation:isolate}.chapter-card:hover{border-color:rgba(158,174,140,.45)}.chapter-number{font:400 54px/1 var(--display);letter-spacing:-.08em;color:rgba(245,240,223,.08);position:absolute;left:15px;top:7px;z-index:-1}.chapter-card-copy{display:flex;flex-direction:column;align-items:flex-start;gap:7px;max-width:70%;z-index:2}.chapter-kicker{font-size:9px;letter-spacing:.15em;color:var(--sage);font-weight:700}.chapter-card-copy strong{font:500 23px var(--display);letter-spacing:-.03em}.chapter-card-copy>span:nth-of-type(2){color:#b5beb2;font-size:12px;max-width:250px;line-height:1.55}.chapter-link{margin-top:10px;color:var(--sage-strong);font-size:11px;font-weight:600}.chapter-link b{font-size:14px;margin-left:7px}.chapter-art{position:absolute;right:0;top:0;bottom:0;width:42%;overflow:hidden;opacity:.84;mask-image:linear-gradient(90deg,transparent 0%,black 35%)}.chapter-art img{width:100%;height:100%;display:block;object-fit:cover;object-position:50% 63%}.chapter-art-two img{object-position:50% 8%}.home-explore{display:grid;grid-template-columns:.75fr 1.25fr;gap:34px;border-top:1px solid var(--line);padding-top:36px}.home-explore .eyebrow{margin-bottom:8px}.explore-links{display:grid;grid-template-columns:1fr 1fr;gap:12px}.explore-links>a{display:flex;align-items:center;gap:12px;padding:16px;border:1px solid var(--line);border-radius:14px;background:rgba(24,37,35,.62)}.explore-links>a:hover{border-color:rgba(158,174,140,.4)}.explore-symbol{font-size:20px;color:var(--lavender)}.explore-links b,.explore-links small{display:block}.explore-links b{font-size:12px}.explore-links small{color:var(--muted);font-size:10px;margin-top:3px}.explore-links .arrow{margin-left:auto;color:var(--sage)}
-.page-heading{display:flex;justify-content:space-between;align-items:center;padding:67px 0 40px}.page-heading h1{font-size:clamp(40px,5vw,56px)}.page-heading p:not(.eyebrow){margin:14px 0 0;color:var(--muted);font-size:14px}.page-heading .eyebrow{margin-bottom:9px}.heading-flower{color:rgba(171,148,200,.72);font-size:55px;margin-right:7%;font-weight:400}.puzzle-layout{display:grid;grid-template-columns:270px 1fr;gap:28px;align-items:start}.panel-card{background:rgba(27,41,40,.88);border:1px solid var(--line);border-radius:var(--radius);padding:23px}.control-label{display:block;color:var(--paper-dim);font-size:11px;margin:0 0 8px}.puzzle-controls select,.reader-select-wrap select{appearance:none;width:100%;color:var(--paper);background:#111c1c;border:1px solid rgba(218,225,205,.16);border-radius:9px;padding:12px 35px 12px 12px;margin-bottom:19px;outline-color:var(--sage)}.puzzle-start{width:100%;margin:4px 0 14px}.puzzle-status{font-size:12px;color:var(--sage-strong);min-height:37px}.puzzle-help{display:flex;gap:9px;border-top:1px solid var(--line);padding-top:15px;margin-top:7px;color:var(--muted);font-size:11px;line-height:1.55}.puzzle-help>span:first-child{font-size:20px;color:var(--lavender)}.puzzle-board-wrap{max-width:610px;width:100%;margin:auto}.puzzle-board{width:100%;aspect-ratio:1/1;display:grid;gap:2px;background:rgba(245,240,223,.08);padding:2px;border-radius:12px;overflow:hidden;touch-action:manipulation;user-select:none}.puzzle-piece{position:relative;min-width:0;min-height:0;border:0;padding:0;background-repeat:no-repeat;cursor:grab;transition:filter .16s,outline .16s}.puzzle-piece:hover{filter:brightness(1.12)}.puzzle-piece:active{cursor:grabbing}.puzzle-piece.is-selected{outline:3px solid var(--sage);outline-offset:-3px;z-index:1}.puzzle-piece.is-correct::after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 0 1px rgba(158,174,140,.48);pointer-events:none}.puzzle-board-caption{display:flex;justify-content:space-between;color:var(--muted);font-size:11px;padding:12px 2px}.puzzle-board.is-complete{box-shadow:0 0 0 1px var(--sage),0 0 50px rgba(158,174,140,.13)}
-.wiki-heading{padding-bottom:33px}.wiki-tools{display:flex;align-items:center;gap:22px;justify-content:space-between;margin-bottom:24px}.search-box{display:flex;align-items:center;gap:11px;min-height:45px;width:min(410px,100%);border:1px solid var(--line);border-radius:999px;background:rgba(20,31,31,.8);padding:0 14px;color:var(--muted)}.search-box>span{font-size:22px}.search-box input{width:100%;border:0;outline:0;background:transparent;color:var(--paper);font-size:12px}.search-box input::placeholder{color:#859187}.search-box kbd{border:1px solid var(--line);border-radius:4px;padding:1px 6px;font:10px var(--font)}.wiki-filters{display:flex;align-items:center;gap:5px}.filter-button{border:1px solid transparent;background:transparent;padding:8px 13px;border-radius:999px;color:#a9b3a8;font-size:11px;cursor:pointer}.filter-button:hover{color:var(--paper)}.filter-button.is-active{background:var(--sage);color:var(--ink)}.wiki-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px}.wiki-card{min-height:230px;border:1px solid var(--line);border-radius:15px;background:rgba(27,41,40,.82);padding:15px;display:flex;flex-direction:column;cursor:default;text-align:left}.wiki-card-art{height:116px;border-radius:10px;background:linear-gradient(135deg,#263734,#172321);margin-bottom:13px;overflow:hidden;position:relative}.wiki-card-art img{height:100%;width:100%;object-fit:cover;object-position:50% 13%;display:block;filter:saturate(.86)}.wiki-card-art::after{content:"";position:absolute;inset:35% 0 0;background:linear-gradient(transparent,rgba(20,31,30,.45))}.wiki-tag{font-size:8px;letter-spacing:.14em;color:var(--sage);text-transform:uppercase;font-weight:700}.wiki-card strong{font:600 15px var(--display);margin:3px 0 6px}.wiki-card p{margin:0;color:#aab4a8;font-size:10px;line-height:1.5}.wiki-empty{text-align:center;padding:45px;color:var(--muted)}.wiki-card[hidden]{display:none}
-.reader-toolbar{display:flex;align-items:center;gap:20px;padding-top:24px}.reader-select-wrap{position:relative;width:220px}.reader-select-wrap select{margin:0;padding-top:10px;padding-bottom:10px;font-size:12px}.select-chevron{pointer-events:none;position:absolute;right:13px;top:9px;color:var(--sage)}.reader-progress{display:flex;align-items:center;gap:12px;margin-left:auto;width:min(330px,40%);color:var(--muted);font-size:10px}.progress-track{height:3px;background:rgba(245,240,223,.1);border-radius:5px;flex:1;overflow:hidden}.progress-track span{height:100%;display:block;width:0;background:var(--sage);transition:width .2s}.icon-button{width:38px;height:38px;display:grid;place-items:center;border-radius:50%;border:1px solid var(--line);background:transparent;color:var(--sage);cursor:pointer}.reader-intro{text-align:center;padding:46px 0 29px}.reader-intro .eyebrow{margin-bottom:8px}.reader-intro h1{font-size:35px}.reader-intro p{color:var(--muted);font-size:12px;margin:10px 0 0}.reader-page{max-width:1080px;width:100%;margin:0 auto;background:#111}.reader-panel{display:block;width:100%;height:auto;margin:0;padding:0;border:0;vertical-align:top;object-fit:contain}.reader-footer{display:flex;justify-content:space-between;align-items:center;padding-top:28px}.reader-footer>a{color:var(--muted);font-size:12px}.reader-footer .button{min-height:43px}.focus-reading .site-header{transform:translateY(-100%);opacity:0;pointer-events:none}.site-footer{min-height:58px;border-top:1px solid var(--line);display:flex;align-items:center;gap:24px;padding:12px max(32px,calc((100vw - var(--page))/2));color:#879287;font-size:10px}.site-footer>a{font-size:11px;color:var(--paper-dim);font-weight:600}.site-footer span:last-child{margin-left:auto}.site-footer i{font-style:normal;color:var(--lavender);margin-left:6px}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
-@media(max-width:860px){.content-width{width:min(var(--page),calc(100% - 40px))}.site-header{height:70px;padding-inline:20px;gap:15px}.brand{width:124px}.main-nav{gap:20px}.focus-toggle{padding:8px 11px}.hero-shell{width:calc(100% - 40px);min-height:440px;margin-top:22px;margin-bottom:65px}.hero-art-wrap{height:390px}.hero-art-frame{width:80%}.hero-orbit{width:380px;height:380px}.orbit-two{width:425px;height:425px}.chapter-card{padding:19px;min-height:206px}.chapter-card-copy{max-width:76%}.chapter-art{width:39%}.wiki-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.puzzle-layout{grid-template-columns:235px 1fr;gap:18px}.panel-card{padding:18px}}
-@media(max-width:640px){body{font-size:14px}.content-width{width:calc(100% - 32px)}.site-header{height:62px;padding-inline:16px;gap:12px}.brand{width:114px}.brand img{max-height:50px}.menu-toggle{display:flex;margin-left:auto;width:38px;height:38px;flex-direction:column;justify-content:center;gap:5px;padding:8px;border:1px solid var(--line);border-radius:50%;cursor:pointer}.menu-toggle span{height:1px;width:100%;background:var(--paper)}.main-nav{display:none;position:absolute;top:61px;left:0;right:0;margin:0;padding:12px 18px 18px;background:rgba(16,26,27,.98);border-bottom:1px solid var(--line);flex-direction:column;gap:0;align-items:stretch}.main-nav.is-open{display:flex}.nav-link{padding:12px 2px;border-bottom:1px solid rgba(218,225,205,.08)}.nav-link.is-active::after{display:none}.focus-toggle{font-size:10px;padding:7px 10px;order:3}.hero-shell{width:100%;min-height:0;margin:0 auto 55px;padding:38px 20px 0;display:flex;flex-direction:column;align-items:stretch}.hero-copy{padding:0;max-width:none}.eyebrow{font-size:9px;margin-bottom:12px}.hero-copy h1{font-size:43px}.hero-intro{font-size:14px;line-height:1.65;margin:17px 0 20px;max-width:340px}.hero-actions{gap:9px}.button{min-height:46px;padding-inline:15px;font-size:12px;gap:10px}.hero-note{margin-top:18px;font-size:10px}.note-icon{width:23px;height:23px}.hero-art-wrap{height:290px;margin:24px auto 0;width:100%;max-width:420px}.hero-art-frame{width:64%;height:100%;border-radius:48% 48% 9px 9px}.hero-art{object-position:center 63%}.hero-art-caption{left:19%;right:19%;font-size:7px}.hero-orbit{width:300px;height:300px}.orbit-two{width:340px;height:340px}.chapter-section{padding-bottom:45px}.section-heading{margin-bottom:15px}.section-heading h2,.home-explore h2{font-size:23px}.section-aside{font-size:9px;max-width:130px;text-align:right}.chapter-grid{grid-template-columns:1fr;gap:10px}.chapter-card{min-height:185px;padding:18px;border-radius:15px}.chapter-card-copy{max-width:72%;gap:5px}.chapter-card-copy strong{font-size:21px}.chapter-card-copy>span:nth-of-type(2){font-size:11px;max-width:245px}.chapter-art{width:40%}.chapter-number{font-size:45px}.home-explore{display:block;padding-top:27px}.home-explore>div:first-child{margin-bottom:15px}.explore-links{grid-template-columns:1fr;gap:8px}.explore-links>a{padding:13px}.explore-links b{font-size:11px}.explore-links small{font-size:9px}.view{padding-bottom:48px}.page-heading{padding:43px 0 27px}.page-heading h1{font-size:42px}.page-heading p:not(.eyebrow){font-size:12px;max-width:310px}.heading-flower{font-size:40px;margin-right:4%}.puzzle-layout{display:flex;flex-direction:column-reverse;gap:12px}.puzzle-board-wrap{width:100%;max-width:none}.panel-card{width:100%;padding:15px;display:grid;grid-template-columns:1fr 1fr;gap:0 12px}.panel-card .control-label{margin-top:3px}.panel-card select{font-size:11px;padding:10px 27px 10px 10px;margin-bottom:12px}.puzzle-start,.puzzle-status,.puzzle-help{grid-column:1/-1}.puzzle-start{min-height:42px;margin:0 0 9px}.puzzle-status{min-height:20px;font-size:11px}.puzzle-help{padding-top:10px;margin-top:0;font-size:10px}.puzzle-board-caption{font-size:10px;padding:8px 2px}.wiki-heading{padding-bottom:25px}.wiki-tools{display:block;margin-bottom:17px}.search-box{width:100%;min-height:43px;margin-bottom:13px}.wiki-filters{gap:3px;overflow:auto;padding-bottom:4px}.filter-button{flex:none;font-size:10px;padding:7px 11px}.wiki-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.wiki-card{min-height:205px;padding:10px;border-radius:12px}.wiki-card-art{height:100px;margin-bottom:10px}.wiki-card strong{font-size:13px}.wiki-card p{font-size:9px}.wiki-tag{font-size:7px}.reader-toolbar{width:100%;padding:13px 12px 0;gap:8px}.reader-select-wrap{width:172px;flex:none}.reader-select-wrap select{font-size:10px;padding:9px 27px 9px 10px}.select-chevron{top:6px;right:10px}.reader-progress{width:auto;flex:1;display:block;font-size:8px;margin-left:3px}.progress-track{margin-top:5px;width:100%}.icon-button{width:34px;height:34px;flex:none}.reader-intro{padding:24px 0 18px}.reader-intro h1{font-size:27px}.reader-intro p{font-size:10px;padding-inline:14px}.reader-page{width:100%}.reader-footer{padding-top:16px}.reader-footer>a{font-size:10px}.reader-footer .button{font-size:10px;min-height:39px;padding-inline:13px}.site-footer{padding:14px 16px;display:grid;grid-template-columns:1fr auto;gap:4px 12px;font-size:9px}.site-footer>a{grid-column:1}.site-footer span:nth-of-type(1){grid-column:1}.site-footer span:last-child{grid-column:2;grid-row:1/3;text-align:right;margin:auto 0}.focus-reading .site-header{transform:translateY(-110%)} }
-@media(max-width:370px){.hero-copy h1{font-size:38px}.hero-actions{align-items:stretch;flex-direction:column}.hero-actions .button{width:100%}.hero-art-wrap{height:260px}.chapter-card-copy{max-width:77%}.wiki-grid{gap:7px}.wiki-card{padding:8px}.wiki-card-art{height:88px}}
-@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}}
-.site-header.reader-header-hidden{transform:translateY(-100%);opacity:0;pointer-events:none}
+/* ==========================================================================
+   O CAMINHO DAS FLORES — DESIGN SYSTEM & ESTILOS VISUAIS
+   Inspirado nas diretrizes botânicas, foco cognitivo (TDAH) e telas de referência
+   ========================================================================== */
 
-.focus-exit{display:none;position:fixed;top:12px;right:12px;z-index:50;align-items:center;gap:10px;padding:10px 15px;border:1px solid rgba(218,225,205,.3);border-radius:999px;background:rgba(16,26,27,.96);color:var(--paper);font-size:12px;box-shadow:0 8px 24px rgba(0,0,0,.25);cursor:pointer}.focus-exit span{font-size:17px;color:var(--sage)}body.focus-reading .focus-exit{display:inline-flex}
-.focus-toggle{display:none}.site-header.reader-active .focus-toggle{display:inline-flex}
+:root {
+  color-scheme: dark;
+  
+  /* Paleta Canônica Flor do Luar & Referências */
+  --bg-deep: #0c1415;
+  --bg-surface: #111d1e;
+  --bg-card: #162625;
+  --bg-card-hover: #1c302f;
+  
+  /* Base Marfim / Pergaminho para Cartões da Wiki */
+  --paper-ivory: #f5f0df;
+  --paper-text: #101a1b;
+  --paper-muted: #3d4c4a;
+  
+  /* Textos de Alto Contraste para Dark Mode */
+  --text-main: #f5f0df;
+  --text-dim: #c8d3c5;
+  --text-muted: #8e9e8f;
+  
+  /* Acentos de Marca */
+  --sage: #9eae8c;
+  --sage-bright: #b3c5a0;
+  --sage-dark: #192721;
+  --lavender: #8a7499;
+  --lavender-bright: #9e87ae;
+  --gold-line: rgba(225, 200, 150, 0.35);
+  --line-subtle: rgba(218, 225, 205, 0.16);
+  --line-light: rgba(218, 225, 205, 0.08);
+  
+  /* Tipografia */
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  
+  /* Raios de Borda e Grid */
+  --radius-lg: 20px;
+  --radius-md: 14px;
+  --radius-sm: 8px;
+  --radius-pill: 9999px;
+  --page-width: 1180px;
+}
+
+/* Reset Global */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: var(--bg-deep);
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background-color: var(--bg-deep);
+  color: var(--text-main);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.6;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Fundo Texturizado Neutro Contínuo */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background: 
+    radial-gradient(ellipse at 50% 10%, rgba(25, 45, 42, 0.45) 0%, transparent 70%),
+    url('../assets/backgrounds/neutral-background.png') center/cover no-repeat;
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button, input, select {
+  font-family: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+.content-width {
+  width: min(var(--page-width), calc(100% - 48px));
+  margin-inline: auto;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Transição de Telas SPA */
+.view {
+  min-height: calc(100vh - 150px);
+  padding-bottom: 80px;
+}
+
+.view[hidden] {
+  display: none !important;
+}
+
+.view.is-visible {
+  animation: fadeIn 0.35s ease-out both;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================================================
+   HEADER / NAVEGAÇÃO SUPERIOR
+   ========================================================================== */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  height: 80px;
+  background: rgba(12, 20, 21, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--line-subtle);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.header-inner {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  height: 52px;
+  flex-shrink: 0;
+}
+
+.brand img {
+  height: 100%;
+  max-height: 52px;
+  width: auto;
+  object-fit: contain;
+  transition: transform 0.2s;
+}
+
+.brand:hover img {
+  transform: scale(1.03);
+}
+
+/* Cápsula de Navegação Central */
+.nav-pill-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(18, 30, 31, 0.95);
+  border: 1px solid var(--line-subtle);
+  border-radius: var(--radius-pill);
+  padding: 5px 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 20px;
+  border-radius: var(--radius-pill);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-dim);
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.nav-flower-icon {
+  font-size: 13px;
+}
+
+.nav-link:hover {
+  color: var(--text-main);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.nav-link.is-active {
+  background: var(--sage);
+  color: var(--sage-dark);
+  font-weight: 600;
+  box-shadow: 0 2px 10px rgba(158, 174, 140, 0.3);
+}
+
+/* Lado Direito do Header */
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.header-quote {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 14px;
+  color: var(--text-muted);
+  letter-spacing: 0.02em;
+}
+
+.menu-toggle {
+  display: none;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid var(--line-subtle);
+  background: rgba(255, 255, 255, 0.04);
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  padding: 10px;
+}
+
+.menu-toggle span {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: var(--text-main);
+  border-radius: 2px;
+  transition: all 0.25s;
+}
+
+/* ==========================================================================
+   TELA 1: ENTRADA / HOME
+   ========================================================================== */
+
+.hero-banner-wrap {
+  position: relative;
+  width: 100%;
+  min-height: 520px;
+  margin-top: 16px;
+  margin-bottom: 48px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background-color: #0c1617;
+  background-image: 
+    linear-gradient(to right, rgba(12, 22, 23, 0.94) 0%, rgba(12, 22, 23, 0.72) 48%, rgba(12, 22, 23, 0.3) 100%),
+    url('../assets/backgrounds/hero-desktop.png');
+  background-size: cover;
+  background-position: center right;
+  border: 1px solid var(--line-subtle);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+}
+
+.hero-shell {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 520px;
+  padding: 50px 32px;
+  position: relative;
+}
+
+.hero-copy {
+  max-width: 540px;
+  z-index: 2;
+}
+
+.hero-eyebrow {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: var(--sage);
+  margin-bottom: 16px;
+  text-transform: uppercase;
+}
+
+.hero-heading {
+  font-family: var(--font-display);
+  font-size: clamp(38px, 5vw, 62px);
+  font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  color: var(--text-main);
+  margin: 0 0 16px;
+}
+
+.hero-subtext {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text-dim);
+  margin: 0 0 32px;
+  max-width: 440px;
+}
+
+.hero-buttons {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.btn-hero-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--sage);
+  color: var(--sage-dark);
+  font-size: 14px;
+  font-weight: 600;
+  padding: 13px 26px;
+  border-radius: var(--radius-pill);
+  box-shadow: 0 4px 18px rgba(158, 174, 140, 0.35);
+  transition: all 0.2s ease;
+}
+
+.btn-hero-primary:hover {
+  background: var(--sage-bright);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(158, 174, 140, 0.5);
+}
+
+.btn-hero-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(18, 30, 31, 0.85);
+  color: var(--text-main);
+  font-size: 14px;
+  font-weight: 500;
+  padding: 12px 24px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--line-subtle);
+  transition: all 0.2s ease;
+}
+
+.btn-hero-secondary:hover {
+  background: rgba(25, 42, 43, 0.95);
+  border-color: rgba(218, 225, 205, 0.35);
+  transform: translateY(-2px);
+}
+
+.btn-chevron {
+  font-size: 16px;
+  margin-left: 2px;
+}
+
+.hero-flourish {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 36px;
+  color: var(--text-muted);
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 14px;
+}
+
+.flourish-line {
+  height: 1px;
+  width: 40px;
+  background: var(--line-subtle);
+}
+
+/* Placa de Madeira Decorativa */
+.hero-wooden-sign {
+  align-self: flex-end;
+  margin-bottom: 24px;
+  margin-right: 20px;
+  z-index: 2;
+}
+
+.wooden-board {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(45, 34, 25, 0.75);
+  border: 1px solid rgba(160, 130, 95, 0.3);
+  padding: 14px 18px;
+  border-radius: 6px;
+  color: #d8c2a3;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 13px;
+  line-height: 1.35;
+  text-align: center;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.sign-leaf {
+  margin-top: 4px;
+  font-size: 12px;
+}
+
+/* Seção de Jornada / Capítulos */
+.journey-section {
+  margin-top: 30px;
+}
+
+.journey-header {
+  margin-bottom: 26px;
+}
+
+.section-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+}
+
+.section-divider h2 {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  margin: 0;
+  color: var(--text-main);
+}
+
+.divider-line {
+  flex: 1;
+  max-width: 180px;
+  height: 1px;
+  background: var(--line-subtle);
+}
+
+.divider-leaf {
+  color: var(--sage);
+  font-size: 16px;
+}
+
+.journey-content-grid {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 32px;
+  align-items: center;
+}
+
+.journey-cards-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  flex: 1;
+}
+
+.journey-card {
+  position: relative;
+  height: 220px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--line-subtle);
+  background: var(--bg-surface);
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  text-align: left;
+  transition: all 0.25s ease;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+.journey-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(158, 174, 140, 0.45);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+}
+
+.journey-card-image {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-repeat: no-repeat;
+  transition: transform 0.4s ease;
+}
+
+.journey-card:hover .journey-card-image {
+  transform: scale(1.04);
+}
+
+.journey-card-image::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(12, 20, 21, 0.85) 0%, transparent 60%);
+}
+
+.journey-card-pill {
+  position: relative;
+  z-index: 2;
+  margin: 16px;
+  background: rgba(245, 240, 223, 0.95);
+  color: var(--paper-text);
+  border-radius: var(--radius-pill);
+  padding: 10px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+  transition: background 0.2s;
+}
+
+.journey-card:hover .journey-card-pill {
+  background: #ffffff;
+}
+
+.pill-leaf {
+  color: #456247;
+  margin-right: 8px;
+}
+
+.pill-arrow {
+  font-size: 16px;
+  font-weight: 700;
+  margin-left: 8px;
+}
+
+.journey-side-quote {
+  max-width: 170px;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--text-muted);
+  border-left: 1px solid var(--line-subtle);
+  padding-left: 20px;
+}
+
+/* ==========================================================================
+   TELA 2: LEITOR WEBTOON
+   ========================================================================== */
+
+.reader-floating-toolbar {
+  position: sticky;
+  top: 96px;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 16px;
+  margin-bottom: 24px;
+  padding: 8px 16px;
+}
+
+.reader-nav-circle-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(18, 30, 31, 0.92);
+  border: 1px solid var(--line-subtle);
+  color: var(--text-main);
+  font-size: 18px;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transition: all 0.2s;
+}
+
+.reader-nav-circle-btn:hover {
+  background: var(--sage);
+  color: var(--sage-dark);
+  border-color: var(--sage);
+}
+
+.reader-select-capsule {
+  position: relative;
+  min-width: 210px;
+  background: rgba(18, 30, 31, 0.92);
+  border: 1px solid var(--line-subtle);
+  border-radius: var(--radius-pill);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.reader-select-capsule select {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 100%;
+  background: transparent;
+  color: var(--text-main);
+  border: none;
+  padding: 10px 38px 10px 20px;
+  font-size: 13px;
+  font-weight: 500;
+  outline: none;
+  cursor: pointer;
+}
+
+.capsule-chevron {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: var(--sage);
+  font-size: 12px;
+}
+
+.reader-desktop-progress {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: 20px;
+}
+
+.reader-counter-label {
+  font-size: 12px;
+  font-family: var(--font-body);
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+}
+
+.reader-progress-track {
+  width: 140px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+}
+
+.reader-progress-bar {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, var(--sage), var(--lavender));
+  border-radius: var(--radius-pill);
+  transition: width 0.15s ease-out;
+}
+
+.reader-icon-action-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(18, 30, 31, 0.85);
+  border: 1px solid var(--line-subtle);
+  color: var(--sage);
+  display: grid;
+  place-items: center;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+.reader-icon-action-btn:hover {
+  background: rgba(25, 42, 43, 0.95);
+  border-color: var(--sage);
+}
+
+/* Palco de Leitura com Citações Laterais */
+.reader-stage-wrapper {
+  position: relative;
+  max-width: 1240px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 40px;
+}
+
+.reader-canvas-column {
+  width: min(720px, 100%);
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.7);
+  background: #000000;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.reader-page {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  line-height: 0;
+}
+
+.reader-panel {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  vertical-align: top;
+  line-height: 0;
+}
+
+.reader-floating-poetry {
+  position: sticky;
+  top: 180px;
+  width: 160px;
+  text-align: center;
+  color: var(--text-muted);
+  font-family: var(--font-display);
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  line-height: 1.8;
+  padding: 24px 0;
+}
+
+.poetry-leaf-mark {
+  display: block;
+  color: var(--sage);
+  font-size: 18px;
+  margin-bottom: 12px;
+}
+
+.poetry-sub-rule {
+  display: block;
+  width: 30px;
+  height: 1px;
+  background: var(--line-subtle);
+  margin: 14px auto 0;
+}
+
+.reader-bottom-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line-subtle);
+}
+
+.back-home-btn {
+  color: var(--text-dim);
+  font-size: 13px;
+  transition: color 0.2s;
+}
+
+.back-home-btn:hover {
+  color: var(--text-main);
+}
+
+.reader-mobile-bottom-bar {
+  display: none;
+}
+
+/* ==========================================================================
+   TELA 3: QUEBRA-CABEÇA (JIGSAW PUZZLE)
+   ========================================================================== */
+
+.puzzle-header-block {
+  text-align: center;
+  padding: 40px 0 32px;
+}
+
+.puzzle-main-title {
+  font-family: var(--font-display);
+  font-size: clamp(34px, 4.5vw, 50px);
+  font-weight: 600;
+  margin: 0 0 10px;
+  color: var(--text-main);
+}
+
+.puzzle-subtitle {
+  font-size: 15px;
+  color: var(--text-dim);
+  margin: 0;
+}
+
+.puzzle-workbench-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(110px, 140px) minmax(280px, 320px);
+  gap: 28px;
+  align-items: start;
+}
+
+/* 1. Tabuleiro */
+.puzzle-board-panel {
+  width: 100%;
+}
+
+.puzzle-board-frame {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  padding: 10px;
+  border-radius: var(--radius-md);
+  background: rgba(14, 24, 25, 0.95);
+  border: 1px solid var(--gold-line);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+}
+
+.puzzle-board {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  gap: 3px;
+  background: rgba(10, 16, 17, 0.9);
+  border-radius: 8px;
+  overflow: hidden;
+  user-select: none;
+}
+
+/* 2. Bandeja de Peças */
+.puzzle-tray-panel {
+  background: rgba(18, 30, 31, 0.9);
+  border: 1px solid var(--line-subtle);
+  border-radius: var(--radius-md);
+  padding: 16px 12px;
+  min-height: 480px;
+  display: flex;
+  flex-direction: column;
+}
+
+.tray-title-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-main);
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line-subtle);
+  margin-bottom: 14px;
+}
+
+.puzzle-tray {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow-y: auto;
+  max-height: 460px;
+  padding-right: 4px;
+}
+
+/* Slots Vazios do Tabuleiro */
+.puzzle-slot {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  background: rgba(18, 30, 31, 0.45);
+  border: 1px dashed rgba(218, 225, 205, 0.2);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.puzzle-slot:hover {
+  border-color: rgba(158, 174, 140, 0.5);
+  background: rgba(158, 174, 140, 0.08);
+}
+
+.puzzle-slot.is-drag-target {
+  border-color: var(--sage);
+  background: rgba(158, 174, 140, 0.2);
+  transform: scale(1.02);
+}
+
+.puzzle-slot .puzzle-piece {
+  width: 100%;
+  height: 100%;
+  box-shadow: none;
+}
+
+/* Peças de Quebra-Cabeça */
+.puzzle-piece {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  background-repeat: no-repeat;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  cursor: grab;
+  transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+.puzzle-piece:hover {
+  transform: scale(1.04);
+  border-color: var(--sage);
+  z-index: 5;
+}
+
+.puzzle-piece:active {
+  cursor: grabbing;
+}
+
+.puzzle-piece.is-selected {
+  outline: 3px solid var(--sage);
+  outline-offset: -2px;
+  transform: scale(1.05);
+  z-index: 10;
+}
+
+.puzzle-piece.is-correct {
+  border-color: rgba(158, 174, 140, 0.6);
+  box-shadow: inset 0 0 0 1px rgba(158, 174, 140, 0.4);
+}
+
+/* 3. Sidebar de Controles */
+.puzzle-controls-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.puzzle-control-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.control-group-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: var(--text-dim);
+}
+
+.scene-select-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(18, 30, 31, 0.95);
+  border: 1px solid var(--line-subtle);
+  border-radius: var(--radius-md);
+  padding: 8px 12px;
+}
+
+.scene-thumb-preview {
+  width: 44px;
+  height: 44px;
+  border-radius: 6px;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: #000;
+}
+
+.scene-thumb-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.scene-select-card select {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 100%;
+  background: transparent;
+  color: var(--text-main);
+  border: none;
+  font-size: 13px;
+  font-weight: 500;
+  outline: none;
+  cursor: pointer;
+  padding-right: 24px;
+}
+
+.difficulty-capsules {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.diff-capsule {
+  padding: 9px 0;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--line-subtle);
+  background: rgba(18, 30, 31, 0.8);
+  color: var(--text-dim);
+  font-size: 12px;
+  font-weight: 500;
+  transition: all 0.2s;
+  text-align: center;
+}
+
+.diff-capsule:hover {
+  border-color: rgba(218, 225, 205, 0.4);
+  color: var(--text-main);
+}
+
+.diff-capsule.is-active {
+  background: var(--sage);
+  color: var(--sage-dark);
+  font-weight: 600;
+  border-color: var(--sage);
+}
+
+.btn-puzzle-reset {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: var(--lavender);
+  color: #ffffff;
+  padding: 12px 20px;
+  border-radius: var(--radius-pill);
+  font-size: 13px;
+  font-weight: 600;
+  box-shadow: 0 4px 16px rgba(138, 116, 153, 0.35);
+  transition: all 0.2s;
+}
+
+.btn-puzzle-reset:hover {
+  background: var(--lavender-bright);
+  transform: translateY(-2px);
+}
+
+.puzzle-status-counter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--font-display);
+  font-size: 16px;
+  color: var(--text-dim);
+  padding: 6px 0;
+}
+
+.puzzle-inspiration-quote {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.5;
+  text-align: center;
+  padding: 8px 12px;
+}
+
+.puzzle-wooden-plaque {
+  background: rgba(45, 34, 25, 0.7);
+  border: 1px solid rgba(160, 130, 95, 0.25);
+  border-radius: 6px;
+  padding: 12px 16px;
+  text-align: center;
+  color: #d8c2a3;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 14px;
+  line-height: 1.4;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+}
+
+/* ==========================================================================
+   TELA 4: WIKI (ENCICLOPÉDIA)
+   ========================================================================== */
+
+.wiki-header-block {
+  text-align: center;
+  padding: 40px 0 28px;
+}
+
+.wiki-main-title {
+  font-family: var(--font-display);
+  font-size: clamp(34px, 4.5vw, 52px);
+  font-weight: 600;
+  margin: 0 0 10px;
+  color: var(--text-main);
+}
+
+.title-leaf {
+  color: var(--sage);
+}
+
+.wiki-subtitle {
+  font-size: 15px;
+  color: var(--text-dim);
+  margin: 0;
+}
+
+.wiki-filter-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+
+/* Barra de Busca em Pílula */
+.wiki-search-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(18, 30, 31, 0.95);
+  border: 1px solid var(--line-subtle);
+  border-radius: var(--radius-pill);
+  padding: 10px 20px;
+  width: min(420px, 100%);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+}
+
+.search-glass-icon {
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.wiki-search-box input {
+  width: 100%;
+  border: none;
+  background: transparent;
+  color: var(--text-main);
+  font-size: 14px;
+  outline: none;
+}
+
+.wiki-search-box input::placeholder {
+  color: var(--text-muted);
+}
+
+.search-leaf-ornament {
+  font-size: 14px;
+  color: var(--sage);
+}
+
+/* Cápsulas de Categoria */
+.wiki-category-pills {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.category-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 18px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--line-subtle);
+  background: rgba(18, 30, 31, 0.85);
+  color: var(--text-dim);
+  font-size: 12px;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.category-pill:hover {
+  border-color: rgba(218, 225, 205, 0.4);
+  color: var(--text-main);
+}
+
+.category-pill.is-active {
+  background: var(--sage);
+  color: var(--sage-dark);
+  font-weight: 600;
+  border-color: var(--sage);
+  box-shadow: 0 2px 10px rgba(158, 174, 140, 0.3);
+}
+
+/* Grade de Cartões da Wiki (3 colunas Desktop / 2 colunas Mobile) */
+.wiki-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+
+.wiki-card {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--paper-ivory);
+  border: 1px solid var(--line-subtle);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+  display: flex;
+  flex-direction: column;
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+
+.wiki-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5);
+}
+
+.wiki-card-art {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  background: #152220;
+  position: relative;
+}
+
+.wiki-card-art img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.35s ease;
+}
+
+.wiki-card:hover .wiki-card-art img {
+  transform: scale(1.05);
+}
+
+/* Base em Pergaminho / Marfim (Fiel às Referências) */
+.wiki-card-body {
+  padding: 18px 20px 20px;
+  background: var(--paper-ivory);
+  color: var(--paper-text);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+  flex: 1;
+}
+
+.wiki-card-text {
+  flex: 1;
+}
+
+.wiki-card-title {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.15;
+  margin: 0 0 6px;
+  color: var(--paper-text);
+}
+
+.wiki-card-desc {
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--paper-muted);
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.wiki-card-arrow {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #253331;
+  color: var(--paper-ivory);
+  display: grid;
+  place-items: center;
+  font-size: 18px;
+  font-weight: 700;
+  flex-shrink: 0;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.wiki-card:hover .wiki-card-arrow {
+  background: #111a19;
+  transform: scale(1.08);
+}
+
+.wiki-empty-notice {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--text-muted);
+  font-size: 15px;
+}
+
+/* Modal de Detalhes da Wiki */
+.wiki-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(8, 14, 15, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: fadeIn 0.2s ease;
+}
+
+.wiki-modal-dialog {
+  position: relative;
+  width: min(540px, 100%);
+  background: var(--bg-surface);
+  border: 1px solid var(--line-subtle);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.7);
+  animation: modalPop 0.25s ease-out;
+}
+
+@keyframes modalPop {
+  from { opacity: 0; transform: scale(0.95) translateY(10px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.wiki-modal-close-btn {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 10;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.6);
+  color: #ffffff;
+  font-size: 22px;
+  display: grid;
+  place-items: center;
+  transition: background 0.2s;
+}
+
+.wiki-modal-close-btn:hover {
+  background: rgba(0, 0, 0, 0.85);
+}
+
+.wiki-modal-media-frame {
+  width: 100%;
+  height: 260px;
+  background: #000;
+}
+
+.wiki-modal-media-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.wiki-modal-info-panel {
+  padding: 26px 28px;
+}
+
+.wiki-modal-category-tag {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--sage);
+  margin-bottom: 8px;
+}
+
+.wiki-modal-heading {
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 700;
+  margin: 0 0 14px;
+  color: var(--text-main);
+}
+
+.wiki-modal-description {
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--text-dim);
+  margin: 0 0 20px;
+}
+
+.wiki-modal-tags-list {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.wiki-tag-badge {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--line-light);
+  border-radius: var(--radius-pill);
+  padding: 4px 12px;
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+/* ==========================================================================
+   RODAPÉ OFICIAL
+   ========================================================================== */
+
+.site-footer {
+  border-top: 1px solid var(--line-subtle);
+  background: rgba(10, 16, 17, 0.95);
+  padding: 24px 0;
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.footer-brand-title {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-dim);
+}
+
+.footer-zen-motto {
+  margin-left: auto;
+  font-style: italic;
+  font-family: var(--font-display);
+  color: var(--text-muted);
+}
+
+.footer-zen-motto i {
+  font-style: normal;
+  color: var(--sage);
+}
+
+/* ==========================================================================
+   RESPONSIVIDADE & ADAPTAÇÃO MOBILE (FIEL ÀS TELAS DE REFERÊNCIA)
+   ========================================================================== */
+
+@media (max-width: 920px) {
+  .header-quote {
+    display: none;
+  }
+  
+  .hero-banner-wrap {
+    background-image: 
+      linear-gradient(to top, rgba(12, 22, 23, 0.95) 0%, rgba(12, 22, 23, 0.6) 60%),
+      url('../assets/backgrounds/hero-mobile.png');
+    background-position: center top;
+    min-height: 480px;
+  }
+
+  .hero-shell {
+    min-height: 480px;
+    padding: 36px 20px;
+  }
+
+  .hero-wooden-sign {
+    display: none;
+  }
+
+  .journey-content-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .journey-side-quote {
+    display: none;
+  }
+
+  .reader-floating-poetry {
+    display: none;
+  }
+
+  .puzzle-workbench-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .puzzle-tray-panel {
+    min-height: auto;
+  }
+
+  .puzzle-tray {
+    flex-direction: row;
+    overflow-x: auto;
+    max-height: none;
+    padding-bottom: 10px;
+  }
+
+  .puzzle-piece {
+    width: 80px;
+    flex-shrink: 0;
+  }
+
+  .wiki-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .content-width {
+    width: calc(100% - 28px);
+  }
+
+  .site-header {
+    height: 66px;
+  }
+
+  .brand {
+    height: 40px;
+  }
+
+  .menu-toggle {
+    display: flex;
+  }
+
+  /* Menu Drawer Mobile */
+  .main-nav {
+    display: none;
+    position: fixed;
+    top: 66px;
+    left: 0;
+    right: 0;
+    background: rgba(12, 20, 21, 0.98);
+    border-bottom: 1px solid var(--line-subtle);
+    padding: 16px 20px;
+    z-index: 45;
+  }
+
+  .main-nav.is-open {
+    display: block;
+    animation: fadeIn 0.2s ease-out;
+  }
+
+  .nav-pill-group {
+    flex-direction: column;
+    background: transparent;
+    border: none;
+    padding: 0;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .nav-link {
+    width: 100%;
+    justify-content: center;
+    padding: 12px 16px;
+    font-size: 15px;
+    border: 1px solid var(--line-light);
+  }
+
+  .hero-heading {
+    font-size: 36px;
+  }
+
+  .hero-subtext {
+    font-size: 14px;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .btn-hero-primary, .btn-hero-secondary {
+    justify-content: center;
+  }
+
+  .journey-cards-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .reader-floating-toolbar {
+    top: 76px;
+    gap: 8px;
+    padding-inline: 8px;
+  }
+
+  .reader-select-capsule {
+    min-width: 170px;
+  }
+
+  .reader-select-capsule select {
+    font-size: 11px;
+    padding: 8px 30px 8px 14px;
+  }
+
+  .reader-desktop-progress {
+    display: none;
+  }
+
+  .reader-mobile-bottom-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 40;
+    background: rgba(12, 20, 21, 0.94);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid var(--line-subtle);
+    padding: 10px 20px;
+    font-size: 11px;
+    color: var(--text-dim);
+  }
+
+  .reader-mobile-track {
+    flex: 1;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: var(--radius-pill);
+    overflow: hidden;
+  }
+
+  .reader-mobile-fill {
+    width: 0%;
+    height: 100%;
+    background: var(--sage);
+    border-radius: var(--radius-pill);
+    transition: width 0.15s ease;
+  }
+
+  .wiki-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .wiki-card-art {
+    height: 130px;
+  }
+
+  .wiki-card-body {
+    padding: 12px 14px;
+  }
+
+  .wiki-card-title {
+    font-size: 17px;
+  }
+
+  .wiki-card-desc {
+    font-size: 10px;
+    -webkit-line-clamp: 2;
+  }
+
+  .wiki-card-arrow {
+    width: 28px;
+    height: 28px;
+    font-size: 14px;
+  }
+
+  .footer-inner {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .footer-zen-motto {
+    margin-left: 0;
+  }
+}

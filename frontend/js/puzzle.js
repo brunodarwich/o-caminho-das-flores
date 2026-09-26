@@ -1,32 +1,38 @@
 (() => {
   const board = document.querySelector('#puzzle-board');
+  const tray = document.querySelector('#puzzle-tray');
   const scene = document.querySelector('#puzzle-scene');
-  const difficulty = document.querySelector('#puzzle-difficulty');
-  const start = document.querySelector('#puzzle-start');
-  const status = document.querySelector('#puzzle-status');
-  const countLabel = document.querySelector('#puzzle-count');
-  const counter = document.querySelector('#puzzle-counter');
+  const sceneThumb = document.querySelector('#scene-thumb-preview img');
+  const diffCapsules = [...document.querySelectorAll('.diff-capsule')];
+  const startBtn = document.querySelector('#puzzle-start');
+  const counterDisplay = document.querySelector('#puzzle-counter-display');
+
   const scenes = {
     1: { src: window.OCDF_MEDIA?.puzzle?.ariel || '../capitulo-01/c1-p%20(1).png', focus: 0.63 },
     2: { src: window.OCDF_MEDIA?.puzzle?.village || '../capitulo-02/c2-p%20(3).png', focus: 0.49 }
   };
+
   let size = 3;
-  let order = [];
-  let selected = null;
-  let dragged = null;
   let currentImage = null;
   let loadVersion = 0;
 
+  // Estado do tabuleiro e da bandeja
+  // boardSlots: Array de tamanho size*size contendo o índice da peça ou null
+  // trayPieces: Array de índices de peças que estão soltas na bandeja
+  let boardSlots = [];
+  let trayPieces = [];
+  let selected = null; // { from: 'tray' | 'board', pieceId: number, slotIndex?: number }
+  let dragged = null;  // { from: 'tray' | 'board', pieceId: number, slotIndex?: number }
+
   const total = () => size * size;
 
-  function randomOrder(length) {
-    const values = Array.from({ length }, (_, index) => index);
-    for (let index = length - 1; index > 0; index -= 1) {
-      const other = Math.floor(Math.random() * (index + 1));
-      [values[index], values[other]] = [values[other], values[index]];
+  function shuffle(array) {
+    const list = [...array];
+    for (let i = list.length - 1; i > 0; i -= 1) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [list[i], list[j]] = [list[j], list[i]];
     }
-    if (values.every((value, index) => value === index)) [values[0], values[1]] = [values[1], values[0]];
-    return values;
+    return list;
   }
 
   function loadScene(value) {
@@ -51,119 +57,310 @@
         context.drawImage(image, 0, cropY, cropSize, cropSize, 0, 0, cropSize, cropSize);
         try {
           resolve({ src: canvas.toDataURL('image/png'), isCropped: true });
-        } catch (error) {
-          // Local file origins can block canvas export. CSS keeps the same square crop in that case.
+        } catch {
+          // Fallback resiliente para protocolos de arquivo local (file://)
           resolve({ src: config.src, isCropped: false, sourceWidth, sourceHeight, cropY, cropSize });
         }
       };
-      image.onerror = () => reject(new Error('Não foi possível carregar esta cena. Confira se a imagem original está disponível.'));
+      image.onerror = () => reject(new Error('Não foi possível carregar esta cena.'));
       image.src = config.src;
     });
   }
 
-  function makeTile(originalIndex, position) {
-    const tile = document.createElement('button');
+  function stylePieceElement(pieceEl, originalIndex) {
     const row = Math.floor(originalIndex / size);
     const col = originalIndex % size;
-    tile.className = 'puzzle-piece';
-    tile.type = 'button';
-    tile.draggable = true;
-    tile.setAttribute('aria-label', `Peça ${originalIndex + 1}, posição ${position + 1}`);
-    tile.style.backgroundImage = `url("${currentImage.src}")`;
+    pieceEl.className = 'puzzle-piece';
+    pieceEl.type = 'button';
+    pieceEl.draggable = true;
+    pieceEl.style.backgroundImage = `url("${currentImage.src}")`;
+
     if (currentImage.isCropped) {
-      tile.style.backgroundSize = `${size * 100}% ${size * 100}%`;
-      tile.style.backgroundPosition = `${size === 1 ? 0 : col / (size - 1) * 100}% ${size === 1 ? 0 : row / (size - 1) * 100}%`;
+      pieceEl.style.backgroundSize = `${size * 100}% ${size * 100}%`;
+      pieceEl.style.backgroundPosition = `${size === 1 ? 0 : (col / (size - 1)) * 100}% ${size === 1 ? 0 : (row / (size - 1)) * 100}%`;
     } else {
       const aspect = currentImage.sourceHeight / currentImage.sourceWidth;
-      const sourceY = currentImage.cropY + row * currentImage.cropSize / size;
+      const sourceY = currentImage.cropY + (row * currentImage.cropSize) / size;
       const availableHeight = currentImage.sourceHeight - currentImage.cropSize / size;
-      tile.style.backgroundSize = `${size * 100}% ${aspect * size * 100}%`;
-      tile.style.backgroundPosition = `${size === 1 ? 0 : col / (size - 1) * 100}% ${sourceY / availableHeight * 100}%`;
+      pieceEl.style.backgroundSize = `${size * 100}% ${aspect * size * 100}%`;
+      pieceEl.style.backgroundPosition = `${size === 1 ? 0 : (col / (size - 1)) * 100}% ${availableHeight <= 0 ? 0 : (sourceY / availableHeight) * 100}%`;
     }
-    tile.classList.toggle('is-correct', originalIndex === position);
-    tile.addEventListener('click', () => chooseTile(position));
-    tile.addEventListener('dragstart', event => {
-      dragged = position;
-      event.dataTransfer?.setData('text/plain', String(position));
-      if (event.dataTransfer) event.dataTransfer.effectAllowed = 'move';
-    });
-    tile.addEventListener('dragover', event => event.preventDefault());
-    tile.addEventListener('drop', event => {
-      event.preventDefault();
-      const from = dragged ?? Number(event.dataTransfer?.getData('text/plain'));
-      if (Number.isInteger(from)) swap(from, position);
-      dragged = null;
-    });
-    return tile;
+  }
+
+  function updateStatusAndCelebration() {
+    let correctCount = 0;
+    for (let i = 0; i < total(); i += 1) {
+      if (boardSlots[i] === i) correctCount += 1;
+    }
+
+    if (counterDisplay) {
+      if (correctCount === total()) {
+        counterDisplay.textContent = `${total()} de ${total()} · Completo! 🌸`;
+      } else if (correctCount > 0) {
+        counterDisplay.textContent = `${correctCount} de ${total()} no lugar`;
+      } else {
+        const placedCount = boardSlots.filter(s => s !== null).length;
+        counterDisplay.textContent = placedCount > 0 ? `${placedCount} de ${total()} encaixadas` : `0 de ${total()} peças`;
+      }
+    }
+
+    if (board) {
+      board.classList.toggle('is-complete', correctCount === total());
+    }
   }
 
   function render() {
-    selected = null;
+    if (!board || !tray || !currentImage) return;
+
+    // Grid do tabuleiro
     board.style.gridTemplateColumns = `repeat(${size}, minmax(0, 1fr))`;
     board.style.gridTemplateRows = `repeat(${size}, minmax(0, 1fr))`;
-    board.replaceChildren(...order.map((piece, position) => makeTile(piece, position)));
-    board.classList.toggle('is-complete', order.every((piece, position) => piece === position));
-    const solved = order.filter((piece, position) => piece === position).length;
-    countLabel.textContent = `${total()} ${total() === 1 ? 'peça' : 'peças'}`;
-    counter.textContent = `${solved} de ${total()} no lugar`;
-    if (solved === total()) status.textContent = 'Quebra-cabeça completo. Respire e aproveite a cena.';
+    board.replaceChildren();
+
+    // 1. Renderiza os slots do tabuleiro
+    for (let slotIndex = 0; slotIndex < total(); slotIndex += 1) {
+      const slotEl = document.createElement('div');
+      slotEl.className = 'puzzle-slot';
+      slotEl.dataset.slotIndex = String(slotIndex);
+      slotEl.setAttribute('role', 'region');
+      slotEl.setAttribute('aria-label', `Espaço ${slotIndex + 1} de ${total()}`);
+
+      const pieceId = boardSlots[slotIndex];
+
+      if (pieceId !== null) {
+        const pieceEl = document.createElement('button');
+        stylePieceElement(pieceEl, pieceId);
+        pieceEl.setAttribute('aria-label', `Peça ${pieceId + 1} no espaço ${slotIndex + 1}`);
+
+        if (pieceId === slotIndex) pieceEl.classList.add('is-correct');
+        if (selected && selected.from === 'board' && selected.slotIndex === slotIndex) {
+          pieceEl.classList.add('is-selected');
+        }
+
+        pieceEl.addEventListener('click', event => {
+          event.stopPropagation();
+          onPieceClick('board', pieceId, slotIndex);
+        });
+
+        pieceEl.addEventListener('dragstart', event => {
+          dragged = { from: 'board', pieceId, slotIndex };
+          event.dataTransfer?.setData('text/plain', JSON.stringify(dragged));
+          if (event.dataTransfer) event.dataTransfer.effectAllowed = 'move';
+        });
+
+        slotEl.appendChild(pieceEl);
+      }
+
+      // Drag & Drop no slot
+      slotEl.addEventListener('dragover', event => {
+        event.preventDefault();
+        slotEl.classList.add('is-drag-target');
+      });
+
+      slotEl.addEventListener('dragleave', () => {
+        slotEl.classList.remove('is-drag-target');
+      });
+
+      slotEl.addEventListener('drop', event => {
+        event.preventDefault();
+        slotEl.classList.remove('is-drag-target');
+        const data = dragged || (event.dataTransfer?.getData('text/plain') ? JSON.parse(event.dataTransfer.getData('text/plain')) : null);
+        if (data) {
+          dropOnSlot(data, slotIndex);
+          dragged = null;
+        }
+      });
+
+      slotEl.addEventListener('click', () => {
+        onSlotClick(slotIndex);
+      });
+
+      board.appendChild(slotEl);
+    }
+
+    // 2. Renderiza a bandeja de peças soltas
+    tray.replaceChildren();
+    trayPieces.forEach(pieceId => {
+      const pieceEl = document.createElement('button');
+      stylePieceElement(pieceEl, pieceId);
+      pieceEl.setAttribute('aria-label', `Peça solta ${pieceId + 1}`);
+
+      if (selected && selected.from === 'tray' && selected.pieceId === pieceId) {
+        pieceEl.classList.add('is-selected');
+      }
+
+      pieceEl.addEventListener('click', event => {
+        event.stopPropagation();
+        onPieceClick('tray', pieceId);
+      });
+
+      pieceEl.addEventListener('dragstart', event => {
+        dragged = { from: 'tray', pieceId };
+        event.dataTransfer?.setData('text/plain', JSON.stringify(dragged));
+        if (event.dataTransfer) event.dataTransfer.effectAllowed = 'move';
+      });
+
+      tray.appendChild(pieceEl);
+    });
+
+    // Permite soltar uma peça do tabuleiro de volta na bandeja
+    tray.ondragover = event => event.preventDefault();
+    tray.ondrop = event => {
+      event.preventDefault();
+      const data = dragged || (event.dataTransfer?.getData('text/plain') ? JSON.parse(event.dataTransfer.getData('text/plain')) : null);
+      if (data && data.from === 'board') {
+        returnToTray(data.slotIndex);
+        dragged = null;
+      }
+    };
+
+    tray.onclick = event => {
+      if (event.target === tray && selected && selected.from === 'board') {
+        returnToTray(selected.slotIndex);
+        selected = null;
+      }
+    };
+
+    updateStatusAndCelebration();
   }
 
-  function swap(from, to) {
-    if (from === to || from < 0 || to < 0 || from >= order.length || to >= order.length) return;
-    [order[from], order[to]] = [order[to], order[from]];
-    status.textContent = 'Peças trocadas.';
+  function onPieceClick(from, pieceId, slotIndex) {
+    if (!selected) {
+      selected = { from, pieceId, slotIndex };
+      render();
+      return;
+    }
+
+    // Se clicou na mesma peça já selecionada, desmarca
+    if (selected.from === from && selected.pieceId === pieceId) {
+      selected = null;
+      render();
+      return;
+    }
+
+    // Se já havia uma peça selecionada:
+    if (from === 'board') {
+      // Clicou numa peça que está no tabuleiro
+      if (selected.from === 'board') {
+        // Troca as duas peças do tabuleiro
+        const temp = boardSlots[slotIndex];
+        boardSlots[slotIndex] = boardSlots[selected.slotIndex];
+        boardSlots[selected.slotIndex] = temp;
+      } else if (selected.from === 'tray') {
+        // Troca a peça da bandeja com a que estava no tabuleiro
+        const indexInTray = trayPieces.indexOf(selected.pieceId);
+        if (indexInTray !== -1) {
+          const pieceOnBoard = boardSlots[slotIndex];
+          boardSlots[slotIndex] = selected.pieceId;
+          trayPieces[indexInTray] = pieceOnBoard;
+        }
+      }
+      selected = null;
+      render();
+    } else {
+      // Clicou em outra peça na bandeja: apenas seleciona a nova peça da bandeja
+      selected = { from: 'tray', pieceId };
+      render();
+    }
+  }
+
+  function onSlotClick(slotIndex) {
+    if (!selected) return;
+
+    if (boardSlots[slotIndex] === null) {
+      // Slot vazio: posiciona a peça selecionada aqui
+      if (selected.from === 'tray') {
+        boardSlots[slotIndex] = selected.pieceId;
+        trayPieces = trayPieces.filter(id => id !== selected.pieceId);
+      } else if (selected.from === 'board') {
+        boardSlots[slotIndex] = selected.pieceId;
+        boardSlots[selected.slotIndex] = null;
+      }
+      selected = null;
+      render();
+    }
+  }
+
+  function dropOnSlot(data, slotIndex) {
+    if (data.from === 'tray') {
+      const oldPiece = boardSlots[slotIndex];
+      boardSlots[slotIndex] = data.pieceId;
+      trayPieces = trayPieces.filter(id => id !== data.pieceId);
+      if (oldPiece !== null) trayPieces.push(oldPiece);
+    } else if (data.from === 'board') {
+      if (data.slotIndex !== slotIndex) {
+        const temp = boardSlots[slotIndex];
+        boardSlots[slotIndex] = data.pieceId;
+        boardSlots[data.slotIndex] = temp;
+      }
+    }
+    selected = null;
     render();
   }
 
-  function chooseTile(position) {
-    if (selected === null) {
-      selected = position;
-      board.children[position]?.classList.add('is-selected');
-      status.textContent = 'Agora toque na peça com que deseja trocar.';
-      return;
+  function returnToTray(slotIndex) {
+    const pieceId = boardSlots[slotIndex];
+    if (pieceId !== null) {
+      boardSlots[slotIndex] = null;
+      trayPieces.push(pieceId);
+      render();
     }
-    const first = selected;
-    selected = null;
-    if (first === position) {
-      board.children[position]?.classList.remove('is-selected');
-      status.textContent = 'Escolha outra peça para trocar de lugar.';
-      return;
-    }
-    swap(first, position);
   }
 
   async function newGame() {
     const version = ++loadVersion;
-    size = Number(difficulty.value) || 3;
-    order = randomOrder(total());
-    board.replaceChildren();
-    board.classList.remove('is-complete');
-    status.textContent = 'Carregando a arte original…';
-    start.disabled = true;
-    scene.disabled = true;
-    difficulty.disabled = true;
+    selected = null;
+    dragged = null;
+
+    if (startBtn) startBtn.disabled = true;
+    if (scene) scene.disabled = true;
+
+    // Atualiza miniatura da cena
+    if (sceneThumb) {
+      sceneThumb.src = scenes[scene?.value || 1]?.src || '../capitulo-01/c1-p%20(1).png';
+    }
+
     try {
-      const loaded = await loadScene(scene.value);
+      const loaded = await loadScene(scene?.value || 1);
       if (version !== loadVersion) return;
       currentImage = loaded;
-      status.textContent = 'As peças foram embaralhadas. Toque em duas para trocar.';
+
+      // Inicializa slots vazios no tabuleiro e peças embaralhadas na bandeja
+      boardSlots = new Array(total()).fill(null);
+      trayPieces = shuffle(Array.from({ length: total() }, (_, i) => i));
+
       render();
-    } catch (error) {
-      if (version !== loadVersion) return;
-      status.textContent = error.message;
+    } catch (err) {
+      if (version === loadVersion && counterDisplay) {
+        counterDisplay.textContent = 'Erro ao carregar a cena.';
+      }
     } finally {
       if (version === loadVersion) {
-        start.disabled = false;
-        scene.disabled = false;
-        difficulty.disabled = false;
+        if (startBtn) startBtn.disabled = false;
+        if (scene) scene.disabled = false;
       }
     }
   }
 
-  start.addEventListener('click', newGame);
-  scene.addEventListener('change', newGame);
-  difficulty.addEventListener('change', newGame);
-  window.addEventListener('puzzle:shown', () => { if (!order.length) newGame(); });
+  // Event listeners
+  startBtn?.addEventListener('click', newGame);
+
+  scene?.addEventListener('change', () => {
+    if (sceneThumb) sceneThumb.src = scenes[scene.value]?.src;
+    newGame();
+  });
+
+  diffCapsules.forEach(capsule => {
+    capsule.addEventListener('click', () => {
+      diffCapsules.forEach(c => c.classList.toggle('is-active', c === capsule));
+      size = Number(capsule.dataset.diff) || 3;
+      newGame();
+    });
+  });
+
+  window.addEventListener('puzzle:shown', () => {
+    if (!currentImage) newGame();
+  });
+
   newGame();
 })();
