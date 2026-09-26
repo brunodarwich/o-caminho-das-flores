@@ -12,7 +12,7 @@
     "mrr_brl": 0.0,
     "mrr_usd": 0.0,
     "checkout_conversion_rate": 0.0,
-    "activation_rate": 1.0
+    "activation_rate": 3.0
   },
   "funnel": [
     {
@@ -64,6 +64,22 @@
     }
   ],
   "recent_events": [
+    {
+      "event_name": "chapter_finished",
+      "payload": {
+        "chapter_id": 1,
+        "read_time_seconds": 120
+      },
+      "recorded_at": "2026-09-26T22:46:52.487402+00:00"
+    },
+    {
+      "event_name": "chapter_finished",
+      "payload": {
+        "chapter_id": 1,
+        "read_time_seconds": 120
+      },
+      "recorded_at": "2026-09-26T22:11:07.637649+00:00"
+    },
     {
       "event_name": "chapter_finished",
       "payload": {

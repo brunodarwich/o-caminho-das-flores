@@ -47,9 +47,13 @@
     const imageSrc = photo || entry.image;
     
     if (modalImg) {
+      modalImg.style.display = 'block';
       modalImg.src = imageSrc;
       modalImg.alt = entry.name;
       modalImg.style.objectPosition = photo ? '50% 50%' : (entry.imagePosition || '50% 50%');
+      modalImg.onerror = () => {
+        modalImg.style.display = 'none';
+      };
     }
     if (modalTag) modalTag.textContent = entry.category.toUpperCase();
     if (modalTitle) modalTitle.textContent = entry.name;
@@ -73,6 +77,10 @@
   function closeEntryModal() {
     if (!modalBackdrop) return;
     modalBackdrop.hidden = true;
+    if (modalImg) {
+      modalImg.removeAttribute('src');
+      modalImg.style.display = 'none';
+    }
     document.body.style.overflow = '';
   }
 
@@ -151,8 +159,9 @@
       const response = await fetch('/api/wiki');
       if (response.ok) {
         const data = await response.json();
-        if (Array.isArray(data.entries) && data.entries.length > 0) {
-          entries = data.entries.map(item => ({
+        const rawItems = Array.isArray(data.items) ? data.items : (Array.isArray(data.entries) ? data.entries : []);
+        if (rawItems.length > 0) {
+          entries = rawItems.map(item => ({
             name: item.name,
             category: item.category,
             description: item.description,

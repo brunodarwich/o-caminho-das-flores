@@ -320,24 +320,6 @@
       <p class="wiki-empty-notice" id="wiki-empty" hidden>
         Nenhum verbete encontrado para sua busca. Tente outro termo ou categoria.
       </p>
-
-      <!-- Modal de Detalhes da Wiki -->
-      <div class="wiki-modal-overlay" id="wiki-modal-backdrop" hidden>
-        <div class="wiki-modal-dialog" id="wiki-modal-card" role="dialog" aria-modal="true" aria-labelledby="wiki-modal-title">
-          <button class="wiki-modal-close-btn" id="wiki-modal-close" aria-label="Fechar ficha">×</button>
-          
-          <div class="wiki-modal-media-frame">
-            <img id="wiki-modal-img" src="" alt="">
-          </div>
-          
-          <div class="wiki-modal-info-panel">
-            <span class="wiki-modal-category-tag" id="wiki-modal-tag"></span>
-            <h2 class="wiki-modal-heading" id="wiki-modal-title"></h2>
-            <p class="wiki-modal-description" id="wiki-modal-desc"></p>
-            <div class="wiki-modal-tags-list" id="wiki-modal-tags"></div>
-          </div>
-        </div>
-      </div>
     </section>
   </main>
 
@@ -349,6 +331,24 @@
       <span class="footer-zen-motto">Pequenas histórias. Grandes florescimentos. <i>🌿</i></span>
     </div>
   </footer>
+
+  <!-- Modal de Detalhes da Wiki (Posicionado diretamente no body para viewport fixo perfeito) -->
+  <div class="wiki-modal-overlay" id="wiki-modal-backdrop" hidden>
+    <div class="wiki-modal-dialog" id="wiki-modal-card" role="dialog" aria-modal="true" aria-labelledby="wiki-modal-title">
+      <button class="wiki-modal-close-btn" id="wiki-modal-close" aria-label="Fechar ficha">×</button>
+      
+      <div class="wiki-modal-media-frame">
+        <img id="wiki-modal-img" src="" alt="" style="display: none;">
+      </div>
+      
+      <div class="wiki-modal-info-panel">
+        <span class="wiki-modal-category-tag" id="wiki-modal-tag"></span>
+        <h2 class="wiki-modal-heading" id="wiki-modal-title"></h2>
+        <p class="wiki-modal-description" id="wiki-modal-desc"></p>
+        <div class="wiki-modal-tags-list" id="wiki-modal-tags"></div>
+      </div>
+    </div>
+  </div>
 
 </body>
 </html>
