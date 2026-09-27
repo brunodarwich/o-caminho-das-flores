@@ -5,9 +5,9 @@ window.TASKS_DATA = {
     "version": "1.0.0",
     "last_updated": "2026-09-27",
     "metrics": {
-      "total_tasks": 20,
+      "total_tasks": 21,
       "completed_tasks": 20,
-      "progress_percentage": 100.0
+      "progress_percentage": 95.2
     }
   },
   "milestones": [
@@ -362,6 +362,21 @@ window.TASKS_DATA = {
       "audit_confirmed": true,
       "created_at": "2026-09-26",
       "completed_at": "2026-09-27"
+    },
+    {
+      "id": "TASK-021",
+      "title": "Proposta de nova logo da webtoon",
+      "description": "Duas propostas em docs/identidade-visual/. V2 original criada do zero com lettering de fantasia, caminho em espaço negativo e flor azul. Aguarda avaliação estética de Bruno; não aplicada ao portal.",
+      "status": "review",
+      "milestone": "m2_design_arte",
+      "tier": "tier1_frontier",
+      "indicators": [
+        "Narrativa e logo original consultadas",
+        "Proposta e prompt salvos em docs/identidade-visual/",
+        "Avaliação estética de Bruno pendente"
+      ],
+      "audit_confirmed": false,
+      "created_at": "2026-09-27"
     }
   ]
 };

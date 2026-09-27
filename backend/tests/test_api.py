@@ -39,14 +39,14 @@ def test_get_chapter_details():
     c1 = res.json()
     assert c1["id"] == 1
     assert c1["title"] == "Céu Azul"
-    assert c1["panel_count"] == 20
+    assert c1["panel_count"] == 19
 
     res = client.get("/api/chapters/2")
     assert res.status_code == 200
     c2 = res.json()
     assert c2["id"] == 2
     assert c2["title"] == "A Vizinha"
-    assert c2["panel_count"] == 36
+    assert c2["panel_count"] == 38
 
     res_404 = client.get("/api/chapters/999")
     assert res_404.status_code == 404
@@ -56,20 +56,20 @@ def test_chapter_panels_order():
     assert res.status_code == 200
     data = res.json()
     assert data["chapter_id"] == 1
-    assert data["total_panels"] == 20
-    assert len(data["panels"]) == 20
+    assert data["total_panels"] == 19
+    assert len(data["panels"]) == 19
     assert data["panels"][0]["index"] == 1
-    assert data["panels"][0]["filename"] == "c1-p (1).png"
-    assert data["panels"][19]["index"] == 20
-    assert data["panels"][19]["filename"] == "c1-p (20).png"
+    assert data["panels"][0]["filename"] == "cap-01 (1).png"
+    assert data["panels"][18]["index"] == 19
+    assert data["panels"][18]["filename"] == "cap-01 (19).png"
 
     res2 = client.get("/api/chapters/2/panels")
     assert res2.status_code == 200
     data2 = res2.json()
     assert data2["chapter_id"] == 2
-    assert data2["total_panels"] == 36
-    assert data2["panels"][35]["index"] == 36
-    assert data2["panels"][35]["filename"] == "c2-p (36).png"
+    assert data2["total_panels"] == 38
+    assert data2["panels"][37]["index"] == 38
+    assert data2["panels"][37]["filename"] == "cap-02 (38).png"
 
 def test_wiki_list_and_categories():
     res = client.get("/api/wiki")

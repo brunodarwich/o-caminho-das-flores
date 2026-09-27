@@ -15,21 +15,39 @@
   const scenes = {
     1: {
       id: 1,
-      title: '1. Ariel e o Fruto da Luz',
-      src: window.OCDF_MEDIA?.puzzle?.scene1 || 'assets/photos/puzzle/cena-1-fruto-da-luz.png',
-      focus: 0.62
+      title: '1. Ariel na Floresta',
+      src: window.OCDF_MEDIA?.puzzle?.scene1 || 'assets/photos/puzzle/ariel.png',
+      focus: 0.5
     },
     2: {
       id: 2,
-      title: '2. Ariel e a Carroça de Flores',
-      src: window.OCDF_MEDIA?.puzzle?.scene2 || 'assets/photos/puzzle/cena-2-carroca-de-flores.png',
-      focus: 0.48
+      title: '2. Pizeudo, Peinha e Plenitude',
+      src: window.OCDF_MEDIA?.puzzle?.scene2 || 'assets/photos/puzzle/pizeudo-peinha-plenitude.png',
+      focus: 0.5
     },
     3: {
       id: 3,
-      title: '3. O Ganso, Ariel e a Capivara',
-      src: window.OCDF_MEDIA?.puzzle?.scene3 || 'assets/photos/puzzle/cena-3-o-ganso-e-amigos.png',
-      focus: 0.48
+      title: '3. Paçoca e Pitchula',
+      src: window.OCDF_MEDIA?.puzzle?.scene3 || 'assets/photos/puzzle/pacoca-pitchula.png',
+      focus: 0.5
+    },
+    4: {
+      id: 4,
+      title: '4. Mercado da Vila',
+      src: window.OCDF_MEDIA?.puzzle?.scene4 || 'assets/photos/puzzle/mercado-ver-o-bigode.png',
+      focus: 0.5
+    },
+    5: {
+      id: 5,
+      title: '5. Peinha sob a Tempestade',
+      src: window.OCDF_MEDIA?.puzzle?.scene5 || 'assets/photos/puzzle/peinha-tempestade.png',
+      focus: 0.5
+    },
+    6: {
+      id: 6,
+      title: '6. Entardecer na Vila',
+      src: window.OCDF_MEDIA?.puzzle?.scene6 || 'assets/photos/puzzle/entardecer.png',
+      focus: 0.5
     }
   };
 

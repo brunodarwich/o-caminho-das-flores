@@ -2,15 +2,19 @@
 // Enquanto um caminho estiver null, a página mostra a arte original já existente.
 window.OCDF_MEDIA = {
   home: {
-    hero: null,
+    hero: 'assets/backgrounds/banner-horizontal.png',
+    heroMobile: 'assets/backgrounds/banner-vertical.png',
     chapter1: null,
     chapter2: null
   },
   wiki: {},
   puzzle: {
-    scene1: 'assets/photos/puzzle/cena-1-fruto-da-luz.png',
-    scene2: 'assets/photos/puzzle/cena-2-carroca-de-flores.png',
-    scene3: 'assets/photos/puzzle/cena-3-o-ganso-e-amigos.png'
+    scene1: 'assets/photos/puzzle/ariel.png',
+    scene2: 'assets/photos/puzzle/pizeudo-peinha-plenitude.png',
+    scene3: 'assets/photos/puzzle/pacoca-pitchula.png',
+    scene4: 'assets/photos/puzzle/mercado-ver-o-bigode.png',
+    scene5: 'assets/photos/puzzle/peinha-tempestade.png',
+    scene6: 'assets/photos/puzzle/entardecer.png'
   }
 };
 

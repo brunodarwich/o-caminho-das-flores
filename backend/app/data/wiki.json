@@ -5,7 +5,7 @@
       "name": "Ariel",
       "category": "Personagens",
       "description": "Elfo botânico dedicado ao estudo e ao cultivo da rara Flor do Luar. No início da história, sua mente vive cheia de preocupações, perfeccionismo e julgamentos.",
-      "image": "capitulo-01/c1-p (1).png",
+      "image": "capitulo-01/cap-01 (1).png",
       "image_position": "50% 57%",
       "tags": ["protagonista", "elfo", "botanico"]
     },
@@ -14,7 +14,7 @@
       "name": "Peinha",
       "category": "Personagens",
       "description": "Elfa idosa, nômade e sábia. Ensina a Ariel que os pensamentos passam como nuvens, enquanto a mente essencial é como o céu azul.",
-      "image": "capitulo-01/c1-p (11).png",
+      "image": "capitulo-01/cap-01 (11).png",
       "image_position": "50% 32%",
       "tags": ["mestra", "sabia", "mindfulness"]
     },
@@ -23,7 +23,7 @@
       "name": "Pizeudo",
       "category": "Personagens",
       "description": "Pelicano e antigo amigo de Ariel. Está em uma jornada de aprendizado com a mestra Peinha.",
-      "image": "capitulo-01/c1-p (10).png",
+      "image": "capitulo-01/cap-01 (10).png",
       "image_position": "50% 7%",
       "tags": ["amigo", "pelicano", "viajante"]
     },
@@ -32,7 +32,7 @@
       "name": "Plenitude",
       "category": "Personagens",
       "description": "Capivara pacífica, discípula de Peinha, que está em voto de silêncio e presença plena.",
-      "image": "capitulo-01/c1-p (10).png",
+      "image": "capitulo-01/cap-01 (10).png",
       "image_position": "50% 27%",
       "tags": ["capivara", "silencio", "paz"]
     },
@@ -41,7 +41,7 @@
       "name": "Seu Neves",
       "category": "Personagens",
       "description": "Elfo idoso e sorveteiro da vila. Encomenda extrato de Bau Bau Loo e prepara sabores inusitados, como sorvete de tacacá.",
-      "image": "capitulo-02/c2-p (10).png",
+      "image": "capitulo-02/cap-02 (10).png",
       "image_position": "50% 50%",
       "tags": ["vila", "sorveteiro", "comercio"]
     },
@@ -50,7 +50,7 @@
       "name": "Dona Ana",
       "category": "Personagens",
       "description": "Vizinha de Seu Neves. Doente, recebe a visita de Ariel, que prepara um chá medicinal com uma receita ensinada por sua mãe.",
-      "image": "capitulo-02/c2-p (31).png",
+      "image": "capitulo-02/cap-02 (31).png",
       "image_position": "50% 50%",
       "tags": ["vila", "vizinha", "acolhimento"]
     },
@@ -59,7 +59,7 @@
       "name": "Laurinho",
       "category": "Personagens",
       "description": "Jovem elfo, amigo de Ariel e marido de Pérola. Recebe uma flor Urso-Polar e oferece doces caseiros.",
-      "image": "capitulo-02/c2-p (14).png",
+      "image": "capitulo-02/cap-02 (14).png",
       "image_position": "50% 50%",
       "tags": ["amigo", "vila", "casal"]
     },
@@ -68,7 +68,7 @@
       "name": "Pérola",
       "category": "Personagens",
       "description": "Elfa comunicativa e de personalidade forte. É casada com Laurinho e incentiva Ariel a participar do festival da vila.",
-      "image": "capitulo-02/c2-p (14).png",
+      "image": "capitulo-02/cap-02 (14).png",
       "image_position": "50% 50%",
       "tags": ["amiga", "vila", "festival"]
     },
@@ -77,7 +77,7 @@
       "name": "Paçoca e Pitchula",
       "category": "Personagens",
       "description": "Os cães de Laurinho e Pérola. Brincalhões e hiperativos, pulam em Ariel quando ele chega com encomendas.",
-      "image": "capitulo-02/c2-p (15).png",
+      "image": "capitulo-02/cap-02 (15).png",
       "image_position": "50% 50%",
       "tags": ["animais", "caes", "brincalhoes"]
     },
@@ -86,7 +86,7 @@
       "name": "Dona Rosa e Dona Rosinha",
       "category": "Personagens",
       "description": "Duas elfas idosas da vila. Compram sementes de ojja e lembram Ariel do talento de sua mãe para ornamentar flores.",
-      "image": "capitulo-02/c2-p (24).png",
+      "image": "capitulo-02/cap-02 (24).png",
       "image_position": "50% 50%",
       "tags": ["ancianidade", "flores", "memoria"]
     },
@@ -95,7 +95,7 @@
       "name": "Peleco",
       "category": "Personagens",
       "description": "Elfo magricelo e estiloso, amigo de infância de Ariel. Encontra Ariel no mercado e o leva para ver o Profeta.",
-      "image": "capitulo-02/c2-p (27).png",
+      "image": "capitulo-02/cap-02 (27).png",
       "image_position": "50% 50%",
       "tags": ["amigo", "mercado", "descontraido"]
     },
@@ -104,7 +104,7 @@
       "name": "O Profeta",
       "category": "Personagens",
       "description": "Morador do mercado que afirma prever todas as coisas; suas previsões são inusitadas, óbvias ou confusas.",
-      "image": "capitulo-02/c2-p (28).png",
+      "image": "capitulo-02/cap-02 (28).png",
       "image_position": "50% 50%",
       "tags": ["mercado", "profeta", "enigmatico"]
     },
@@ -113,7 +113,7 @@
       "name": "Mercador de Vendas",
       "category": "Personagens",
       "description": "Vendedor experiente do mercado que tenta ensinar truques de comércio e comunicação a Ariel para chamar clientes.",
-      "image": "capitulo-02/c2-p (28).png",
+      "image": "capitulo-02/cap-02 (28).png",
       "image_position": "50% 50%",
       "tags": ["mercado", "vendedor", "dicas"]
     },
@@ -122,7 +122,7 @@
       "name": "Anciã Donalhina",
       "category": "Personagens",
       "description": "Anciã respeitada do conselho da vila. Encanta-se com as flores de Ariel e compra todo o estoque para a decoração do festival.",
-      "image": "capitulo-02/c2-p (29).png",
+      "image": "capitulo-02/cap-02 (29).png",
       "image_position": "50% 50%",
       "tags": ["conselho", "ancia", "festival"]
     },
@@ -131,7 +131,7 @@
       "name": "Flor do Luar",
       "category": "Botânica",
       "description": "Flor rara e mágica pesquisada por Ariel, ligada ao legado de seus pais e ao objetivo central de sua pesquisa botânica.",
-      "image": "capitulo-01/c1-p (1).png",
+      "image": "capitulo-01/cap-01 (1).png",
       "image_position": "50% 50%",
       "tags": ["magica", "rara", "luar"]
     },
@@ -140,7 +140,7 @@
       "name": "Bau Bau Loo",
       "category": "Botânica",
       "description": "Planta cujo extrato Ariel entrega a Seu Neves para dar liga e cremosidade às receitas artesanais de sorvete.",
-      "image": "capitulo-02/c2-p (10).png",
+      "image": "capitulo-02/cap-02 (10).png",
       "image_position": "50% 50%",
       "tags": ["culinaria", "sorvete", "extrato"]
     },
@@ -149,7 +149,7 @@
       "name": "Urso-Polar",
       "category": "Botânica",
       "description": "Flor de pétalas aveludadas e brancas que Ariel entrega a Laurinho e Pérola no Capítulo 2.",
-      "image": "capitulo-02/c2-p (14).png",
+      "image": "capitulo-02/cap-02 (14).png",
       "image_position": "50% 50%",
       "tags": ["branca", "aveludada", "presente"]
     },
@@ -158,7 +158,7 @@
       "name": "Sementes de ojja",
       "category": "Botânica",
       "description": "Sementes especiais para cultivo ornamental que Ariel entrega a Dona Rosa e Dona Rosinha na vila.",
-      "image": "capitulo-02/c2-p (24).png",
+      "image": "capitulo-02/cap-02 (24).png",
       "image_position": "50% 50%",
       "tags": ["sementes", "cultivo", "ornamental"]
     },
@@ -167,7 +167,7 @@
       "name": "Ervas medicinais",
       "category": "Botânica",
       "description": "Mistura de folhas aromáticas e medicinais que Ariel utiliza para preparar um chá de cura seguindo os cadernos de sua mãe.",
-      "image": "capitulo-02/c2-p (31).png",
+      "image": "capitulo-02/cap-02 (31).png",
       "image_position": "50% 50%",
       "tags": ["cura", "cha", "aromaticas"]
     },
@@ -176,7 +176,7 @@
       "name": "Vila Bigode da Rosa",
       "category": "Lugares",
       "description": "Povoado acolhedor para onde Ariel caminha empurrando seu carrinho de flores e encomendas.",
-      "image": "capitulo-01/c1-p (1).png",
+      "image": "capitulo-01/cap-01 (1).png",
       "image_position": "50% 50%",
       "tags": ["vila", "comunidade", "cenario"]
     },
@@ -185,7 +185,7 @@
       "name": "Cabana de Ariel",
       "category": "Lugares",
       "description": "Refúgio e ateliê botânico de Ariel isolado no coração da floresta mágica, repleto de estufas, anotações e sementes.",
-      "image": "capitulo-01/c1-p (1).png",
+      "image": "capitulo-01/cap-01 (1).png",
       "image_position": "50% 50%",
       "tags": ["casa", "atelie", "floresta"]
     },
@@ -194,7 +194,7 @@
       "name": "Mercado da vila",
       "category": "Lugares",
       "description": "Área comercial efervescente da vila onde Ariel encontra comerciantes, anciãos e amigos em dias de feira.",
-      "image": "capitulo-02/c2-p (27).png",
+      "image": "capitulo-02/cap-02 (27).png",
       "image_position": "50% 50%",
       "tags": ["feira", "comercio", "encontros"]
     }

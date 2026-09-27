@@ -74,8 +74,8 @@ Crie quatro telas responsivas para o portal autoral de webtoon “O Caminho das 
 ## Fontes visuais e prompts de geração
 
 - Logo: `capitulo-01/Logo - Capítulo 01.png`.
-- Ariel e cena-base: `capitulo-01/c1-p (1).png`.
-- Peinha, Pizeudo e Plenitude: `capitulo-01/c1-p (10).png` e `capitulo-01/c1-p (11).png`.
+- Ariel e cena-base: `capitulo-01/cap-01 (1).png`.
+- Peinha, Pizeudo e Plenitude: `capitulo-01/cap-01 (10).png` e `capitulo-01/cap-01 (11).png`.
 - Fórmula aplicada: personagem/cena central + espaço botânico funcional + traço 2D da webtoon + luz suave noturna + paleta acima + tela paisagem.
 - Entrada: Ariel na floresta como convite à leitura, com dois cartões de capítulo.
 - Leitor: painel original vertical em foco, navegação mínima em moldura botânica escura.

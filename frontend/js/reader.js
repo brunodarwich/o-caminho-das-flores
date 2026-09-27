@@ -1,7 +1,7 @@
 (() => {
   const fallbackChapters = {
-    1: { id: 1, title: 'Céu Azul', label: 'Capítulo 1 · Céu Azul', folder: 'capitulo-01', prefix: 'c1-p', count: 20 },
-    2: { id: 2, title: 'A Vizinha', label: 'Capítulo 2 · A Vizinha', folder: 'capitulo-02', prefix: 'c2-p', count: 36 }
+    1: { id: 1, title: 'Céu Azul', label: 'Capítulo 1 · Céu Azul', folder: 'capitulo-01', prefix: 'cap-01', count: 19 },
+    2: { id: 2, title: 'A Vizinha', label: 'Capítulo 2 · A Vizinha', folder: 'capitulo-02', prefix: 'cap-02', count: 38 }
   };
 
   let chapters = { ...fallbackChapters };
@@ -165,16 +165,17 @@
       const response = await fetch('/api/chapters');
       if (response.ok) {
         const data = await response.json();
-        if (Array.isArray(data) && data.length > 0) {
+        const list = Array.isArray(data) ? data : (data.items || []);
+        if (list.length > 0) {
           const map = {};
-          data.forEach(ch => {
+          list.forEach(ch => {
             map[ch.id] = {
               id: ch.id,
               title: ch.title,
               label: `Capítulo ${ch.id} · ${ch.title}`,
               folder: ch.folder,
               prefix: ch.prefix,
-              count: ch.total_panels
+              count: ch.panel_count || ch.total_panels || ch.count
             };
           });
           chapters = map;
