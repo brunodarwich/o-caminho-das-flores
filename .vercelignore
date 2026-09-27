@@ -1,0 +1,14 @@
+# Vercel Ignore File — Apenas arquivos estáticos do portal e capítulos
+backend/
+docs/
+templates/
+referencia-telas/
+scratch/
+.git/
+.vscode/
+*.bat
+*.csv
+quebra-cabeca*.png
+banner-ocdf-c1.png
+cover-cap-1.png
+cover-cap-2.png
