@@ -8,8 +8,9 @@ window.OCDF_MEDIA = {
   },
   wiki: {},
   puzzle: {
-    ariel: null,
-    village: null
+    scene1: 'assets/photos/puzzle/cena-1-fruto-da-luz.png',
+    scene2: 'assets/photos/puzzle/cena-2-carroca-de-flores.png',
+    scene3: 'assets/photos/puzzle/cena-3-o-ganso-e-amigos.png'
   }
 };
 

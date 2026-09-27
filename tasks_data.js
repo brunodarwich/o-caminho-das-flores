@@ -1,4 +1,4 @@
-window.__TASKS_DATA__ = {
+window.TASKS_DATA = {
   "project": {
     "name": "O Caminho das Flores — Plataforma Webtoon",
     "summary": "Plataforma web autoral e imersiva para o universo da webtoon 'O Caminho das Flores', com leitor vertical contínuo sem emendas (zero-gap), mini-jogos relaxantes (quebra-cabeça) e Wiki viva com o lore e a botânica mística da história de Ariel.",
@@ -258,14 +258,15 @@ window.__TASKS_DATA__ = {
     },
     {
       "id": "TASK-014",
-      "title": "Mini-Jogo: Quebra-Cabeça Interativo (Jigsaw Puzzle)",
-      "description": "Implementação do jogo de quebra-cabeça com Canvas/HTML5 Drag & Drop, seleção de imagem entre as artes da webtoon, níveis de peças e feedback de vitória zen.",
+      "title": "Mini-Jogo: Quebra-Cabeça Interativo com Encaixes Reais (Jigsaw Tabs)",
+      "description": "Implementação de peças orgânicas com curvas de encaixe clássicas (Jigsaw Bézier Tabs e Blanks), renderização vetorial SVG de alta definição, 3 modelos de cenas oficiais do Bruno (Fruto da Luz, Carroça de Flores, O Ganso e Amigos), feedback sonoro zen e suporte a drag & drop / toque mobile.",
       "status": "done",
       "milestone": "m4_frontend_ui",
       "tier": "tier2_fast",
       "indicators": [
-        "Encaixe de peças fluido em mouse e touch mobile",
-        "Comemoração sutil ao concluir o quebra-cabeça"
+        "Peças com encaixes curvos macho/fêmea e bordas complementares perfeitas",
+        "3 modelos oficiais de cenas integrados com enquadramento de foco artístico",
+        "Feedback visual e sonoro de encaixe e conclusão comemorativa"
       ],
       "audit_confirmed": true,
       "created_at": "2026-09-26",
