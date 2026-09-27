@@ -116,6 +116,44 @@ def test_telemetry_event():
     assert data["event_name"] == "chapter_finished"
     assert "recorded_at" in data
 
+def test_telemetry_prd_events():
+    # Teste de início e conclusão de leitura
+    res_start = client.post("/api/telemetry", json={
+        "event_name": "reader_chapter_started",
+        "payload": {"chapter_id": 1, "chapter_title": "Céu Azul"}
+    })
+    assert res_start.status_code == 200
+    assert res_start.json()["event_name"] == "reader_chapter_started"
+
+    res_comp = client.post("/api/telemetry", json={
+        "event_name": "reader_chapter_completed",
+        "payload": {"chapter_id": 1, "time_spent_seconds": 95}
+    })
+    assert res_comp.status_code == 200
+    assert res_comp.json()["event_name"] == "reader_chapter_completed"
+
+    # Teste de puzzle
+    res_puzzle = client.post("/api/telemetry", json={
+        "event_name": "puzzle_game_completed",
+        "payload": {"image_id": "fruto_da_luz", "difficulty_level": "facil", "elapsed_seconds": 45}
+    })
+    assert res_puzzle.status_code == 200
+    assert res_puzzle.json()["event_name"] == "puzzle_game_completed"
+
+    # Teste de alias compatibilidade (event_type e metadata)
+    res_alias = client.post("/api/telemetry", json={
+        "event_type": "wiki_entry_viewed",
+        "metadata": {"entry_id": "ariel", "category": "Personagens"}
+    })
+    assert res_alias.status_code == 200
+    assert res_alias.json()["event_name"] == "wiki_entry_viewed"
+
+    # Teste do endpoint de sumário
+    res_summary = client.get("/api/telemetry/summary")
+    assert res_summary.status_code == 200
+    summary_data = res_summary.json()
+    assert "recent_events" in summary_data or "status" in summary_data
+
 def test_static_media_mount():
     res = client.get("/media/capitulo-01/Logo%20-%20Cap%C3%ADtulo%2001.png")
     assert res.status_code == 200

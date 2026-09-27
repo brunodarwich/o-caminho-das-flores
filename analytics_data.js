@@ -1,24 +1,24 @@
 window.__ANALYTICS_DATA__ = {
   "project": {
     "name": "O Caminho das Flores — Plataforma Webtoon",
-    "last_updated": "2026-09-26",
+    "last_updated": "2026-09-27",
     "currency_primary": "BRL",
     "currency_secondary": "USD"
   },
   "kpis": {
-    "active_users_daily": 0,
-    "active_users_monthly": 0,
+    "active_users_daily": 3,
+    "active_users_monthly": 3,
     "total_signups": 0,
     "mrr_brl": 0.0,
     "mrr_usd": 0.0,
     "checkout_conversion_rate": 0.0,
-    "activation_rate": 3.0
+    "activation_rate": 10.0
   },
   "funnel": [
     {
       "step": "Descoberta / Visitantes",
-      "count": 0,
-      "conversion_percentage": 0.0
+      "count": 3,
+      "conversion_percentage": 100.0
     },
     {
       "step": "Cadastros (Signups)",
@@ -27,8 +27,8 @@ window.__ANALYTICS_DATA__ = {
     },
     {
       "step": "Ativação (Aha! Moment)",
-      "count": 0,
-      "conversion_percentage": 0.0
+      "count": 6,
+      "conversion_percentage": 200.0
     },
     {
       "step": "Checkout Iniciado",
@@ -43,27 +43,168 @@ window.__ANALYTICS_DATA__ = {
   ],
   "events_catalog": [
     {
-      "event_name": "user_signed_up",
-      "description": "Disparado ao concluir cadastro",
-      "target_kpi": "total_signups"
+      "event_name": "reader_chapter_started",
+      "description": "Disparado ao abrir um capítulo no leitor",
+      "target_kpi": "active_users_daily"
     },
     {
-      "event_name": "feature_core_used",
-      "description": "Disparado ao gerar primeiro resultado (Ativação)",
+      "event_name": "reader_chapter_completed",
+      "description": "Disparado ao atingir o último painel do capítulo",
       "target_kpi": "activation_rate"
     },
     {
-      "event_name": "checkout_started",
-      "description": "Disparado ao abrir tela de checkout",
-      "target_kpi": "checkout_conversion_rate"
+      "event_name": "puzzle_game_started",
+      "description": "Disparado ao iniciar um quebra-cabeça",
+      "target_kpi": "active_users_daily"
     },
     {
-      "event_name": "payment_completed",
-      "description": "Webhook confirmado de assinatura ou compra",
-      "target_kpi": "mrr_brl"
+      "event_name": "puzzle_game_completed",
+      "description": "Disparado ao encaixar a última peça com sucesso",
+      "target_kpi": "activation_rate"
+    },
+    {
+      "event_name": "wiki_entry_viewed",
+      "description": "Disparado ao abrir card com detalhes de personagem ou botânica",
+      "target_kpi": "active_users_daily"
+    },
+    {
+      "event_name": "share_button_clicked",
+      "description": "Disparado ao acionar o botão de compartilhar",
+      "target_kpi": "checkout_conversion_rate"
     }
   ],
   "recent_events": [
+    {
+      "event_name": "wiki_entry_viewed",
+      "payload": {
+        "entry_id": "ariel",
+        "category": "Personagens"
+      },
+      "recorded_at": "2026-09-27T11:44:30.865223+00:00"
+    },
+    {
+      "event_name": "puzzle_game_completed",
+      "payload": {
+        "image_id": "fruto_da_luz",
+        "difficulty_level": "facil",
+        "elapsed_seconds": 45
+      },
+      "recorded_at": "2026-09-27T11:44:30.848364+00:00"
+    },
+    {
+      "event_name": "reader_chapter_completed",
+      "payload": {
+        "chapter_id": 1,
+        "time_spent_seconds": 95
+      },
+      "recorded_at": "2026-09-27T11:44:30.837176+00:00"
+    },
+    {
+      "event_name": "reader_chapter_started",
+      "payload": {
+        "chapter_id": 1,
+        "chapter_title": "Céu Azul"
+      },
+      "recorded_at": "2026-09-27T11:44:30.817718+00:00"
+    },
+    {
+      "event_name": "chapter_finished",
+      "payload": {
+        "chapter_id": 1,
+        "read_time_seconds": 120
+      },
+      "recorded_at": "2026-09-27T11:44:30.807379+00:00"
+    },
+    {
+      "event_name": "wiki_entry_viewed",
+      "payload": {
+        "entry_id": "ariel",
+        "category": "Personagens"
+      },
+      "recorded_at": "2026-09-27T11:42:53.317583+00:00"
+    },
+    {
+      "event_name": "puzzle_game_completed",
+      "payload": {
+        "image_id": "fruto_da_luz",
+        "difficulty_level": "facil",
+        "elapsed_seconds": 45
+      },
+      "recorded_at": "2026-09-27T11:42:53.300389+00:00"
+    },
+    {
+      "event_name": "reader_chapter_completed",
+      "payload": {
+        "chapter_id": 1,
+        "time_spent_seconds": 95
+      },
+      "recorded_at": "2026-09-27T11:42:53.267244+00:00"
+    },
+    {
+      "event_name": "reader_chapter_started",
+      "payload": {
+        "chapter_id": 1,
+        "chapter_title": "Céu Azul"
+      },
+      "recorded_at": "2026-09-27T11:42:53.260178+00:00"
+    },
+    {
+      "event_name": "chapter_finished",
+      "payload": {
+        "chapter_id": 1,
+        "read_time_seconds": 120
+      },
+      "recorded_at": "2026-09-27T11:42:53.246654+00:00"
+    },
+    {
+      "event_name": "wiki_entry_viewed",
+      "payload": {
+        "entry_id": "ariel",
+        "category": "Personagens"
+      },
+      "recorded_at": "2026-09-27T11:39:37.388869+00:00"
+    },
+    {
+      "event_name": "puzzle_game_completed",
+      "payload": {
+        "image_id": "fruto_da_luz",
+        "difficulty_level": "facil",
+        "elapsed_seconds": 45
+      },
+      "recorded_at": "2026-09-27T11:39:37.371585+00:00"
+    },
+    {
+      "event_name": "reader_chapter_completed",
+      "payload": {
+        "chapter_id": 1,
+        "time_spent_seconds": 95
+      },
+      "recorded_at": "2026-09-27T11:39:37.355706+00:00"
+    },
+    {
+      "event_name": "reader_chapter_started",
+      "payload": {
+        "chapter_id": 1,
+        "chapter_title": "Céu Azul"
+      },
+      "recorded_at": "2026-09-27T11:39:37.335556+00:00"
+    },
+    {
+      "event_name": "chapter_finished",
+      "payload": {
+        "chapter_id": 1,
+        "read_time_seconds": 120
+      },
+      "recorded_at": "2026-09-27T11:39:37.315169+00:00"
+    },
+    {
+      "event_name": "chapter_finished",
+      "payload": {
+        "chapter_id": 1,
+        "read_time_seconds": 120
+      },
+      "recorded_at": "2026-09-27T11:37:16.673340+00:00"
+    },
     {
       "event_name": "chapter_finished",
       "payload": {

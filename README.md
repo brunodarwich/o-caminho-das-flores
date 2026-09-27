@@ -6,7 +6,9 @@
 2. O navegador abrirá `http://localhost:8001/frontend/`.
 3. Use o menu **Início**, **Leitor**, **Quebra-cabeça** e **Wiki**. Para encerrar o servidor, feche a janela preta aberta pelo arquivo `.bat`.
 
-O portal usa a logo e os painéis PNG originais das pastas `capitulo-01/` e `capitulo-02/`. O fundo neutro fica em `frontend/assets/backgrounds/neutral-background.png`. O frontend funciona com dados locais enquanto a integração com o backend FastAPI aguarda implementação.
+O portal usa a logo e os painéis PNG originais das pastas `capitulo-01/` e `capitulo-02/`. O fundo neutro fica em `frontend/assets/backgrounds/neutral-background.png`. O frontend consulta o backend FastAPI quando ele está disponível e mantém dados locais para uso offline.
+
+A interface orienta a atenção para a leitura: chamada e botão principal na entrada, capítulos numerados, painéis em destaque no leitor, tabuleiro enquadrado no jogo e busca evidente na Wiki. As transições são breves e são reduzidas quando o sistema pede menos movimento. A regra visual está em `docs/DESIGN_SYSTEM_STITCH.md`.
 
 As fotos que Bruno enviar para a entrada, Wiki ou quebra-cabeça terão lugar em `frontend/assets/photos/`. Os espaços correspondentes estão definidos em `frontend/js/media.js` e aguardam os arquivos finais. Os mockups gerados para revisão ficam separados em `docs/mockups/marco-2/desktop/`, `mobile/` e `rascunhos/`.
 

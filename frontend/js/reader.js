@@ -17,6 +17,8 @@
 
   let activeChapter = '1';
   let progressFrame = false;
+  let chapterStartTime = Date.now();
+  let chapterCompletedFired = false;
 
   function panelPath(chapter, index) {
     const data = chapters[chapter] || chapters['1'];
@@ -73,6 +75,9 @@
     }
     page.append(fragment);
 
+    chapterStartTime = Date.now();
+    chapterCompletedFired = false;
+
     // Reseta barras de progresso
     const totalCount = data.count;
     const initialLabel = `01 / ${String(totalCount).padStart(2, '0')}`;
@@ -81,8 +86,15 @@
     if (readerProgressBar) readerProgressBar.style.width = '0%';
     if (mobileReaderFill) mobileReaderFill.style.width = '0%';
 
-    // Telemetria silenciosa
-    trackTelemetry('chapter_view', { chapter: chosen, title: data.title });
+    window.currentChapterId = Number(chosen);
+
+    // Telemetria oficial do PRD: início de leitura
+    const startPayload = { chapter_id: Number(chosen), chapter_title: data.title };
+    if (window.trackTelemetry) {
+      window.trackTelemetry('reader_chapter_started', startPayload);
+    } else {
+      trackTelemetry('reader_chapter_started', startPayload);
+    }
   }
 
   function updateProgress() {
@@ -99,6 +111,18 @@
 
     if (readerProgressBar) readerProgressBar.style.width = `${percent}%`;
     if (mobileReaderFill) mobileReaderFill.style.width = `${percent}%`;
+
+    // Conclusão de leitura ao atingir o final da rolagem
+    if (percent >= 90 && !chapterCompletedFired) {
+      chapterCompletedFired = true;
+      const elapsedSeconds = Math.max(1, Math.round((Date.now() - chapterStartTime) / 1000));
+      const compPayload = { chapter_id: Number(activeChapter), time_spent_seconds: elapsedSeconds };
+      if (window.trackTelemetry) {
+        window.trackTelemetry('reader_chapter_completed', compPayload);
+      } else {
+        trackTelemetry('reader_chapter_completed', compPayload);
+      }
+    }
 
     // Calcula o painel visível
     const panels = page.querySelectorAll('.reader-panel');
@@ -124,12 +148,12 @@
     if (mobileReaderCounter) mobileReaderCounter.textContent = countText;
   }
 
-  async function trackTelemetry(eventType, metadata = {}) {
+  async function trackTelemetry(eventName, payload = {}) {
     try {
       await fetch('/api/telemetry', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ event_type: eventType, metadata })
+        body: JSON.stringify({ event_name: eventName, payload })
       });
     } catch {
       // Offline / local execution

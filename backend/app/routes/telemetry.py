@@ -11,7 +11,7 @@ ANALYTICS_JS_PATH = Path(__file__).resolve().parent.parent.parent.parent / "anal
 
 @router.post("", response_model=TelemetryResponse)
 def record_event(event: TelemetryEvent):
-    """Registra evento de leitura, quebra-cabeça ou navegação no arquivo de telemetria."""
+    """Registra evento de leitura, quebra-cabeça, wiki ou navegação no arquivo de telemetria."""
     now_iso = datetime.now(timezone.utc).isoformat()
     recorded_at = event.timestamp or now_iso
     
@@ -33,18 +33,47 @@ def record_event(event: TelemetryEvent):
             data["recent_events"] = data["recent_events"][:50]
             data["project"]["last_updated"] = datetime.now(timezone.utc).strftime("%Y-%m-%d")
             
-            # Atualiza contadores simples se aplicável
-            kpis = data.get("kpis", {})
-            if event.event_name == "chapter_finished":
-                kpis["activation_rate"] = min(100.0, kpis.get("activation_rate", 0) + 1.0)
+            # Atualiza KPIs e Funil com métricas reais
+            kpis = data.setdefault("kpis", {})
+            funnel = data.setdefault("funnel", [])
             
+            if event.event_name in ["reader_chapter_completed", "chapter_finished"]:
+                current_act = kpis.get("activation_rate", 0.0)
+                kpis["activation_rate"] = min(100.0, round(current_act + 1.0, 1))
+                for step in funnel:
+                    if "Ativação" in step.get("step", ""):
+                        step["count"] = step.get("count", 0) + 1
+            elif event.event_name in ["reader_chapter_started", "chapter_view"]:
+                kpis["active_users_daily"] = kpis.get("active_users_daily", 0) + 1
+                kpis["active_users_monthly"] = max(kpis["active_users_daily"], kpis.get("active_users_monthly", 0))
+                for step in funnel:
+                    if "Descoberta" in step.get("step", ""):
+                        step["count"] = step.get("count", 0) + 1
+            elif event.event_name in ["puzzle_game_started", "puzzle_game_completed", "wiki_entry_viewed", "share_button_clicked"]:
+                if kpis.get("active_users_daily", 0) == 0:
+                    kpis["active_users_daily"] = 1
+                if kpis.get("active_users_monthly", 0) == 0:
+                    kpis["active_users_monthly"] = 1
+
+            # Recalcula conversões no funil se houver visitantes
+            visitors = 0
+            for step in funnel:
+                if "Descoberta" in step.get("step", ""):
+                    visitors = step.get("count", 0)
+                    break
+            
+            if visitors > 0:
+                for step in funnel:
+                    cnt = step.get("count", 0)
+                    step["conversion_percentage"] = round((cnt / visitors) * 100, 1)
+
             with open(ANALYTICS_PATH, "w", encoding="utf-8") as f:
                 json.dump(data, f, indent=2, ensure_ascii=False)
                 
             # Sincroniza analytics_data.js para leitura direta sem CORS
             with open(ANALYTICS_JS_PATH, "w", encoding="utf-8") as f:
                 f.write(f"window.__ANALYTICS_DATA__ = {json.dumps(data, indent=2, ensure_ascii=False)};\n")
-        except Exception as e:
+        except Exception:
             # Falha silenciosa de escrita para manter resiliência
             pass
             

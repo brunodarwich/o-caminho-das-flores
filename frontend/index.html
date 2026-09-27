@@ -12,7 +12,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   
-  <link rel="stylesheet" href="css/style.css?v=6.0">
+  <link rel="stylesheet" href="css/style.css?v=7.3">
   <script src="js/media.js" defer></script>
   <script src="js/app.js" defer></script>
   <script src="js/reader.js" defer></script>
@@ -26,6 +26,7 @@
     <div class="header-inner content-width">
       <a class="brand" href="#inicio" aria-label="O Caminho das Flores, início">
         <img src="../capitulo-01/Logo%20-%20Cap%C3%ADtulo%2001.png" alt="O Caminho das Flores">
+        <span class="brand-wordmark" aria-hidden="true">O Caminho <span>das Flores</span></span>
       </a>
       
       <!-- Central Navigation Pill Capsule -->
@@ -58,14 +59,16 @@
       <!-- Hero Banner Imersivo de Ariel -->
       <div class="hero-banner-wrap">
         <div class="hero-shell content-width">
-          <div class="hero-copy">
-            <span class="hero-eyebrow">BEM-VINDO A O CAMINHO DAS FLORES</span>
+          <div class="hero-copy-top">
+            <span class="hero-eyebrow">UMA HISTÓRIA PARA SENTIR COM CALMA</span>
             <h1 class="hero-heading">Um refúgio entre<br>histórias e flores</h1>
             <p class="hero-subtext">Acompanhe Ariel em uma jornada de descoberta e presença.</p>
-            
+          </div>
+
+          <div class="hero-copy-bottom">
             <div class="hero-buttons">
               <a class="btn-hero-primary" href="#leitor" data-open-chapter="1">
-                <span class="btn-leaf-icon">🌿</span> Começar a ler <span class="btn-chevron">›</span>
+                <span class="btn-leaf-icon" aria-hidden="true">🌿</span> Ler o primeiro capítulo <span class="btn-chevron" aria-hidden="true">›</span>
               </a>
               <a class="btn-hero-secondary" href="#wiki">
                 Explorar a Wiki <span class="btn-chevron">›</span>
@@ -78,23 +81,13 @@
               <span class="flourish-line"></span>
             </div>
           </div>
-          
-          <!-- Placa de madeira decorativa (Desktop) -->
-          <div class="hero-wooden-sign" aria-hidden="true">
-            <div class="wooden-board">
-              <span>Aqui</span>
-              <span>também</span>
-              <span>há</span>
-              <span>vida boa.</span>
-              <span class="sign-leaf">🌿</span>
-            </div>
-          </div>
         </div>
       </div>
 
       <!-- Seção Comece sua jornada -->
       <section class="journey-section content-width">
         <div class="journey-header">
+          <p class="section-kicker">A SUA JORNADA COMEÇA AQUI</p>
           <div class="section-divider">
             <span class="divider-line"></span>
             <span class="divider-leaf">🌿</span>
@@ -102,13 +95,17 @@
             <span class="divider-leaf">🌿</span>
             <span class="divider-line"></span>
           </div>
+          <p class="journey-swipe-hint">Deslize para ver os capítulos <span aria-hidden="true">→</span></p>
         </div>
         
         <div class="journey-content-grid">
           <div class="journey-cards-grid">
             <!-- Card Capítulo 1 -->
             <button class="journey-card" type="button" data-open-chapter="1" aria-label="Abrir Capítulo 1: Céu Azul">
-              <div class="journey-card-image" style="background-image: url('../capitulo-01/c1-p%20(1).png'); background-position: center 25%;"></div>
+              <div class="journey-card-cover">
+                <img src="assets/covers/cover-cap-1.png" alt="Capa Capítulo 1: Céu Azul" class="journey-cover-img" loading="lazy">
+                <span class="chapter-sequence" aria-hidden="true">01 <span>COMECE AQUI</span></span>
+              </div>
               <div class="journey-card-pill">
                 <span class="pill-leaf">🌿</span>
                 <span class="pill-label">Capítulo 1 · Céu Azul</span>
@@ -118,7 +115,10 @@
             
             <!-- Card Capítulo 2 -->
             <button class="journey-card" type="button" data-open-chapter="2" aria-label="Abrir Capítulo 2: A Vizinha">
-              <div class="journey-card-image" style="background-image: url('../capitulo-02/c2-p%20(3).png'); background-position: center 38%;"></div>
+              <div class="journey-card-cover">
+                <img src="assets/covers/cover-cap-2.png" alt="Capa Capítulo 2: A Vizinha" class="journey-cover-img" loading="lazy">
+                <span class="chapter-sequence" aria-hidden="true">02 <span>CONTINUE A HISTÓRIA</span></span>
+              </div>
               <div class="journey-card-pill">
                 <span class="pill-leaf">🌿</span>
                 <span class="pill-label">Capítulo 2 · A Vizinha</span>
@@ -204,6 +204,7 @@
     <section class="view content-width" id="view-quebra-cabeca" data-view="quebra-cabeca" hidden>
       <!-- Cabeçalho Elegante do Quebra-Cabeça -->
       <div class="puzzle-header-block">
+        <p class="section-kicker">UMA PAUSA ENTRE CAPÍTULOS</p>
         <h1 class="puzzle-main-title">Um momento para montar e respirar</h1>
         <p class="puzzle-subtitle">Escolha uma cena e encontre seu ritmo.</p>
       </div>
@@ -287,6 +288,7 @@
     <section class="view content-width" id="view-wiki" data-view="wiki" hidden>
       <!-- Cabeçalho da Wiki -->
       <div class="wiki-header-block">
+        <p class="section-kicker">DESCUBRA O UNIVERSO</p>
         <h1 class="wiki-main-title">Explore o universo das flores <span class="title-leaf">🌿</span></h1>
         <p class="wiki-subtitle">Personagens, lugares e plantas que florescem nesta história.</p>
       </div>

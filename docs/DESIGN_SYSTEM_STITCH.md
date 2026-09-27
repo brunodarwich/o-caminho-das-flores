@@ -38,6 +38,19 @@ Os PNGs são **estudos visuais**, não telas funcionais. Texto dentro de imagens
 
 ## Componentes e comportamento
 
+### Princípio de orientação da atenção
+
+Cada tela deve deixar evidente o próximo passo mais valioso para o visitante. A hierarquia usa, nesta ordem, **enquadramento**, **contraste**, **escala** e **movimento breve**. Um elemento secundário nunca deve competir visualmente com a ação principal; decoração e animação nunca aparecem sobre os painéis da webtoon.
+
+| Tela | Primeiro foco | Segundo foco | Tratamento visual |
+|---|---|---|---|
+| Entrada | Ler o primeiro capítulo | Escolher um capítulo ou explorar a Wiki | Chamada com contraste sobre a arte; botão de leitura mais claro; primeiro capítulo enquadrado e numerado |
+| Leitor | Arte original em sequência | Controles e progresso | Painéis centrais com moldura discreta; barra de controle compacta fora da arte |
+| Quebra-Cabeça | Tabuleiro | Cena, dificuldade e reinício | Tabuleiro com contorno sálvia; controles agrupados e menos contrastantes |
+| Wiki | Busca e filtros | Abrir uma ficha | Campo de busca em marfim; cartões em grade com realce apenas na interação |
+
+O movimento confirma a mudança de tela e revela os cartões ao entrarem na área visível. Sua duração é curta, não se repete em ciclo e respeita `prefers-reduced-motion`. Foco de teclado sempre recebe contorno visível.
+
 - Navegação principal: `Ler`, `Quebra-Cabeça`, `Wiki`, com estado ativo evidente e sempre acessível.
 - Entrada: chamada principal, botão de leitura, acesso à Wiki e cartões dos Capítulos 1 e 2.
 - Leitor: coluna central dimensionada pela arte, imagens originais em sequência sem margem ou espaçamento; controles fora da área do painel; modo foco ao rolar.

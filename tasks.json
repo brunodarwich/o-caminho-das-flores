@@ -3,11 +3,11 @@
     "name": "O Caminho das Flores — Plataforma Webtoon",
     "summary": "Plataforma web autoral e imersiva para o universo da webtoon 'O Caminho das Flores', com leitor vertical contínuo sem emendas (zero-gap), mini-jogos relaxantes (quebra-cabeça) e Wiki viva com o lore e a botânica mística da história de Ariel.",
     "version": "1.0.0",
-    "last_updated": "2026-09-26",
+    "last_updated": "2026-09-27",
     "metrics": {
-      "total_tasks": 19,
-      "completed_tasks": 16,
-      "progress_percentage": 84.2
+      "total_tasks": 20,
+      "completed_tasks": 20,
+      "progress_percentage": 100.0
     }
   },
   "milestones": [
@@ -303,46 +303,65 @@
       "completed_at": "2026-09-26"
     },
     {
+      "id": "TASK-020",
+      "title": "Hierarquia de atenção e motion design do portal",
+      "description": "Refinamento da entrada, capítulos, leitor, quebra-cabeça e Wiki para conduzir a atenção à ação principal de cada tela, com transições breves, responsividade e movimento reduzido.",
+      "status": "done",
+      "milestone": "m4_frontend_ui",
+      "tier": "tier3_review",
+      "indicators": [
+        "Leitura e primeiro capítulo possuem prioridade visual clara",
+        "Busca da Wiki e tabuleiro do quebra-cabeça são os focos de suas telas",
+        "Navegação responsiva e preferência por menos movimento verificadas"
+      ],
+      "audit_confirmed": true,
+      "created_at": "2026-09-27",
+      "completed_at": "2026-09-27"
+    },
+    {
       "id": "TASK-017",
       "title": "Catálogo de Telemetria e Registro em analytics.json",
       "description": "Disparo dos eventos de leitura e jogos definidos no PRD, alimentando analytics.json com métricas reais de engajamento.",
-      "status": "todo",
+      "status": "done",
       "milestone": "m5_auditoria_growth",
       "tier": "tier2_fast",
       "indicators": [
         "Eventos de conclusão de leitura e puzzle registrados",
         "analytics.json atualizado com dados autênticos"
       ],
-      "audit_confirmed": false,
-      "created_at": "2026-09-26"
+      "audit_confirmed": true,
+      "created_at": "2026-09-26",
+      "completed_at": "2026-09-27"
     },
     {
       "id": "TASK-018",
       "title": "Auditoria Estrita Tier 3 & Critérios de Aceite",
       "description": "Auditoria minuciosa contra todos os critérios de aceite do PRD, ausência de console errors, conformidade dos 21 princípios e validação visual.",
-      "status": "todo",
+      "status": "done",
       "milestone": "m5_auditoria_growth",
       "tier": "tier3_review",
       "indicators": [
         "Checklist de critérios de aceite 100% cumprido",
         "Parecer formal de auditoria Tier 3 aprovado"
       ],
-      "audit_confirmed": false,
-      "created_at": "2026-09-26"
+      "audit_confirmed": true,
+      "created_at": "2026-09-26",
+      "completed_at": "2026-09-27"
     },
     {
       "id": "TASK-019",
       "title": "Commit Final, Git Push & Playbook de Deploy",
       "description": "Geração do DEPLOYMENT_GIT_PLAYBOOK.md com instruções clique a clique para deploy na Vercel/Render e sincronização final com o repositório remoto no GitHub.",
-      "status": "todo",
+      "status": "done",
       "milestone": "m5_auditoria_growth",
       "tier": "tier2_fast",
       "indicators": [
         "Repositório GitHub atualizado na branch main",
         "Playbook de deploy publicado e dashboard finalizado"
       ],
-      "audit_confirmed": false,
-      "created_at": "2026-09-26"
+      "audit_confirmed": true,
+      "created_at": "2026-09-26",
+      "completed_at": "2026-09-27"
     }
   ]
 }

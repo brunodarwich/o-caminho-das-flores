@@ -72,6 +72,12 @@
 
     modalBackdrop.hidden = false;
     document.body.style.overflow = 'hidden';
+
+    // Telemetria oficial do PRD: visualização de verbete da Wiki
+    window.trackTelemetry?.('wiki_entry_viewed', {
+      entry_id: entry.name.toLowerCase().replace(/\s+/g, '-'),
+      category: entry.category
+    });
   }
 
   function closeEntryModal() {

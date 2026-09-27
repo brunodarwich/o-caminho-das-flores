@@ -45,6 +45,8 @@
   let trayPieces = [];   // Array de pieceIds soltos na bandeja
   let selected = null;   // { from: 'tray' | 'board', pieceId: number, slotIndex?: number }
   let currentDrag = null;// Referência em memória para Drag & Drop 100% resiliente
+  let puzzleStartTime = Date.now();
+  let puzzleCompletedFired = false;
 
   const total = () => size * size;
 
@@ -304,6 +306,16 @@
       board.classList.toggle('has-selection', !!selected);
       if (isComplete && !wasComplete) {
         playZenTone('victory');
+        if (!puzzleCompletedFired) {
+          puzzleCompletedFired = true;
+          const elapsed = Math.max(1, Math.round((Date.now() - puzzleStartTime) / 1000));
+          const diffName = size === 3 ? 'facil' : (size === 5 ? 'desafio' : 'medio');
+          window.trackTelemetry?.('puzzle_game_completed', {
+            image_id: String(scene?.value || 1),
+            difficulty_level: diffName,
+            elapsed_seconds: elapsed
+          });
+        }
       }
     }
   }
@@ -420,11 +432,6 @@
         ghostPath.setAttribute('tabindex', '0');
         ghostPath.setAttribute('aria-label', `Espaço ${slotIndex + 1} vazio.`);
 
-        // Se uma peça está selecionada e este é o slot correspondente, destaca para guiar o usuário
-        if (selected && selected.pieceId === slotIndex) {
-          ghostPath.classList.add('is-matching-target');
-        }
-
         slotsLayer.appendChild(ghostPath);
       }
     }
@@ -539,14 +546,12 @@
           selected = { from: 'tray', pieceId };
           e.dataTransfer?.setData('text/plain', JSON.stringify(currentDrag));
           if (e.dataTransfer) e.dataTransfer.effectAllowed = 'move';
-          const matchingSlot = document.querySelector(`.slot-ghost-shape[data-slot-index="${pieceId}"]`);
-          if (matchingSlot) matchingSlot.classList.add('is-matching-target');
         });
 
         cardBtn.addEventListener('dragend', () => {
           currentDrag = null;
           document.querySelectorAll('.slot-ghost-shape').forEach(el => {
-            el.classList.remove('is-drag-target', 'is-matching-target', 'is-wrong-hover');
+            el.classList.remove('is-drag-target');
           });
         });
 
@@ -567,48 +572,25 @@
 
     if (selected) {
       tryPlacePiece(selected.pieceId, slotIndex);
-    } else {
-      // Se não havia peça selecionada e o jogador clicou num slot vazio, seleciona automaticamente essa peça na bandeja
-      if (boardSlots[slotIndex] === null && trayPieces.includes(slotIndex)) {
-        selected = { from: 'tray', pieceId: slotIndex };
-        playZenTone('snap');
-        render();
-      }
     }
   });
 
-  // FEEDBACK VISUAL DURANTE O DRAG OVER NO TABULEIRO
+  // FEEDBACK VISUAL DURANTE O DRAG OVER NO TABULEIRO (Neutro, sem pistas)
   board?.addEventListener('dragover', (e) => {
     e.preventDefault();
     if (e.dataTransfer) e.dataTransfer.dropEffect = 'move';
     const slotIndex = getTargetSlot(e);
-    const activePieceId = currentDrag?.pieceId ?? selected?.pieceId;
 
     document.querySelectorAll('.slot-ghost-shape').forEach(el => {
       const idx = Number(el.dataset.slotIndex);
-      if (idx === slotIndex) {
-        if (activePieceId !== undefined && idx === activePieceId) {
-          el.classList.add('is-matching-target');
-          el.classList.remove('is-wrong-hover');
-        } else {
-          el.classList.add('is-wrong-hover');
-          el.classList.remove('is-matching-target');
-        }
-      } else {
-        if (activePieceId !== undefined && idx === activePieceId) {
-          el.classList.add('is-matching-target');
-          el.classList.remove('is-wrong-hover');
-        } else {
-          el.classList.remove('is-matching-target', 'is-wrong-hover');
-        }
-      }
+      el.classList.toggle('is-drag-target', idx === slotIndex);
     });
   });
 
   board?.addEventListener('dragleave', (e) => {
     if (e.relatedTarget && board.contains(e.relatedTarget)) return;
     document.querySelectorAll('.slot-ghost-shape').forEach(el => {
-      el.classList.remove('is-matching-target', 'is-wrong-hover');
+      el.classList.remove('is-drag-target');
     });
   });
 
@@ -618,7 +600,7 @@
     lastDropTime = Date.now();
 
     document.querySelectorAll('.slot-ghost-shape').forEach(el => {
-      el.classList.remove('is-matching-target', 'is-wrong-hover');
+      el.classList.remove('is-drag-target');
     });
 
     const slotIndex = getTargetSlot(e);
@@ -678,6 +660,14 @@
 
       boardSlots = new Array(total()).fill(null);
       trayPieces = shuffle(Array.from({ length: total() }, (_, i) => i));
+
+      puzzleStartTime = Date.now();
+      puzzleCompletedFired = false;
+      const diffName = size === 3 ? 'facil' : (size === 5 ? 'desafio' : 'medio');
+      window.trackTelemetry?.('puzzle_game_started', {
+        image_id: String(chosenSceneId),
+        difficulty_level: diffName
+      });
 
       render();
     } catch (err) {

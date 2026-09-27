@@ -1,5 +1,5 @@
 from typing import Optional, List, Dict, Any
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, model_validator
 
 class Panel(BaseModel):
     index: int = Field(..., description="Ordem sequencial do painel no capítulo")
@@ -41,9 +41,19 @@ class WikiListResponse(BaseModel):
     items: List[WikiEntry] = Field(..., description="Lista de verbetes filtrados")
 
 class TelemetryEvent(BaseModel):
-    event_name: str = Field(..., description="Nome do evento (ex: chapter_finished, puzzle_completed)")
+    event_name: str = Field(..., description="Nome do evento (ex: reader_chapter_completed, puzzle_game_completed)")
     payload: Dict[str, Any] = Field(default_factory=dict, description="Dados do evento")
     timestamp: Optional[str] = Field(default=None, description="ISO timestamp do evento")
+
+    @model_validator(mode="before")
+    @classmethod
+    def normalize_fields(cls, data: Any) -> Any:
+        if isinstance(data, dict):
+            if "event_name" not in data and "event_type" in data:
+                data["event_name"] = data["event_type"]
+            if "payload" not in data and "metadata" in data:
+                data["payload"] = data["metadata"]
+        return data
 
 class TelemetryResponse(BaseModel):
     success: bool = True
