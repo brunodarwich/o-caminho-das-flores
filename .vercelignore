@@ -8,7 +8,8 @@ scratch/
 .vscode/
 *.bat
 *.csv
-quebra-cabeca*.png
-banner-ocdf-c1.png
-cover-cap-1.png
-cover-cap-2.png
+/quebra-cabeca*.png
+/banner-ocdf-c1.png
+/cover-cap-1.png
+/cover-cap-2.png
+/ocdf-*.png
