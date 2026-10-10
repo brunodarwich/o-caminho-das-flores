@@ -159,33 +159,50 @@
 
   function createDustTexture() {
     const canvas = document.createElement('canvas');
-    canvas.width = 64;
-    canvas.height = 64;
+    canvas.width = 128;
+    canvas.height = 128;
     const ctx = canvas.getContext('2d');
 
-    // Nuvens fofas com degradê radial em tom terra/areia clarinho suave
-    const gradient = ctx.createRadialGradient(32, 32, 2, 32, 32, 28);
-    gradient.addColorStop(0, 'rgba(215, 203, 185, 0.85)');
-    gradient.addColorStop(0.5, 'rgba(225, 215, 200, 0.55)');
-    gradient.addColorStop(0.8, 'rgba(235, 228, 215, 0.2)');
-    gradient.addColorStop(1, 'rgba(240, 235, 225, 0)');
-
-    ctx.fillStyle = gradient;
-    ctx.beginPath();
-    ctx.arc(32, 32, 28, 0, Math.PI * 2);
-    ctx.fill();
-
-    // Puffs secundários para formato orgânico de nuvenzinha
-    const subPuffs = [
-      { x: 22, y: 34, r: 16 },
-      { x: 42, y: 34, r: 16 },
-      { x: 28, y: 23, r: 14 },
-      { x: 38, y: 23, r: 14 }
+    // Nuvens fofas com contorno estilizado cartoon em tom terra/avelã e corpo volumoso
+    // Para destacar com elegância sobre o fundo branco (#fcfbf8)
+    const puffs = [
+      { x: 64, y: 72, r: 36 },
+      { x: 38, y: 78, r: 26 },
+      { x: 90, y: 78, r: 26 },
+      { x: 48, y: 52, r: 24 },
+      { x: 78, y: 50, r: 26 },
+      { x: 64, y: 44, r: 20 }
     ];
-    ctx.fillStyle = 'rgba(220, 210, 195, 0.4)';
-    subPuffs.forEach(p => {
+
+    // 1. Sombra / Contorno suave
+    ctx.fillStyle = 'rgba(175, 155, 130, 0.45)';
+    puffs.forEach(p => {
+      ctx.beginPath();
+      ctx.arc(p.x, p.y + 3, p.r + 3, 0, Math.PI * 2);
+      ctx.fill();
+    });
+
+    // 2. Traço / Borda externa cartoon
+    ctx.fillStyle = 'rgba(185, 162, 135, 0.95)';
+    puffs.forEach(p => {
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r + 1.5, 0, Math.PI * 2);
+      ctx.fill();
+    });
+
+    // 3. Corpo da nuvem
+    ctx.fillStyle = 'rgba(238, 228, 214, 0.96)';
+    puffs.forEach(p => {
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fill();
+    });
+
+    // 4. Brilho interno suave
+    ctx.fillStyle = 'rgba(255, 252, 246, 0.8)';
+    puffs.forEach(p => {
+      ctx.beginPath();
+      ctx.arc(p.x - 3, p.y - 4, p.r * 0.55, 0, Math.PI * 2);
       ctx.fill();
     });
 
@@ -195,40 +212,51 @@
 
   function createLeafTexture() {
     const canvas = document.createElement('canvas');
-    canvas.width = 64;
-    canvas.height = 64;
+    canvas.width = 128;
+    canvas.height = 128;
     const ctx = canvas.getContext('2d');
 
-    // Silhueta botânica de folha estilizada com tons verdes da vegetação
+    // Desenha uma folha botânica nítida e estilizada
     ctx.save();
-    ctx.translate(32, 32);
+    ctx.translate(64, 64);
     ctx.rotate(-Math.PI / 4);
 
+    // Contorno escuro estilizado
     ctx.beginPath();
-    ctx.moveTo(0, -22);
-    ctx.bezierCurveTo(14, -14, 16, 12, 0, 22);
-    ctx.bezierCurveTo(-16, 12, -14, -14, 0, -22);
+    ctx.moveTo(0, -48);
+    ctx.bezierCurveTo(28, -28, 32, 24, 0, 48);
+    ctx.bezierCurveTo(-32, 24, -28, -28, 0, -48);
     ctx.closePath();
+    ctx.fillStyle = '#2d5e3c'; // Borda verde escura marcante
+    ctx.fill();
 
-    ctx.fillStyle = '#659c74';
+    // Corpo da folha
+    ctx.beginPath();
+    ctx.moveTo(0, -45);
+    ctx.bezierCurveTo(25, -26, 28, 22, 0, 45);
+    ctx.bezierCurveTo(-28, 22, -25, -26, 0, -45);
+    ctx.closePath();
+    ctx.fillStyle = '#529665'; // Verde folhagem vivo
     ctx.fill();
 
     // Nervura central
-    ctx.strokeStyle = '#477555';
-    ctx.lineWidth = 1.8;
+    ctx.strokeStyle = '#a8e0b6';
+    ctx.lineWidth = 3.2;
     ctx.beginPath();
-    ctx.moveTo(0, -18);
-    ctx.lineTo(0, 18);
+    ctx.moveTo(0, -40);
+    ctx.lineTo(0, 40);
     ctx.stroke();
 
-    // Nervuras laterais delicadas
-    ctx.strokeStyle = 'rgba(255, 255, 255, 0.28)';
-    ctx.lineWidth = 1.2;
+    // Nervuras laterais
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.45)';
+    ctx.lineWidth = 2.0;
     ctx.beginPath();
-    ctx.moveTo(0, -8);
-    ctx.lineTo(6, -4);
-    ctx.moveTo(0, 2);
-    ctx.lineTo(-6, 6);
+    ctx.moveTo(0, -20);
+    ctx.lineTo(14, -12);
+    ctx.moveTo(0, 5);
+    ctx.lineTo(-14, 13);
+    ctx.moveTo(0, -5);
+    ctx.lineTo(12, 2);
     ctx.stroke();
 
     ctx.restore();
@@ -240,64 +268,68 @@
   function spawnDustParticle(x, z, dirX, dirZ) {
     if (!dustTexture || !fxGroup || fxParticles.length >= MAX_FX_PARTICLES) return;
 
-    const geo = new THREE.PlaneGeometry(0.55, 0.55);
-    const initialOpacity = 0.65;
+    const geo = new THREE.PlaneGeometry(0.85, 0.85);
+    const initialOpacity = 0.85;
     const mat = new THREE.MeshBasicMaterial({
       map: dustTexture,
       transparent: true,
       opacity: initialOpacity,
+      depthTest: false,
       depthWrite: false,
       side: THREE.DoubleSide
     });
 
     const mesh = new THREE.Mesh(geo, mat);
+    mesh.renderOrder = 4;
     // Nasce logo atrás dos calcanhares de Ariel
-    const spawnX = x - dirX * 0.22 + (Math.random() - 0.5) * 0.16;
-    const spawnZ = z - dirZ * 0.22 + (Math.random() - 0.5) * 0.16;
-    mesh.position.set(spawnX, 0.04, spawnZ);
-    mesh.rotation.x = -0.42; // Inclinação isométrica suave para visual 2.5D
-    mesh.rotation.z = (Math.random() - 0.5) * 0.4;
+    const spawnX = x - dirX * 0.25 + (Math.random() - 0.5) * 0.18;
+    const spawnZ = z - dirZ * 0.25 + (Math.random() - 0.5) * 0.18;
+    mesh.position.set(spawnX, 0.16, spawnZ);
+    mesh.rotation.x = -0.36;
+    mesh.rotation.z = (Math.random() - 0.5) * 0.3;
 
-    const startScale = 0.35 + Math.random() * 0.1;
+    const startScale = 0.42 + Math.random() * 0.15;
     mesh.scale.set(startScale, startScale, startScale);
     fxGroup.add(mesh);
 
     fxParticles.push({
       type: 'dust',
       mesh: mesh,
-      vx: -dirX * 0.28 + (Math.random() - 0.5) * 0.2,
-      vz: -dirZ * 0.28 + (Math.random() - 0.5) * 0.2,
-      vy: 0.18 + Math.random() * 0.12,
+      vx: -dirX * 0.35 + (Math.random() - 0.5) * 0.25,
+      vz: -dirZ * 0.35 + (Math.random() - 0.5) * 0.25,
+      vy: 0.22 + Math.random() * 0.14,
       baseScale: startScale,
       initialOpacity: initialOpacity,
       age: 0,
-      life: 0.48 + Math.random() * 0.12
+      life: 0.52 + Math.random() * 0.14
     });
   }
 
   function spawnLeafBurst(originX, originY, originZ, pushDirX, pushDirZ) {
     if (!leafTexture || !fxGroup) return;
 
-    const leafCount = 3 + Math.floor(Math.random() * 3); // 3 a 5 folhas
+    const leafCount = 4 + Math.floor(Math.random() * 3); // 4 a 6 folhas
     for (let i = 0; i < leafCount; i++) {
       if (fxParticles.length >= MAX_FX_PARTICLES) break;
 
-      const leafSize = 0.26 + Math.random() * 0.12;
+      const leafSize = 0.48 + Math.random() * 0.18;
       const geo = new THREE.PlaneGeometry(leafSize, leafSize);
-      const initialOpacity = 0.95;
+      const initialOpacity = 0.98;
       const mat = new THREE.MeshBasicMaterial({
         map: leafTexture,
         transparent: true,
         opacity: initialOpacity,
         alphaTest: 0.02,
+        depthTest: false,
         depthWrite: false,
         side: THREE.DoubleSide
       });
 
       const mesh = new THREE.Mesh(geo, mat);
-      const spawnX = originX + (Math.random() - 0.5) * 0.35;
-      const spawnY = Math.max(0.2, originY + (Math.random() - 0.5) * 0.15);
-      const spawnZ = originZ + (Math.random() - 0.5) * 0.25;
+      mesh.renderOrder = 8;
+      const spawnX = originX + (Math.random() - 0.5) * 0.45;
+      const spawnY = Math.max(0.25, originY + (Math.random() - 0.5) * 0.18);
+      const spawnZ = originZ + (Math.random() - 0.5) * 0.35;
 
       mesh.position.set(spawnX, spawnY, spawnZ);
       mesh.rotation.set(
@@ -308,11 +340,11 @@
       fxGroup.add(mesh);
 
       // Impulso inicial: velocidade para cima + dispersão lateral combinada ao deslocamento de Ariel
-      const spreadX = (Math.random() - 0.5) * 1.3;
-      const spreadZ = (Math.random() - 0.5) * 1.3;
-      const vx = pushDirX * 0.5 + spreadX;
-      const vz = pushDirZ * 0.5 + spreadZ;
-      const vy = 1.6 + Math.random() * 0.9;
+      const spreadX = (Math.random() - 0.5) * 1.6;
+      const spreadZ = (Math.random() - 0.5) * 1.6;
+      const vx = pushDirX * 0.6 + spreadX;
+      const vz = pushDirZ * 0.6 + spreadZ;
+      const vy = 2.0 + Math.random() * 1.1;
 
       fxParticles.push({
         type: 'leaf',
@@ -320,13 +352,13 @@
         vx: vx,
         vy: vy,
         vz: vz,
-        gravity: -3.8,
-        rotVelX: (Math.random() - 0.5) * 9,
-        rotVelY: (Math.random() - 0.5) * 11,
-        rotVelZ: (Math.random() - 0.5) * 12,
+        gravity: -4.2,
+        rotVelX: (Math.random() - 0.5) * 10,
+        rotVelY: (Math.random() - 0.5) * 12,
+        rotVelZ: (Math.random() - 0.5) * 14,
         initialOpacity: initialOpacity,
         age: 0,
-        life: 0.9 + Math.random() * 0.4
+        life: 0.95 + Math.random() * 0.35
       });
     }
   }
@@ -356,7 +388,7 @@
         p.mesh.position.y += p.vy * delta;
         p.vy *= 0.94;
 
-        const currentScale = p.baseScale + progress * 0.45;
+        const currentScale = p.baseScale + progress * 0.55;
         p.mesh.scale.set(currentScale, currentScale, currentScale);
         p.mesh.material.opacity = Math.max(0, (1 - progress) * p.initialOpacity);
       } else if (p.type === 'leaf') {
@@ -372,8 +404,8 @@
         p.mesh.rotation.y += p.rotVelY * delta;
         p.mesh.rotation.z += p.rotVelZ * delta;
 
-        if (p.mesh.position.y <= 0.02) {
-          p.mesh.position.y = 0.02;
+        if (p.mesh.position.y <= 0.05) {
+          p.mesh.position.y = 0.05;
           p.vy = 0;
           p.vx = 0;
           p.vz = 0;
@@ -1027,6 +1059,7 @@
         mesh: mesh,
         x: pt.x,
         z: pt.z,
+        width: w,
         baseHeight: h,
         swaySpeed: 1.2 + (index % 5) * 0.25,
         swayPhase: index * 0.9,
@@ -1055,17 +1088,22 @@
       if (arielGroup && isMoving) {
         const dx = b.x - arielGroup.position.x;
         const dz = b.z - arielGroup.position.z;
-        const dist = Math.hypot(dx, dz);
-        if (dist < 0.95) {
+        const halfW = (b.width || 1.8) * 0.5 + 0.45;
+        const halfZ = 0.85;
+        const isTouching = (Math.abs(dx) <= halfW) && (Math.abs(dz) <= halfZ);
+
+        if (isTouching) {
           const pushDir = dx < 0 ? -1 : 1;
-          b.rustleVelocity += (pushDir * 0.07 - b.rustleAngle) * 0.16;
+          b.rustleVelocity += (pushDir * 0.08 - b.rustleAngle) * 0.2;
 
           // Dispara rajada de folhas saindo do arbusto
           if (b.leafCooldown <= 0) {
-            b.leafCooldown = 0.26;
+            b.leafCooldown = 0.22;
             const pushDirX = velocity.x !== 0 ? Math.sign(velocity.x) : pushDir;
             const pushDirZ = velocity.z !== 0 ? Math.sign(velocity.z) : 0;
-            spawnLeafBurst(b.x, (b.baseHeight || 0.5) * 0.65, b.z, pushDirX, pushDirZ);
+            const contactX = Math.max(b.x - b.width * 0.45, Math.min(b.x + b.width * 0.45, arielGroup.position.x));
+            const contactZ = (b.z + arielGroup.position.z) * 0.5;
+            spawnLeafBurst(contactX, (b.baseHeight || 0.5) * 0.75, contactZ, pushDirX, pushDirZ);
           }
         }
       }
