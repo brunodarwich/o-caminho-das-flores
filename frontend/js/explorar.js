@@ -20,6 +20,29 @@
   const ARIEL_WIDTH = ARIEL_HEIGHT * ARIEL_ASPECT; // ~1.74
   const BASE_Y = ARIEL_HEIGHT / 2;
 
+  // Insetos com Batimento de Asas
+  const insectTextures = [];
+  const insects = [];
+  let insectsGroup;
+  const INSECT_SIZE = 0.65;
+  // Sequência de loop solicitada: 1 -> 2 -> 3 -> 2 -> 1 -> 2 -> 3 -> 2...
+  const INSECT_LOOP_SEQUENCE = [0, 1, 2, 1]; // Índices correspondentes a asa-1, asa-2, asa-3, asa-2
+  const INSECT_STEP_INTERVAL = 0.085; // Cadência veloz da batida de asas (~85ms por frame)
+  const INSECT_SPAWN_POINTS = [
+    { x: 2.8, z: -2.2, y: 1.15 },
+    { x: -3.4, z: 2.5, y: 1.25 },
+    { x: 5.6, z: 4.8, y: 1.05 },
+    { x: -5.4, z: -4.8, y: 1.35 },
+    { x: 8.4, z: -6.4, y: 1.15 },
+    { x: -8.8, z: 7.2, y: 1.4 },
+    { x: 4.5, z: 10.8, y: 1.2 },
+    { x: -11.8, z: -3.5, y: 1.3 },
+    { x: 12.2, z: 3.6, y: 1.1 },
+    { x: -7.2, z: 13.5, y: 1.45 },
+    { x: 14.8, z: -9.8, y: 1.25 },
+    { x: 0.8, z: 15.2, y: 1.35 }
+  ];
+
   // Movimentação & Estado
   const speed = 4.8;
   const velocity = new THREE.Vector3();
@@ -191,6 +214,9 @@
     clickMarkerMesh.rotation.x = -Math.PI / 2;
     clickMarkerMesh.position.y = 0.03;
     scene.add(clickMarkerMesh);
+
+    // Inicializa insetos com loop de asas espalhados pelo mapa
+    initInsects(textureLoader);
 
     setupEvents();
     isInitialized = true;
@@ -475,6 +501,144 @@
     }
   }
 
+  function initInsects(textureLoader) {
+    insectsGroup = new THREE.Group();
+    scene.add(insectsGroup);
+
+    const insectPaths = [
+      'assets/sprites/inseto-asa-1.png',
+      'assets/sprites/inseto-asa-2.png',
+      'assets/sprites/inseto-asa-3.png'
+    ];
+
+    const shadowTex = createShadowTexture();
+    const insectShadowGeo = new THREE.PlaneGeometry(0.5, 0.3);
+    const insectMeshGeo = new THREE.PlaneGeometry(INSECT_SIZE, INSECT_SIZE);
+
+    let loadedCount = 0;
+    insectPaths.forEach((path, idx) => {
+      textureLoader.load(path, (tex) => {
+        tex.generateMipmaps = true;
+        tex.minFilter = THREE.LinearMipmapLinearFilter;
+        tex.magFilter = THREE.LinearFilter;
+        insectTextures[idx] = tex;
+        loadedCount++;
+
+        // Quando todas as 3 texturas estiverem carregadas, inicializa as instâncias dos insetos
+        if (loadedCount === insectPaths.length && insects.length === 0) {
+          spawnInsects(shadowTex, insectShadowGeo, insectMeshGeo);
+        }
+      });
+    });
+  }
+
+  function spawnInsects(shadowTex, shadowGeo, meshGeo) {
+    INSECT_SPAWN_POINTS.forEach((pt, index) => {
+      const insectSubGroup = new THREE.Group();
+      insectSubGroup.position.set(pt.x, 0, pt.z);
+      insectsGroup.add(insectSubGroup);
+
+      // Sombra projetada no chão
+      const shadowMat = new THREE.MeshBasicMaterial({
+        map: shadowTex,
+        transparent: true,
+        opacity: 0.25,
+        depthWrite: false
+      });
+      const shadow = new THREE.Mesh(shadowGeo, shadowMat);
+      shadow.rotation.x = -Math.PI / 2;
+      shadow.position.y = 0.02;
+      insectSubGroup.add(shadow);
+
+      // Sprite do inseto
+      const initialSeqIdx = index % INSECT_LOOP_SEQUENCE.length;
+      const initialTex = insectTextures[INSECT_LOOP_SEQUENCE[initialSeqIdx]];
+      const mat = new THREE.MeshBasicMaterial({
+        map: initialTex,
+        transparent: true,
+        alphaTest: 0.02,
+        side: THREE.DoubleSide,
+        depthWrite: false
+      });
+      const mesh = new THREE.Mesh(meshGeo, mat);
+      mesh.position.y = pt.y;
+      mesh.rotation.x = -0.36; // Mesma inclinação isométrica de Ariel
+      insectSubGroup.add(mesh);
+
+      insects.push({
+        group: insectSubGroup,
+        mesh: mesh,
+        shadow: shadow,
+        baseX: pt.x,
+        baseY: pt.y,
+        baseZ: pt.z,
+        loopIndex: initialSeqIdx,
+        frameTimer: Math.random() * INSECT_STEP_INTERVAL,
+        flapInterval: INSECT_STEP_INTERVAL * (0.92 + (index % 5) * 0.04), // Variação orgânica sutil
+        floatSpeed: 2.2 + (index % 4) * 0.4,
+        floatPhase: index * 1.35,
+        driftSpeed: 0.5 + (index % 3) * 0.2,
+        driftRadiusX: 0.28 + (index % 3) * 0.08,
+        driftRadiusZ: 0.22 + (index % 4) * 0.06,
+        scareLift: 0
+      });
+    });
+  }
+
+  function updateInsects(delta) {
+    if (!insects.length || !insectTextures.length) return;
+    const time = clock ? clock.getElapsedTime() : 0;
+
+    for (let i = 0; i < insects.length; i++) {
+      const ins = insects[i];
+
+      // 1. Loop contínuo das asas: 1 > 2 > 3 > 2 > 1 > 2...
+      ins.frameTimer += delta;
+      if (ins.frameTimer >= ins.flapInterval) {
+        ins.frameTimer = 0;
+        ins.loopIndex = (ins.loopIndex + 1) % INSECT_LOOP_SEQUENCE.length;
+        const targetTex = insectTextures[INSECT_LOOP_SEQUENCE[ins.loopIndex]];
+        if (targetTex && ins.mesh.material.map !== targetTex) {
+          ins.mesh.material.map = targetTex;
+          ins.mesh.material.needsUpdate = true;
+        }
+      }
+
+      // 2. Movimento zen: flutuação suave e deriva horizontal
+      const hoverY = Math.sin(time * ins.floatSpeed + ins.floatPhase) * 0.09;
+      const driftX = Math.cos(time * ins.driftSpeed + ins.floatPhase) * ins.driftRadiusX;
+      const driftZ = Math.sin(time * ins.driftSpeed * 0.85 + ins.floatPhase) * ins.driftRadiusZ;
+
+      // 3. Reação suave de aproximação de Ariel
+      if (arielGroup) {
+        const dx = (ins.baseX + driftX) - arielGroup.position.x;
+        const dz = (ins.baseZ + driftZ) - arielGroup.position.z;
+        const distToAriel = Math.hypot(dx, dz);
+        if (distToAriel < 1.6) {
+          const targetLift = (1.6 - distToAriel) * 0.45;
+          ins.scareLift += (targetLift - ins.scareLift) * 0.12;
+        } else {
+          ins.scareLift *= 0.94;
+        }
+      }
+
+      const currentY = Math.max(0.4, ins.baseY + hoverY + ins.scareLift);
+      ins.group.position.set(ins.baseX + driftX, 0, ins.baseZ + driftZ);
+      ins.mesh.position.y = currentY;
+
+      // Inversão horizontal suave (olhar na direção para onde deriva)
+      const movingRight = Math.sin(time * ins.driftSpeed + ins.floatPhase) < 0;
+      ins.mesh.scale.x = movingRight ? 1 : -1;
+
+      // 4. Sombra suave sob o inseto
+      if (ins.shadow) {
+        const altitudeNorm = Math.max(0.18, 1 - (currentY / 2.8));
+        ins.shadow.scale.set(altitudeNorm * 0.85, altitudeNorm * 0.85, altitudeNorm * 0.85);
+        ins.shadow.material.opacity = 0.28 * altitudeNorm;
+      }
+    }
+  }
+
   function updateCamera(instant = false) {
     if (!camera || !arielGroup) return;
     const targetCamX = arielGroup.position.x;
@@ -497,6 +661,7 @@
     const delta = Math.min(clock.getDelta(), 0.1);
 
     updateAriel(delta);
+    updateInsects(delta);
     updateCamera();
     renderer.render(scene, camera);
 

@@ -5,9 +5,9 @@ window.TASKS_DATA = {
     "version": "1.0.0",
     "last_updated": "2026-10-10",
     "metrics": {
-      "total_tasks": 23,
-      "completed_tasks": 22,
-      "progress_percentage": 95.7
+      "total_tasks": 24,
+      "completed_tasks": 23,
+      "progress_percentage": 95.8
     }
   },
   "milestones": [
@@ -406,6 +406,23 @@ window.TASKS_DATA = {
         "Three.js r128 localmente integrado e renderizando mapa branco infinito com iluminação e fog suave",
         "Sprite de Ariel renderizado com sombra suave, animação de passos (bobbing/flip) e controle manual funcional (WASD, toque e D-pad mobile)",
         "Modo tela toda (100vw x 100dvh) responsivo no desktop e mobile com HUD glassmorphism, câmera adaptativa e sem scroll"
+      ],
+      "audit_confirmed": true,
+      "created_at": "2026-10-10",
+      "completed_at": "2026-10-10"
+    },
+    {
+      "id": "TASK-024",
+      "title": "Animação de asas do inseto em loop (1>2>3>2>1) e distribuição pelo mapa de explorar",
+      "description": "Criação de sprites otimizados 64x64 das 3 fases de asas, loop de animação contínuo de ping-pong (asa-1 -> asa-2 -> asa-3 -> asa-2), distribuição de 12 instâncias orgânicas pelo mapa com flutuação senoidal, mini-sombras dinâmicas no chão, desincronização de fase e reação de desvio à aproximação de Ariel.",
+      "status": "done",
+      "milestone": "m4_frontend_ui",
+      "tier": "tier2_fast",
+      "indicators": [
+        "Sprites gerados e padronizados com canal alfa em frontend/assets/sprites/",
+        "Loop contínuo de 4 frames (1 > 2 > 3 > 2 > 1 > 2...) com cadência ágil (~85ms)",
+        "12 insetos espalhados pelo mapa 2.5D com flutuação suave, sombras projetadas e flip horizontal",
+        "Validação visual aprovada pelo criador"
       ],
       "audit_confirmed": true,
       "created_at": "2026-10-10",
