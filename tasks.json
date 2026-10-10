@@ -5,9 +5,9 @@
     "version": "1.0.0",
     "last_updated": "2026-10-10",
     "metrics": {
-      "total_tasks": 25,
-      "completed_tasks": 24,
-      "progress_percentage": 96.0
+      "total_tasks": 26,
+      "completed_tasks": 25,
+      "progress_percentage": 96.1
     }
   },
   "milestones": [
@@ -440,6 +440,23 @@
         "28 instâncias de arbustos distribuídas em raios curto, médio e longo no mapa de explorar",
         "Sombra de contato suave e alinhamento de base no solo (y = 0)",
         "Animação procedimental de brisa e interação elástica de farfalhar ao contato com Ariel"
+      ],
+      "audit_confirmed": true,
+      "created_at": "2026-10-10",
+      "completed_at": "2026-10-10"
+    },
+    {
+      "id": "TASK-026",
+      "title": "Efeitos visuais (FX) de poeira na corrida (>1s) e folhas dinâmicas nos arbustos",
+      "description": "Implementação de dois sistemas de partículas procedurais 2.5D: emissão de nuvens de poeira nos calcanhares de Ariel após 1 segundo ininterrupto de movimento/corrida, e ejecção aerodinâmica de folhas com gravidade suave e balanço de flutter ao raspar nos arbustos do cenário.",
+      "status": "done",
+      "milestone": "m4_frontend_ui",
+      "tier": "tier2_fast",
+      "indicators": [
+        "Poeira ativada estritamente quando Ariel se movimenta por mais de 1.0s contínuo",
+        "Partículas de poeira suaves geradas com degradê radial e expansão zen nos pés",
+        "Ejeção de 3 a 5 folhas com impulso vertical, flutter e gravidade ao colidir/passar pelos arbustos",
+        "Cooldown inteligente por arbusto (~260ms) e performance estável a 60 FPS"
       ],
       "audit_confirmed": true,
       "created_at": "2026-10-10",
