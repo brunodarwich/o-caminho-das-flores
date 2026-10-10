@@ -62,6 +62,7 @@
 
     if (viewName === 'leitor') window.dispatchEvent(new CustomEvent('reader:shown'));
     if (viewName === 'quebra-cabeca') window.dispatchEvent(new CustomEvent('puzzle:shown'));
+    if (viewName === 'explorar') window.dispatchEvent(new CustomEvent('explorar:shown'));
   }
 
   function navigate(name) {

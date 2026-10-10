@@ -3,11 +3,11 @@
     "name": "O Caminho das Flores — Plataforma Webtoon",
     "summary": "Plataforma web autoral e imersiva para o universo da webtoon 'O Caminho das Flores', com leitor vertical contínuo sem emendas (zero-gap), mini-jogos relaxantes (quebra-cabeça) e Wiki viva com o lore e a botânica mística da história de Ariel.",
     "version": "1.0.0",
-    "last_updated": "2026-09-27",
+    "last_updated": "2026-10-10",
     "metrics": {
-      "total_tasks": 21,
-      "completed_tasks": 20,
-      "progress_percentage": 95.2
+      "total_tasks": 23,
+      "completed_tasks": 22,
+      "progress_percentage": 95.7
     }
   },
   "milestones": [
@@ -377,6 +377,38 @@
       ],
       "audit_confirmed": false,
       "created_at": "2026-09-27"
+    },
+    {
+      "id": "TASK-022",
+      "title": "Enquadramento dinâmico e interação aprimorada do quebra-cabeça",
+      "description": "Redesenho responsivo da arena do quebra-cabeça para celular (zero scroll vertical) com carrossel horizontal de peças, mecânica touch via Pointer Events (Tap-to-Place e drag com offset anti-oclusão), Modo Espiar e Filtro de Bordas.",
+      "status": "done",
+      "milestone": "m4_frontend_ui",
+      "tier": "tier2_fast",
+      "indicators": [
+        "Enquadramento mobile sem rolagem forçada entre tabuleiro e bandeja",
+        "Mecânica Tap-to-Place e Touch Drag funcional com Pointer Events",
+        "Modo Espiar e Filtro de Bordas integrados e validados no navegador"
+      ],
+      "audit_confirmed": true,
+      "created_at": "2026-09-29",
+      "completed_at": "2026-09-29"
+    },
+    {
+      "id": "TASK-023",
+      "title": "Jogo 2.5D em Three.js — Aba Explorar com Ariel no mapa branco infinito",
+      "description": "Nova aba de exploração no portal webtoon com renderização 2.5D via Three.js local, sprite de Ariel em billboard com transparência, controles por teclado (WASD/Setas), clique/toque no chão com raycast, D-pad touch virtual para mobile e animação procedimental de passos.",
+      "status": "done",
+      "milestone": "m4_frontend_ui",
+      "tier": "tier2_fast",
+      "indicators": [
+        "Aba Explorar (#explorar) adicionada ao menu de navegação do portal",
+        "Three.js r128 localmente integrado e renderizando mapa branco infinito com iluminação e fog suave",
+        "Sprite de Ariel renderizado com sombra suave, animação de passos (bobbing/flip) e controle manual funcional (WASD, toque e D-pad mobile)"
+      ],
+      "audit_confirmed": true,
+      "created_at": "2026-10-10",
+      "completed_at": "2026-10-10"
     }
   ]
 }

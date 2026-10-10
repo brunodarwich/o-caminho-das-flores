@@ -772,54 +772,241 @@ button {
 
 .puzzle-header-block {
   text-align: center;
-  padding: 40px 0 32px;
+  padding: 28px 0 16px;
 }
 
 .puzzle-main-title {
   font-family: var(--font-display);
-  font-size: clamp(34px, 4.5vw, 50px);
+  font-size: clamp(26px, 3.8vw, 44px);
   font-weight: 600;
-  margin: 0 0 10px;
+  margin: 0 0 6px;
   color: var(--text-main);
 }
 
 .puzzle-subtitle {
-  font-size: 15px;
+  font-size: 14px;
   color: var(--text-dim);
   margin: 0;
 }
 
+/* Barra de Ferramentas Integrada e Compacta */
+.puzzle-game-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  background: rgba(14, 25, 26, 0.9);
+  border: 1px solid var(--line-subtle);
+  border-radius: var(--radius-md);
+  padding: 8px 14px;
+  margin-bottom: 20px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(12px);
+}
+
+.puzzle-toolbar-left,
+.puzzle-toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* Seletor Compacto de Cena */
+.scene-select-card.compact-select {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(10, 18, 19, 0.85);
+  border: 1px solid var(--line-subtle);
+  border-radius: var(--radius-pill);
+  padding: 3px 10px 3px 3px;
+  transition: border-color 0.2s;
+}
+
+.scene-select-card.compact-select:hover {
+  border-color: var(--sage);
+}
+
+.compact-select .scene-thumb-preview {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.compact-select .scene-thumb-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.compact-select select {
+  appearance: none;
+  -webkit-appearance: none;
+  background: transparent;
+  color: var(--text-main);
+  border: none;
+  font-size: 13px;
+  font-weight: 600;
+  outline: none;
+  cursor: pointer;
+  padding-right: 18px;
+}
+
+.compact-select .select-chevron {
+  position: absolute;
+  right: 10px;
+  pointer-events: none;
+  font-size: 11px;
+  color: var(--text-dim);
+}
+
+/* Pílulas de Dificuldade */
+.difficulty-capsules {
+  display: inline-flex;
+  gap: 5px;
+  background: rgba(10, 18, 19, 0.8);
+  padding: 3px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--line-subtle);
+}
+
+.diff-capsule {
+  padding: 5px 12px;
+  border-radius: var(--radius-pill);
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--text-dim);
+  font-size: 12px;
+  font-weight: 500;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  text-align: center;
+  cursor: pointer;
+}
+
+.diff-capsule:hover {
+  color: var(--text-main);
+  border-color: rgba(218, 225, 205, 0.3);
+}
+
+.diff-capsule.is-active {
+  background: var(--sage);
+  color: var(--sage-dark);
+  font-weight: 700;
+  border-color: var(--sage);
+  box-shadow: 0 2px 8px rgba(158, 174, 140, 0.3);
+}
+
+/* Botões de Ferramenta Zen (Espiar / Bordas) */
+.btn-puzzle-tool {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(10, 18, 19, 0.85);
+  border: 1px solid var(--line-subtle);
+  color: var(--text-dim);
+  padding: 5px 12px;
+  border-radius: var(--radius-pill);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-puzzle-tool:hover {
+  border-color: var(--sage-bright);
+  color: var(--text-main);
+  transform: translateY(-1px);
+}
+
+.btn-puzzle-tool.is-active {
+  background: var(--sage);
+  color: var(--sage-dark);
+  border-color: var(--sage-bright);
+  box-shadow: 0 0 10px rgba(158, 174, 140, 0.45);
+}
+
+.btn-puzzle-tool .tool-icon {
+  font-size: 13px;
+}
+
+/* Contador e Botão Recomeçar */
+.puzzle-status-counter {
+  font-family: var(--font-display);
+  font-size: 15px;
+  color: var(--text-dim);
+  padding: 0 6px;
+}
+
+.btn-puzzle-reset.compact-reset {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--lavender);
+  color: #ffffff;
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  font-size: 12px;
+  font-weight: 600;
+  box-shadow: 0 3px 12px rgba(138, 116, 153, 0.35);
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.btn-puzzle-reset.compact-reset:hover {
+  background: var(--lavender-bright);
+  transform: translateY(-1px);
+}
+
+.btn-puzzle-reset .btn-leaf-icon {
+  font-size: 13px;
+  font-weight: bold;
+}
+
+/* Arena do Quebra-Cabeça (Grid Desktop / Flex Mobile) */
 .puzzle-workbench-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.4fr) minmax(110px, 140px) minmax(280px, 320px);
-  gap: 28px;
+  grid-template-columns: minmax(0, 1.35fr) minmax(240px, 340px) minmax(180px, 240px);
+  gap: 24px;
   align-items: start;
 }
 
-/* 1. Tabuleiro */
+/* 1. Tabuleiro Principal */
 .puzzle-board-panel {
   width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .puzzle-board-frame {
   width: 100%;
+  max-width: 560px;
   aspect-ratio: 1 / 1;
   padding: 10px;
   border-radius: var(--radius-md);
   background: rgba(14, 24, 25, 0.95);
   border: 1px solid var(--gold-line);
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+  position: relative;
+  transition: max-width 0.3s ease;
 }
 
 .puzzle-board {
   position: relative;
   width: 100%;
   aspect-ratio: 1 / 1;
-  background: #0a1011;
+  background: #090f10;
   border-radius: 8px;
   overflow: hidden;
   user-select: none;
-  box-shadow: inset 0 2px 14px rgba(0, 0, 0, 0.7);
+  -webkit-user-select: none;
+  touch-action: none;
+  box-shadow: inset 0 2px 14px rgba(0, 0, 0, 0.75);
 }
 
 .puzzle-board-svg {
@@ -829,13 +1016,24 @@ button {
   overflow: visible;
 }
 
-/* 2. Bandeja de Peças */
+/* Imagem Guia (Modo Espiar) */
+.puzzle-ghost-image {
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+  filter: saturate(0.8);
+}
+
+.puzzle-board.show-ghost .puzzle-ghost-image {
+  opacity: 0.28;
+}
+
+/* 2. Bandeja de Peças Acoplada Ergonômica */
 .puzzle-tray-panel {
   background: rgba(18, 30, 31, 0.9);
   border: 1px solid var(--line-subtle);
   border-radius: var(--radius-md);
-  padding: 16px 12px;
-  min-height: 480px;
+  padding: 14px 14px 16px;
   display: flex;
   flex-direction: column;
 }
@@ -843,23 +1041,45 @@ button {
 .tray-title-bar {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 6px;
+  justify-content: space-between;
+  gap: 8px;
   font-size: 13px;
   font-weight: 600;
   color: var(--text-main);
-  padding-bottom: 12px;
+  padding-bottom: 10px;
   border-bottom: 1px solid var(--line-subtle);
-  margin-bottom: 14px;
+  margin-bottom: 12px;
+}
+
+.tray-title-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tray-count-badge {
+  background: rgba(158, 174, 140, 0.2);
+  color: var(--sage-bright);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(158, 174, 140, 0.3);
+}
+
+.tray-hint-text {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 400;
 }
 
 .puzzle-tray {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 14px;
+  grid-template-columns: repeat(auto-fill, minmax(84px, 1fr));
+  gap: 12px;
   overflow-y: auto;
-  max-height: 460px;
-  padding: 6px;
+  max-height: 480px;
+  padding: 4px;
   scrollbar-width: thin;
   scrollbar-color: var(--line-subtle) transparent;
 }
@@ -869,35 +1089,53 @@ button {
   position: relative;
   width: 100%;
   aspect-ratio: 1 / 1;
-  background: rgba(16, 26, 27, 0.85);
-  border: 1px solid rgba(218, 225, 205, 0.18);
+  background: rgba(16, 26, 27, 0.9);
+  border: 1px solid rgba(218, 225, 205, 0.2);
   border-radius: 12px;
-  padding: 8px;
+  padding: 6px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: grab;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  transition: transform 0.18s cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 0.18s ease,
+              box-shadow 0.18s ease,
+              background-color 0.18s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
 }
 
 .puzzle-tray-card:hover {
-  transform: translateY(-2px) scale(1.03);
+  transform: translateY(-2px) scale(1.04);
   border-color: var(--sage);
-  background: rgba(22, 38, 37, 0.95);
+  background: rgba(22, 38, 37, 0.98);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
 }
 
 .puzzle-tray-card.is-selected {
   border-color: var(--sage-bright);
-  background: rgba(158, 174, 140, 0.18);
-  box-shadow: 0 0 0 2px var(--sage-bright), 0 8px 22px rgba(0, 0, 0, 0.6);
-  transform: scale(1.05);
+  background: rgba(158, 174, 140, 0.22);
+  box-shadow: 0 0 0 2px var(--sage-bright), 0 8px 24px rgba(0, 0, 0, 0.6);
+  transform: scale(1.06);
   z-index: 5;
 }
 
 .puzzle-tray-card:active {
   cursor: grabbing;
+}
+
+.puzzle-tray-card.is-edge-piece::after {
+  content: "";
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--sage-bright);
+  opacity: 0.75;
 }
 
 .puzzle-tray-svg {
@@ -910,7 +1148,7 @@ button {
 
 .tray-piece-stroke {
   fill: none;
-  stroke: rgba(255, 255, 255, 0.38);
+  stroke: rgba(255, 255, 255, 0.42);
   stroke-width: 2.2;
 }
 
@@ -923,14 +1161,15 @@ button {
   padding: 36px 12px;
   color: var(--sage-bright);
   gap: 12px;
-  font-family: var(--font-heading);
-  font-size: 1.15rem;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
   line-height: 1.4;
   animation: fadeIn 0.4s ease;
+  width: 100%;
 }
 
 .puzzle-tray-completed-msg span {
-  font-size: 2.2rem;
+  font-size: 2.4rem;
   filter: drop-shadow(0 0 10px rgba(225, 200, 150, 0.6));
 }
 
@@ -938,6 +1177,25 @@ button {
   color: var(--sage);
   font-size: 0.95rem;
   margin: 0;
+}
+
+/* Avatar de Arrasto Flutuante (Touch e Mouse com Offset) */
+.puzzle-drag-avatar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 88px;
+  height: 88px;
+  pointer-events: none;
+  z-index: 99999;
+  filter: drop-shadow(0 14px 28px rgba(0, 0, 0, 0.75));
+  transform: translate(-50%, calc(-50% - 38px)) scale(1.12);
+  transition: transform 0.05s ease-out;
+  display: none;
+}
+
+.puzzle-drag-avatar.is-dragging {
+  display: block;
 }
 
 /* Silhuetas-Guia no Tabuleiro (Slots Vazios) */
@@ -959,25 +1217,29 @@ button {
 }
 
 .puzzle-board.has-selection .slot-ghost-shape {
-  stroke: rgba(179, 197, 160, 0.45);
-  fill: rgba(18, 34, 33, 0.75);
+  stroke: rgba(179, 197, 160, 0.55);
+  fill: rgba(18, 34, 33, 0.78);
   stroke-dasharray: 4 4;
+  animation: slotPulse 1.8s infinite ease-in-out;
+}
+
+@keyframes slotPulse {
+  0%, 100% { stroke: rgba(179, 197, 160, 0.4); }
+  50% { stroke: rgba(179, 197, 160, 0.85); }
 }
 
 .puzzle-board.has-selection .slot-ghost-shape:hover,
 .slot-ghost-shape.is-drag-target {
-  fill: rgba(158, 174, 140, 0.28);
+  fill: rgba(158, 174, 140, 0.32);
   stroke: var(--sage-bright);
-  stroke-width: 3;
+  stroke-width: 3.2;
   stroke-dasharray: none;
-  filter: drop-shadow(0 0 10px rgba(179, 197, 160, 0.6));
+  filter: drop-shadow(0 0 12px rgba(179, 197, 160, 0.7));
 }
 
-
-
 .slot-ghost-shape.is-wrong-target {
-  stroke: rgba(230, 100, 100, 0.7) !important;
-  fill: rgba(60, 20, 20, 0.45) !important;
+  stroke: rgba(230, 100, 100, 0.75) !important;
+  fill: rgba(60, 20, 20, 0.48) !important;
   animation: slotRejectShake 0.35s ease;
 }
 
@@ -989,18 +1251,8 @@ button {
 
 /* Peças Encaixadas no Tabuleiro */
 .board-piece-group {
-  cursor: pointer;
+  cursor: default;
   transition: filter 0.15s ease;
-}
-
-.board-piece-group:hover {
-  filter: brightness(1.08);
-}
-
-.board-piece-group.is-selected .piece-seam-stroke {
-  stroke: var(--sage-bright);
-  stroke-width: 3.5;
-  filter: drop-shadow(0 0 6px rgba(179, 197, 160, 0.9));
 }
 
 .piece-seam-stroke {
@@ -1028,128 +1280,11 @@ button {
   }
 }
 
-/* 3. Sidebar de Controles */
+/* 3. Sidebar Decorativa (Desktop) */
 .puzzle-controls-panel {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-}
-
-.puzzle-control-group {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.control-group-title {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  color: var(--text-dim);
-}
-
-.scene-select-card {
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  background: rgba(18, 30, 31, 0.95);
-  border: 1px solid var(--line-subtle);
-  border-radius: var(--radius-md);
-  padding: 8px 12px;
-}
-
-.scene-thumb-preview {
-  width: 44px;
-  height: 44px;
-  border-radius: 6px;
-  overflow: hidden;
-  flex-shrink: 0;
-  background: #000;
-}
-
-.scene-thumb-preview img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.scene-select-card select {
-  appearance: none;
-  -webkit-appearance: none;
-  width: 100%;
-  background: transparent;
-  color: var(--text-main);
-  border: none;
-  font-size: 13px;
-  font-weight: 500;
-  outline: none;
-  cursor: pointer;
-  padding-right: 24px;
-}
-
-.difficulty-capsules {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
-}
-
-.diff-capsule {
-  padding: 9px 0;
-  border-radius: var(--radius-pill);
-  border: 1px solid var(--line-subtle);
-  background: rgba(18, 30, 31, 0.8);
-  color: var(--text-dim);
-  font-size: 12px;
-  font-weight: 500;
-  transition: all 0.2s;
-  text-align: center;
-}
-
-.diff-capsule:hover {
-  border-color: rgba(218, 225, 205, 0.4);
-  color: var(--text-main);
-}
-
-.diff-capsule.is-active {
-  background: var(--sage);
-  color: var(--sage-dark);
-  font-weight: 600;
-  border-color: var(--sage);
-}
-
-.btn-puzzle-reset {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  background: var(--lavender);
-  color: #ffffff;
-  padding: 12px 20px;
-  border-radius: var(--radius-pill);
-  font-size: 13px;
-  font-weight: 600;
-  box-shadow: 0 4px 16px rgba(138, 116, 153, 0.35);
-  transition: all 0.2s;
-}
-
-.btn-puzzle-reset:hover {
-  background: var(--lavender-bright);
-  transform: translateY(-2px);
-}
-
-.puzzle-status-counter {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  font-family: var(--font-display);
-  font-size: 16px;
-  color: var(--text-dim);
-  padding: 6px 0;
+  gap: 16px;
 }
 
 .puzzle-inspiration-quote {
@@ -1158,8 +1293,10 @@ button {
   font-size: 14px;
   color: var(--text-muted);
   line-height: 1.5;
-  text-align: center;
-  padding: 8px 12px;
+  padding: 14px;
+  border-left: 2px solid var(--sage);
+  background: rgba(18, 30, 31, 0.5);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
 }
 
 .puzzle-wooden-plaque {
@@ -1584,29 +1721,96 @@ button {
     display: none;
   }
 
+  .puzzle-header-block {
+    padding: 16px 0 8px;
+  }
+
+  .puzzle-main-title {
+    font-size: clamp(20px, 4.8vw, 28px);
+    margin: 0 0 2px;
+  }
+
+  .puzzle-subtitle {
+    font-size: 12px;
+  }
+
+  .puzzle-game-toolbar {
+    padding: 8px 10px;
+    gap: 8px;
+    margin-bottom: 12px;
+    justify-content: center;
+  }
+
+  .puzzle-toolbar-left,
+  .puzzle-toolbar-right {
+    justify-content: center;
+    gap: 6px;
+  }
+
   .puzzle-workbench-grid {
-    grid-template-columns: 1fr;
-    gap: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    max-width: 580px;
+    margin-inline: auto;
+  }
+
+  .puzzle-board-panel {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .puzzle-board-frame {
+    /* Enquadramento dinâmico celular: tabuleiro se adapta à altura útil da tela */
+    width: min(92vw, calc(100dvh - 300px));
+    max-width: 440px;
+    aspect-ratio: 1 / 1;
+    padding: 8px;
   }
 
   .puzzle-tray-panel {
+    width: 100%;
+    max-width: 500px;
     min-height: auto;
+    padding: 8px 10px 12px;
+  }
+
+  .tray-title-bar {
+    padding-bottom: 6px;
+    margin-bottom: 8px;
+    font-size: 12px;
+  }
+
+  .tray-hint-text {
+    display: none;
   }
 
   .puzzle-tray {
     display: flex;
     flex-direction: row;
     overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x proximity;
     max-height: none;
-    padding: 8px 4px 14px;
-    gap: 12px;
+    padding: 4px 2px 8px;
+    gap: 10px;
   }
 
   .puzzle-tray-card {
-    width: 88px;
-    min-width: 88px;
-    height: 88px;
+    width: 74px;
+    min-width: 74px;
+    height: 74px;
     flex-shrink: 0;
+    scroll-snap-align: start;
+    padding: 4px;
+  }
+
+  .puzzle-controls-panel {
+    width: 100%;
+    max-width: 440px;
+    gap: 10px;
   }
 
   .wiki-cards-grid {
@@ -2090,3 +2294,288 @@ button {
   .wiki-card-desc { font-size: 12px; }
   .chapter-sequence span { font-size: 8px; }
 }
+
+/* ==========================================================================
+   TELA 4: EXPLORAR (THREE.JS 2.5D COM ARIEL NO MAPA BRANCO INFINITO)
+   ========================================================================== */
+#view-explorar {
+  padding-block: 36px 60px;
+}
+
+.explorar-header-block {
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto 28px;
+}
+
+.explorar-main-title {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 5vw, 44px);
+  font-weight: 600;
+  color: var(--text-main);
+  letter-spacing: -0.01em;
+  margin: 8px 0 10px;
+  line-height: 1.15;
+}
+
+.explorar-subtitle {
+  color: var(--text-dim);
+  font-size: 15px;
+  line-height: 1.55;
+  font-weight: 400;
+}
+
+.explorar-arena-wrapper {
+  background: rgba(18, 28, 29, 0.7);
+  border: 1px solid var(--line-subtle);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+  backdrop-filter: blur(12px);
+}
+
+.explorar-canvas-shell {
+  position: relative;
+  width: 100%;
+  height: clamp(480px, 64vh, 700px);
+  background: #fcfbf8;
+  overflow: hidden;
+  touch-action: none;
+  cursor: crosshair;
+}
+
+#explorar-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Badge Flutuante Zen */
+.explorar-zen-badge {
+  position: absolute;
+  top: 18px;
+  left: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: var(--radius-pill);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  font-size: 12px;
+  font-weight: 600;
+  color: #2b3a37;
+  letter-spacing: 0.02em;
+  pointer-events: none;
+  backdrop-filter: blur(6px);
+}
+
+.zen-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #52806b;
+  box-shadow: 0 0 8px rgba(82, 128, 107, 0.6);
+  animation: pulseZenDot 2.2s infinite ease-in-out;
+}
+
+@keyframes pulseZenDot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.85); }
+}
+
+/* Botão Flutuante de Recentralizar */
+.explorar-action-btn {
+  position: absolute;
+  top: 18px;
+  right: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: var(--radius-pill);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  font-size: 13px;
+  font-weight: 600;
+  color: #2a3d38;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(8px);
+}
+
+.explorar-action-btn:hover {
+  background: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+  border-color: #52806b;
+  color: #1e332d;
+}
+
+/* D-Pad Virtual Touch para Mobile */
+.explorar-dpad {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  backdrop-filter: blur(10px);
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.dpad-middle-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.dpad-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: #ffffff;
+  color: #2b3a37;
+  font-size: 14px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  touch-action: none;
+  transition: all 0.15s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+}
+
+.dpad-btn:active {
+  background: #eef4f0;
+  transform: scale(0.92);
+  border-color: #52806b;
+  color: #1f362f;
+}
+
+.dpad-center-core {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  opacity: 0.6;
+}
+
+/* Barra Inferior de Instruções e Teclas */
+.explorar-footer-hints {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 16px 24px;
+  background: rgba(14, 23, 24, 0.95);
+  border-top: 1px solid var(--line-subtle);
+  font-size: 13px;
+  color: var(--text-dim);
+}
+
+.hint-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.hint-label {
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.key-capsules {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.key-badge {
+  display: inline-block;
+  padding: 3px 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.25);
+  border-radius: 6px;
+  color: var(--text-main);
+  font-family: monospace;
+  font-size: 11px;
+  font-weight: 700;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.key-separator {
+  color: var(--text-dim);
+  font-size: 11px;
+  margin: 0 3px;
+}
+
+.hint-touch {
+  color: var(--text-muted);
+}
+
+.hint-touch .hint-icon {
+  font-size: 15px;
+}
+
+/* Responsividade */
+@media (min-width: 900px) {
+  /* Em telas desktop grandes com teclado, o D-pad fica ainda mais sutil ou opcional */
+  .explorar-dpad {
+    opacity: 0.85;
+    transition: opacity 0.2s;
+  }
+  .explorar-dpad:hover {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 680px) {
+  .explorar-canvas-shell {
+    height: 58vh;
+  }
+  .explorar-footer-hints {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 14px 18px;
+    gap: 12px;
+  }
+  .explorar-dpad {
+    bottom: 14px;
+    right: 14px;
+    padding: 6px;
+  }
+  .dpad-btn {
+    width: 38px;
+    height: 38px;
+    font-size: 12px;
+  }
+  .explorar-action-btn {
+    top: 14px;
+    right: 14px;
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+  .explorar-zen-badge {
+    top: 14px;
+    left: 14px;
+    padding: 5px 10px;
+    font-size: 11px;
+  }
+}
+

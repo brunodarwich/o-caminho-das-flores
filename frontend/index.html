@@ -12,12 +12,14 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   
-  <link rel="stylesheet" href="css/style.css?v=7.3">
+  <link rel="stylesheet" href="css/style.css?v=8.0">
   <script src="js/media.js" defer></script>
   <script src="js/app.js" defer></script>
   <script src="js/reader.js" defer></script>
-  <script src="js/puzzle.js?v=6.0" defer></script>
+  <script src="js/puzzle.js?v=8.0" defer></script>
   <script src="js/wiki.js" defer></script>
+  <script src="js/libs/three.min.js" defer></script>
+  <script src="js/explorar.js" defer></script>
 </head>
 <body>
 
@@ -35,6 +37,9 @@
           <a href="#leitor" data-view-link="leitor" class="nav-link">Ler</a>
           <a href="#quebra-cabeca" data-view-link="quebra-cabeca" class="nav-link">
             <span class="nav-flower-icon">🌸</span> Quebra-Cabeça
+          </a>
+          <a href="#explorar" data-view-link="explorar" class="nav-link">
+            <span class="nav-flower-icon">🧭</span> Explorar
           </a>
           <a href="#wiki" data-view-link="wiki" class="nav-link">Wiki</a>
         </div>
@@ -202,14 +207,67 @@
 
     <!-- ==================== TELA 3: QUEBRA-CABEÇA ==================== -->
     <section class="view content-width" id="view-quebra-cabeca" data-view="quebra-cabeca" hidden>
-      <!-- Cabeçalho Elegante do Quebra-Cabeça -->
+      <!-- Cabeçalho Poético (Desktop) / Compacto no Mobile -->
       <div class="puzzle-header-block">
         <p class="section-kicker">UMA PAUSA ENTRE CAPÍTULOS</p>
         <h1 class="puzzle-main-title">Um momento para montar e respirar</h1>
         <p class="puzzle-subtitle">Escolha uma cena e encontre seu ritmo.</p>
       </div>
 
-      <!-- Layout em 3 Colunas (Desktop) / Fluxo Inteligente (Mobile) -->
+      <!-- Barra de Ferramentas e Configuração do Jogo -->
+      <div class="puzzle-game-toolbar">
+        <div class="puzzle-toolbar-left">
+          <!-- Seletor de Cena Rápido -->
+          <div class="scene-select-card compact-select">
+            <div class="scene-thumb-preview" id="scene-thumb-preview">
+              <img src="assets/photos/puzzle/ariel.png" alt="Ariel na Floresta">
+            </div>
+            <select id="puzzle-scene" aria-label="Selecione a cena do quebra-cabeça">
+              <option value="1">1. Ariel na Floresta</option>
+              <option value="2">2. Pizeudo, Peinha e Plenitude</option>
+              <option value="3">3. Paçoca e Pitchula</option>
+              <option value="4">4. Mercado da Vila</option>
+              <option value="5">5. Peinha sob a Tempestade</option>
+              <option value="6">6. Entardecer na Vila</option>
+            </select>
+            <span class="select-chevron">⌄</span>
+          </div>
+
+          <!-- Seletor de Dificuldade -->
+          <div class="difficulty-capsules" role="radiogroup" aria-label="Nível de dificuldade">
+            <button type="button" class="diff-capsule is-active" data-diff="3">Fácil (3×3)</button>
+            <button type="button" class="diff-capsule" data-diff="4">Médio (4×4)</button>
+            <button type="button" class="diff-capsule" data-diff="5">Desafio (5×5)</button>
+          </div>
+        </div>
+
+        <div class="puzzle-toolbar-right">
+          <!-- Assistência Zen: Modo Espiar -->
+          <button type="button" class="btn-puzzle-tool" id="puzzle-ghost-toggle" title="Ver imagem de fundo como guia" aria-label="Alternar modo espiar arte original">
+            <span class="tool-icon">👁️</span>
+            <span class="tool-label">Espiar</span>
+          </button>
+
+          <!-- Assistência Zen: Filtro de Bordas -->
+          <button type="button" class="btn-puzzle-tool" id="puzzle-edge-filter" title="Filtrar peças das bordas" aria-label="Filtrar somente peças das bordas">
+            <span class="tool-icon">🌿</span>
+            <span class="tool-label">Bordas</span>
+          </button>
+
+          <!-- Contador de Progresso -->
+          <div class="puzzle-status-counter" id="puzzle-counter-wrapper">
+            <span id="puzzle-counter-display">0 de 9 peças</span>
+          </div>
+
+          <!-- Botão Reiniciar -->
+          <button class="btn-puzzle-reset compact-reset" id="puzzle-start" type="button" aria-label="Começar quebra-cabeça de novo" title="Embaralhar e recomeçar">
+            <span class="btn-leaf-icon">↻</span>
+            <span class="reset-label">Recomeçar</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Arena do Quebra-Cabeça (Tabuleiro Central + Bandeja Acoplada) -->
       <div class="puzzle-workbench-grid">
         <!-- 1. Tabuleiro Principal -->
         <div class="puzzle-board-panel">
@@ -218,68 +276,23 @@
           </div>
         </div>
 
-        <!-- 2. Bandeja de Peças -->
-        <div class="puzzle-tray-panel">
+        <!-- 2. Bandeja de Peças Acoplada Ergonômica -->
+        <div class="puzzle-tray-panel" id="puzzle-tray-panel">
           <div class="tray-title-bar">
-            <span>Peças</span>
-            <span class="leaf-icon">🌿</span>
+            <div class="tray-title-left">
+              <span>Peças Disponíveis</span>
+              <span class="tray-count-badge" id="tray-count-badge">9</span>
+            </div>
+            <span class="tray-hint-text">Toque para selecionar ou arraste ao tabuleiro</span>
           </div>
           <div class="puzzle-tray" id="puzzle-tray" aria-label="Bandeja de peças disponíveis"></div>
         </div>
 
-        <!-- 3. Sidebar de Controles e Inspiração -->
+        <!-- 3. Sidebar Decorativa e Poética (Desktop) -->
         <aside class="puzzle-controls-panel">
-          <!-- Seletor de Cena -->
-          <div class="puzzle-control-group">
-            <label class="control-group-title">
-              <span class="leaf-icon">🌿</span> Cena <span class="leaf-icon">🌿</span>
-            </label>
-            <div class="scene-select-card">
-              <div class="scene-thumb-preview" id="scene-thumb-preview">
-                <img src="assets/photos/puzzle/ariel.png" alt="Ariel na Floresta">
-              </div>
-              <select id="puzzle-scene" aria-label="Selecione a cena do quebra-cabeça">
-                <option value="1">1. Ariel na Floresta</option>
-                <option value="2">2. Pizeudo, Peinha e Plenitude</option>
-                <option value="3">3. Paçoca e Pitchula</option>
-                <option value="4">4. Mercado da Vila</option>
-                <option value="5">5. Peinha sob a Tempestade</option>
-                <option value="6">6. Entardecer na Vila</option>
-              </select>
-              <span class="select-chevron">⌄</span>
-            </div>
-          </div>
-
-          <!-- Seletor de Dificuldade -->
-          <div class="puzzle-control-group">
-            <label class="control-group-title">
-              <span class="leaf-icon">🌿</span> Dificuldade <span class="leaf-icon">🌿</span>
-            </label>
-            <div class="difficulty-capsules" role="radiogroup">
-              <button type="button" class="diff-capsule is-active" data-diff="3">Fácil</button>
-              <button type="button" class="diff-capsule" data-diff="4">Médio</button>
-              <button type="button" class="diff-capsule" data-diff="5">Desafio</button>
-            </div>
-          </div>
-
-          <!-- Botão Começar de Novo (Lavanda) -->
-          <button class="btn-puzzle-reset" id="puzzle-start" type="button">
-            <span class="btn-leaf-icon">🌿</span> Começar de novo
-          </button>
-
-          <!-- Contador Centralizado -->
-          <div class="puzzle-status-counter" id="puzzle-counter-wrapper">
-            <span class="leaf-icon">🌿</span>
-            <span id="puzzle-counter-display">0 de 9 peças</span>
-            <span class="leaf-icon">🌿</span>
-          </div>
-
-          <!-- Citação Poética -->
           <div class="puzzle-inspiration-quote">
             <p>"Às vezes, as melhores descobertas estão nos detalhes mais simples."</p>
           </div>
-
-          <!-- Plaquinha Decorativa de Madeira -->
           <div class="puzzle-wooden-plaque" aria-hidden="true">
             <p>Respire.<br>Encaixe.<br>Floresça. 🌸</p>
           </div>
@@ -287,7 +300,68 @@
       </div>
     </section>
 
-    <!-- ==================== TELA 4: WIKI ==================== -->
+    <!-- ==================== TELA 4: EXPLORAR (THREE.JS 2.5D) ==================== -->
+    <section class="view content-width" id="view-explorar" data-view="explorar" hidden>
+      <!-- Cabeçalho Poético -->
+      <div class="explorar-header-block">
+        <p class="section-kicker">UM PASSO PELO CAMINHO</p>
+        <h1 class="explorar-main-title">Caminhe com Ariel <span class="title-leaf">🧭</span></h1>
+        <p class="explorar-subtitle">Explore o espaço em branco, descubra novos caminhos e encontre seu ritmo com calma.</p>
+      </div>
+
+      <!-- Arena 3D de Exploração -->
+      <div class="explorar-arena-wrapper">
+        <div class="explorar-canvas-shell" id="explorar-canvas-container">
+          <canvas id="explorar-canvas" aria-label="Espaço 3D de exploração com Ariel"></canvas>
+          
+          <!-- Badge Flutuante de Coordenadas / Status Zen -->
+          <div class="explorar-zen-badge">
+            <span class="zen-dot"></span>
+            <span>Ariel em movimento livre</span>
+          </div>
+
+          <!-- Botão Flutuante de Recentralizar -->
+          <button type="button" class="explorar-action-btn" id="explorar-center-btn" title="Centralizar câmera em Ariel" aria-label="Centralizar câmera em Ariel">
+            <span>⌖</span> Centralizar
+          </button>
+
+          <!-- D-Pad Virtual Touch para Dispositivos Móveis -->
+          <div class="explorar-dpad" aria-label="Controles virtuais de movimento" role="group">
+            <button type="button" class="dpad-btn dpad-up" data-dpad="up" aria-label="Mover para cima">▲</button>
+            <div class="dpad-middle-row">
+              <button type="button" class="dpad-btn dpad-left" data-dpad="left" aria-label="Mover para esquerda">◀</button>
+              <div class="dpad-center-core" aria-hidden="true">🌿</div>
+              <button type="button" class="dpad-btn dpad-right" data-dpad="right" aria-label="Mover para direita">▶</button>
+            </div>
+            <button type="button" class="dpad-btn dpad-down" data-dpad="down" aria-label="Mover para baixo">▼</button>
+          </div>
+        </div>
+
+        <!-- Barra Inferior de Dicas e Teclas -->
+        <div class="explorar-footer-hints">
+          <div class="hint-group">
+            <span class="hint-label">Teclado:</span>
+            <div class="key-capsules">
+              <kbd class="key-badge">W</kbd>
+              <kbd class="key-badge">A</kbd>
+              <kbd class="key-badge">S</kbd>
+              <kbd class="key-badge">D</kbd>
+              <span class="key-separator">ou</span>
+              <kbd class="key-badge">▲</kbd>
+              <kbd class="key-badge">◀</kbd>
+              <kbd class="key-badge">▼</kbd>
+              <kbd class="key-badge">▶</kbd>
+            </div>
+          </div>
+          <div class="hint-group hint-touch">
+            <span class="hint-icon">🖱️ / 👆</span>
+            <span class="hint-text">Clique ou toque no chão para onde deseja caminhar</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TELA 5: WIKI ==================== -->
     <section class="view content-width" id="view-wiki" data-view="wiki" hidden>
       <!-- Cabeçalho da Wiki -->
       <div class="wiki-header-block">

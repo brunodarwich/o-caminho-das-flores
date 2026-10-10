@@ -1,17 +1,22 @@
 /**
- * O CAMINHO DAS FLORES — MOTOR DE QUEBRA-CABEÇA JIGSAW
- * Encaixe estrito: a peça só se fixa no tabuleiro quando o usuário arrasta ou clica no LOCAL CERTO (slotIndex === pieceId).
+ * O CAMINHO DAS FLORES — MOTOR DE QUEBRA-CABEÇA JIGSAW (VERSÃO ERGONÔMICA & ZEN)
+ * Encaixe estrito: a peça se fixa quando o usuário arrasta ou clica no LOCAL CERTO (slotIndex === pieceId).
+ * Suporte a Pointer Events (Touch com offset vertical + Mouse Drag) e Tap-to-Place para celular e desktop.
+ * Recursos Zen: Modo Espiar (guia de fundo) e Filtro de Peças das Bordas.
  */
 (() => {
   const board = document.querySelector('#puzzle-board');
   const tray = document.querySelector('#puzzle-tray');
+  const trayBadge = document.querySelector('#tray-count-badge');
   const scene = document.querySelector('#puzzle-scene');
   const sceneThumb = document.querySelector('#scene-thumb-preview img');
   const diffCapsules = [...document.querySelectorAll('.diff-capsule')];
   const startBtn = document.querySelector('#puzzle-start');
   const counterDisplay = document.querySelector('#puzzle-counter-display');
+  const ghostToggleBtn = document.querySelector('#puzzle-ghost-toggle');
+  const edgeFilterBtn = document.querySelector('#puzzle-edge-filter');
 
-  // As 3 Cenas Oficiais
+  // As 6 Cenas Oficiais
   const scenes = {
     1: {
       id: 1,
@@ -57,16 +62,35 @@
   let loadVersion = 0;
 
   // Estado do jogo
-  let topology = null;   // Arestas horizontais e verticais sorteadas
-  let piecePaths = [];   // Array de objetos com { id, r, c, S, d, box, ... }
-  let boardSlots = [];   // Array de tamanho size*size contendo o pieceId ou null
-  let trayPieces = [];   // Array de pieceIds soltos na bandeja
-  let selected = null;   // { from: 'tray' | 'board', pieceId: number, slotIndex?: number }
-  let currentDrag = null;// Referência em memória para Drag & Drop 100% resiliente
+  let topology = null;     // Arestas horizontais e verticais sorteadas
+  let piecePaths = [];     // Array de objetos com { id, r, c, S, d, box, ... }
+  let boardSlots = [];     // Array de tamanho size*size contendo o pieceId ou null
+  let trayPieces = [];     // Array de pieceIds soltos na bandeja
+  let selected = null;     // { from: 'tray' | 'board', pieceId: number, slotIndex?: number }
+  let currentDrag = null;  // Referência para drag nativo / Pointer Events
+  let showGhost = false;   // Modo espiar arte original translúcida
+  let filterEdges = false; // Filtro de peças que pertencem à borda
   let puzzleStartTime = Date.now();
   let puzzleCompletedFired = false;
+  let lastDropTime = 0;
 
   const total = () => size * size;
+
+  // Avatar de arrasto flutuante no DOM
+  let dragAvatar = document.querySelector('#puzzle-drag-avatar');
+  if (!dragAvatar) {
+    dragAvatar = document.createElement('div');
+    dragAvatar.id = 'puzzle-drag-avatar';
+    dragAvatar.className = 'puzzle-drag-avatar';
+    document.body.appendChild(dragAvatar);
+  }
+
+  // Verifica se uma peça pertence à borda externa
+  function isEdgePiece(pieceId) {
+    const p = piecePaths[pieceId];
+    if (!p) return false;
+    return p.topTab === 0 || p.rightTab === 0 || p.bottomTab === 0 || p.leftTab === 0;
+  }
 
   // Feedback Sonoro Zen Sintético (Web Audio API)
   let audioCtx = null;
@@ -83,7 +107,7 @@
 
       const now = audioCtx.currentTime;
       if (type === 'snap') {
-        // Encaixe correto: toque sutil harmônico e estalinho de madeira
+        // Encaixe correto: toque harmônico e estalinho de madeira
         const osc = audioCtx.createOscillator();
         const gain = audioCtx.createGain();
         osc.type = 'sine';
@@ -96,7 +120,7 @@
         osc.start(now);
         osc.stop(now + 0.09);
       } else if (type === 'reject') {
-        // Encaixe incorreto: som macio de toque de madeira oca (sem punição estridente)
+        // Encaixe incorreto: som macio de toque de madeira oca
         const osc = audioCtx.createOscillator();
         const gain = audioCtx.createGain();
         osc.type = 'sine';
@@ -208,8 +232,6 @@
     const tx = dx / L;
     const ty = dy / L;
 
-    // Normal externa consistente para polígono sentido horário: (dy / L, -dx / L)
-    // Multiplicada por tab: +1 aponta para fora (aba circular), -1 aponta para dentro (cavidade)
     const nx = (dy / L) * tab;
     const ny = (-dx / L) * tab;
 
@@ -220,22 +242,16 @@
 
     const R = R_ratio * L;
 
-    // Pontos base na borda reta
     const pA = pt(0.40, 0.0);
     const pB = pt(0.60, 0.0);
-
-    // Cintura suave de transição do pescoço
     const pNeckL = pt(0.435, 0.05);
     const pNeckR = pt(0.565, 0.05);
 
-    // Curvas de conexão suave (fillets)
     const c1 = pt(0.41, 0.01);
     const c2 = pt(0.425, 0.03);
-
     const c3 = pt(0.575, 0.03);
     const c4 = pt(0.59, 0.01);
 
-    // Sentido do arco circular: sweep 1 para aba convexa, 0 para cavidade côncava
     const sweep = tab === 1 ? 1 : 0;
 
     return `L ${pA.x.toFixed(2)} ${pA.y.toFixed(2)} ` +
@@ -261,7 +277,6 @@
         const p_br = { x: x1, y: y1 };
         const p_bl = { x: x0, y: y1 };
 
-        // Complementaridade estrita
         const topTab = r === 0 ? 0 : -topo.hDividers[r - 1][c];
         const rightTab = c === N - 1 ? 0 : topo.vDividers[r][c];
         const bottomTab = r === N - 1 ? 0 : topo.hDividers[r][c];
@@ -273,7 +288,6 @@
         d += makeEdge(p_br, p_bl, bottomTab) + ' ';
         d += makeEdge(p_bl, p_tl, leftTab) + ' Z';
 
-        // Caixa da peça na bandeja com margem confortável para as abas circulares
         const margin = S * 0.22;
         const box = {
           x: x0 - margin,
@@ -318,10 +332,29 @@
       }
     }
 
+    if (trayBadge) {
+      trayBadge.textContent = String(trayPieces.length);
+    }
+
+    if (edgeFilterBtn) {
+      edgeFilterBtn.classList.toggle('is-active', filterEdges);
+      const remainingEdges = trayPieces.filter(isEdgePiece).length;
+      const label = edgeFilterBtn.querySelector('.tool-label');
+      if (label) {
+        label.textContent = remainingEdges > 0 ? `Bordas (${remainingEdges})` : 'Bordas';
+      }
+    }
+
+    if (ghostToggleBtn) {
+      ghostToggleBtn.classList.toggle('is-active', showGhost);
+    }
+
     if (board) {
       const wasComplete = board.classList.contains('is-complete');
       board.classList.toggle('is-complete', isComplete);
       board.classList.toggle('has-selection', !!selected);
+      board.classList.toggle('show-ghost', showGhost);
+
       if (isComplete && !wasComplete) {
         playZenTone('victory');
         if (!puzzleCompletedFired) {
@@ -338,7 +371,7 @@
     }
   }
 
-  // CÁLCULO INFALÍVEL DO SLOT PELAS COORDENADAS DO MOUSE OU TOQUE
+  // CÁLCULO DO SLOT PELAS COORDENADAS DO PONTEIRO
   function getSlotFromClientCoords(clientX, clientY) {
     if (!board) return null;
     const rect = board.getBoundingClientRect();
@@ -352,14 +385,12 @@
     return r * size + c;
   }
 
-  // IDENTIFICAÇÃO PRECISA DO SLOT A PARTIR DE EVENTO (DOM + COORDENADAS)
+  // IDENTIFICAÇÃO DO SLOT A PARTIR DE EVENTO
   function getTargetSlot(e) {
-    // 1. Elemento do slot diretamente atingido pelo ponteiro
     const directSlot = e.target?.closest?.('.slot-ghost-shape, [data-slot-index]');
     if (directSlot && directSlot.dataset.slotIndex !== undefined) {
       return Number(directSlot.dataset.slotIndex);
     }
-    // 2. Elementos sob o cursor via hit-testing
     if (typeof e.clientX === 'number' && typeof e.clientY === 'number') {
       const elements = document.elementsFromPoint(e.clientX, e.clientY);
       for (const el of elements) {
@@ -369,11 +400,10 @@
         }
       }
     }
-    // 3. Fallback geométrico infalível
     return getSlotFromClientCoords(e.clientX, e.clientY);
   }
 
-  // EFEITO VISUAL DE REJEIÇÃO SUAVE NO SLOT INCORRETO
+  // REJEIÇÃO SUAVE NO SLOT INCORRETO
   function flashWrongSlot(slotIndex) {
     if (slotIndex === null || slotIndex === undefined) return;
     const el = document.querySelector(`.slot-ghost-shape[data-slot-index="${slotIndex}"]`);
@@ -383,8 +413,7 @@
     }
   }
 
-  // ENCAIXE ESTRITO: Encaixa quando o local está certo.
-  // Suporte especial à última peça: quando resta apenas 1 peça, ela encaixa perfeitamente sem atrito.
+  // ENCAIXE ESTRITO
   function tryPlacePiece(pieceId, slotIndex) {
     if (pieceId === undefined || pieceId === null) return false;
 
@@ -392,7 +421,7 @@
     const isMatchingSlot = (slotIndex === pieceId) || (isLastPiece && boardSlots[pieceId] === null);
 
     if (isMatchingSlot) {
-      // LOCAL CORRETO! Peça se fixa de forma permanente e irreversível.
+      // LOCAL CORRETO!
       boardSlots[pieceId] = pieceId;
       trayPieces = trayPieces.filter(id => id !== pieceId);
       selected = null;
@@ -401,22 +430,63 @@
       render();
       return true;
     } else {
-      // LOCAL INCORRETO: Não altera nenhuma outra peça e dá feedback sutil.
+      // LOCAL INCORRETO
       playZenTone('reject');
       flashWrongSlot(slotIndex);
       return false;
     }
   }
 
-  // Timestamp para suprimir evento 'click' fantasma disparado pelo navegador após 'drop'
-  let lastDropTime = 0;
+  // Prepara o avatar SVG para arrasto flutuante
+  function updateDragAvatarSvg(pieceId) {
+    if (!dragAvatar || !currentImage) return;
+    const piece = piecePaths[pieceId];
+    if (!piece) return;
+
+    const svgNS = 'http://www.w3.org/2000/svg';
+    dragAvatar.replaceChildren();
+
+    const avatarSvg = document.createElementNS(svgNS, 'svg');
+    avatarSvg.setAttribute('viewBox', `${piece.box.x.toFixed(2)} ${piece.box.y.toFixed(2)} ${piece.box.w.toFixed(2)} ${piece.box.h.toFixed(2)}`);
+    avatarSvg.style.width = '100%';
+    avatarSvg.style.height = '100%';
+    avatarSvg.style.overflow = 'visible';
+
+    const defs = document.createElementNS(svgNS, 'defs');
+    const clip = document.createElementNS(svgNS, 'clipPath');
+    clip.setAttribute('id', `avatar-clip-${pieceId}`);
+    const clipPathEl = document.createElementNS(svgNS, 'path');
+    clipPathEl.setAttribute('d', piece.d);
+    clip.appendChild(clipPathEl);
+    defs.appendChild(clip);
+    avatarSvg.appendChild(defs);
+
+    const img = document.createElementNS(svgNS, 'image');
+    img.setAttribute('href', currentImage.src);
+    img.setAttribute('x', currentImage.x.toFixed(2));
+    img.setAttribute('y', currentImage.y.toFixed(2));
+    img.setAttribute('width', currentImage.width.toFixed(2));
+    img.setAttribute('height', currentImage.height.toFixed(2));
+    img.setAttribute('clip-path', `url(#avatar-clip-${pieceId})`);
+    avatarSvg.appendChild(img);
+
+    const stroke = document.createElementNS(svgNS, 'path');
+    stroke.setAttribute('d', piece.d);
+    stroke.setAttribute('class', 'tray-piece-stroke');
+    stroke.style.stroke = 'var(--sage-bright)';
+    stroke.style.strokeWidth = '2.5';
+    avatarSvg.appendChild(stroke);
+
+    dragAvatar.appendChild(avatarSvg);
+  }
 
   // RENDERIZAÇÃO COMPLETA
   function render() {
     if (!board || !tray || !currentImage || !piecePaths.length) return;
 
-    // 1. RENDER DO TABULEIRO (SVG Principal)
     const svgNS = 'http://www.w3.org/2000/svg';
+
+    // 1. RENDER DO TABULEIRO (SVG Principal)
     const boardSvg = document.createElementNS(svgNS, 'svg');
     boardSvg.setAttribute('viewBox', `0 0 ${BOARD_SIZE} ${BOARD_SIZE}`);
     boardSvg.setAttribute('class', 'puzzle-board-svg');
@@ -432,6 +502,16 @@
       defs.appendChild(clip);
     });
     boardSvg.appendChild(defs);
+
+    // Camada 0: Guia Translúcida de Fundo (Modo Espiar)
+    const ghostImg = document.createElementNS(svgNS, 'image');
+    ghostImg.setAttribute('href', currentImage.src);
+    ghostImg.setAttribute('x', currentImage.x.toFixed(2));
+    ghostImg.setAttribute('y', currentImage.y.toFixed(2));
+    ghostImg.setAttribute('width', currentImage.width.toFixed(2));
+    ghostImg.setAttribute('height', currentImage.height.toFixed(2));
+    ghostImg.setAttribute('class', 'puzzle-ghost-image');
+    boardSvg.appendChild(ghostImg);
 
     // Camada A: Silhuetas-guia de encaixe (Slots vazios)
     const slotsLayer = document.createElementNS(svgNS, 'g');
@@ -455,7 +535,7 @@
     }
     boardSvg.appendChild(slotsLayer);
 
-    // Camada B: Peças já posicionadas no tabuleiro (Fixas, imutáveis e sem bloqueio de pointer events)
+    // Camada B: Peças já posicionadas no tabuleiro
     const piecesLayer = document.createElementNS(svgNS, 'g');
     piecesLayer.setAttribute('class', 'board-placed-layer');
     piecesLayer.style.pointerEvents = 'none';
@@ -472,7 +552,6 @@
         pieceGroup.setAttribute('aria-label', `Peça ${pieceId + 1} encaixada com sucesso.`);
         pieceGroup.style.pointerEvents = 'none';
 
-        // Imagem recortada pelo clipPath da peça
         const img = document.createElementNS(svgNS, 'image');
         img.setAttribute('href', currentImage.src);
         img.setAttribute('x', currentImage.x.toFixed(2));
@@ -483,7 +562,6 @@
         img.style.pointerEvents = 'none';
         pieceGroup.appendChild(img);
 
-        // Contorno da costura de encaixe
         const strokePath = document.createElementNS(svgNS, 'path');
         strokePath.setAttribute('d', piece.d);
         strokePath.setAttribute('class', 'piece-seam-stroke');
@@ -506,15 +584,29 @@
       emptyMsg.innerHTML = '<span aria-hidden="true">🌸</span><p>Todas as peças encaixadas com perfeição!</p>';
       tray.appendChild(emptyMsg);
     } else {
-      trayPieces.forEach(pieceId => {
+      // Filtro de bordas
+      const edgePieces = trayPieces.filter(isEdgePiece);
+      let visiblePieces = trayPieces;
+
+      if (filterEdges && edgePieces.length > 0) {
+        visiblePieces = edgePieces;
+      } else if (filterEdges && edgePieces.length === 0) {
+        // Se todas as bordas foram colocadas, desativa o filtro com suavidade
+        filterEdges = false;
+        if (edgeFilterBtn) edgeFilterBtn.classList.remove('is-active');
+      }
+
+      visiblePieces.forEach(pieceId => {
         const piece = piecePaths[pieceId];
         const isSelected = selected && selected.pieceId === pieceId;
+        const isEdge = isEdgePiece(pieceId);
 
         const cardBtn = document.createElement('button');
         cardBtn.type = 'button';
-        cardBtn.className = `puzzle-tray-card${isSelected ? ' is-selected' : ''}`;
-        cardBtn.setAttribute('draggable', 'true');
-        cardBtn.setAttribute('aria-label', `Peça solta ${pieceId + 1}`);
+        cardBtn.className = `puzzle-tray-card${isSelected ? ' is-selected' : ''}${isEdge ? ' is-edge-piece' : ''}`;
+        cardBtn.setAttribute('data-piece-id', String(pieceId));
+        cardBtn.setAttribute('aria-label', `Peça solta ${pieceId + 1}${isEdge ? ' (borda)' : ''}`);
+        cardBtn.style.touchAction = 'none';
 
         const traySvg = document.createElementNS(svgNS, 'svg');
         traySvg.setAttribute('viewBox', `${piece.box.x.toFixed(2)} ${piece.box.y.toFixed(2)} ${piece.box.w.toFixed(2)} ${piece.box.h.toFixed(2)}`);
@@ -545,20 +637,100 @@
 
         cardBtn.appendChild(traySvg);
 
-        // Clique na peça da bandeja: seleciona ou desseleciona a peça
-        cardBtn.addEventListener('click', (e) => {
+        // MOTOR DE PONTEIRO UNIFICADO: TOUCH (COM OFFSET VERTICAL) & MOUSE DRAG & TAP-TO-PLACE
+        let pointerDownState = null;
+
+        cardBtn.addEventListener('pointerdown', (e) => {
+          if (e.pointerType === 'mouse' && e.button !== 0) return;
           e.stopPropagation();
-          if (selected && selected.pieceId === pieceId) {
-            selected = null;
-            render();
-            return;
-          }
-          selected = { from: 'tray', pieceId };
-          playZenTone('snap');
-          render();
+
+          const isTouch = e.pointerType === 'touch' || e.pointerType === 'pen';
+          pointerDownState = {
+            pointerId: e.pointerId,
+            startX: e.clientX,
+            startY: e.clientY,
+            isTouch,
+            isDragging: false
+          };
+
+          const onPointerMove = (moveEv) => {
+            if (!pointerDownState || moveEv.pointerId !== pointerDownState.pointerId) return;
+
+            const dist = Math.hypot(moveEv.clientX - pointerDownState.startX, moveEv.clientY - pointerDownState.startY);
+
+            if (!pointerDownState.isDragging && dist > 7) {
+              pointerDownState.isDragging = true;
+              currentDrag = { from: 'tray', pieceId };
+              selected = { from: 'tray', pieceId };
+
+              updateDragAvatarSvg(pieceId);
+              dragAvatar?.classList.add('is-dragging');
+              board?.classList.add('has-selection');
+            }
+
+            if (pointerDownState.isDragging && dragAvatar) {
+              const offsetY = pointerDownState.isTouch ? -38 : 0;
+              dragAvatar.style.left = `${moveEv.clientX}px`;
+              dragAvatar.style.top = `${moveEv.clientY + offsetY}px`;
+
+              const targetSlot = getTargetSlot({ clientX: moveEv.clientX, clientY: moveEv.clientY + offsetY });
+              document.querySelectorAll('.slot-ghost-shape').forEach(el => {
+                const idx = Number(el.dataset.slotIndex);
+                el.classList.toggle('is-drag-target', idx === targetSlot);
+              });
+            }
+          };
+
+          const onPointerUp = (upEv) => {
+            if (!pointerDownState || upEv.pointerId !== pointerDownState.pointerId) return;
+
+            window.removeEventListener('pointermove', onPointerMove);
+            window.removeEventListener('pointerup', onPointerUp);
+            window.removeEventListener('pointercancel', onPointerCancel);
+
+            if (pointerDownState.isDragging) {
+              lastDropTime = Date.now();
+              dragAvatar?.classList.remove('is-dragging');
+              document.querySelectorAll('.slot-ghost-shape').forEach(el => el.classList.remove('is-drag-target'));
+
+              const offsetY = pointerDownState.isTouch ? -38 : 0;
+              const targetSlot = getTargetSlot({ clientX: upEv.clientX, clientY: upEv.clientY + offsetY });
+
+              if (targetSlot !== null) {
+                tryPlacePiece(pieceId, targetSlot);
+              }
+            } else {
+              // Foi um toque (Tap-to-Place)
+              if (selected && selected.pieceId === pieceId) {
+                selected = null;
+                render();
+              } else {
+                selected = { from: 'tray', pieceId };
+                playZenTone('snap');
+                render();
+              }
+            }
+
+            pointerDownState = null;
+          };
+
+          const onPointerCancel = () => {
+            window.removeEventListener('pointermove', onPointerMove);
+            window.removeEventListener('pointerup', onPointerUp);
+            window.removeEventListener('pointercancel', onPointerCancel);
+
+            dragAvatar?.classList.remove('is-dragging');
+            document.querySelectorAll('.slot-ghost-shape').forEach(el => el.classList.remove('is-drag-target'));
+            pointerDownState = null;
+          };
+
+          window.addEventListener('pointermove', onPointerMove, { passive: true });
+          window.addEventListener('pointerup', onPointerUp);
+          window.addEventListener('pointercancel', onPointerCancel);
         });
 
-        // Dragstart na peça da bandeja
+        // Suporte a HTML5 Drag & Drop no Desktop
+        cardBtn.setAttribute('draggable', 'true');
         cardBtn.addEventListener('dragstart', (e) => {
           currentDrag = { from: 'tray', pieceId };
           selected = { from: 'tray', pieceId };
@@ -580,9 +752,8 @@
     updateStatusAndCelebration();
   }
 
-  // HANDLER DE CLIQUE NO TABULEIRO
+  // HANDLER DE CLIQUE NO TABULEIRO (TAP-TO-PLACE)
   board?.addEventListener('click', (e) => {
-    // Se um drop acabou de acontecer, suprime o clique residual
     if (Date.now() - lastDropTime < 350) return;
 
     const slotIndex = getTargetSlot(e);
@@ -593,7 +764,7 @@
     }
   });
 
-  // FEEDBACK VISUAL DURANTE O DRAG OVER NO TABULEIRO (Neutro, sem pistas)
+  // FEEDBACK DURANTE DRAG OVER NO TABULEIRO
   board?.addEventListener('dragover', (e) => {
     e.preventDefault();
     if (e.dataTransfer) e.dataTransfer.dropEffect = 'move';
@@ -612,7 +783,7 @@
     });
   });
 
-  // DROP NO TABULEIRO: Validação estrita e à prova de falhas
+  // DROP NATIVO NO TABULEIRO
   board?.addEventListener('drop', (e) => {
     e.preventDefault();
     lastDropTime = Date.now();
@@ -638,7 +809,7 @@
     }
   });
 
-  // HANDLERS NA BANDEJA
+  // DESSELEÇÃO NA BANDEJA
   tray?.addEventListener('click', (e) => {
     if (e.target === tray) {
       selected = null;
@@ -646,9 +817,17 @@
     }
   });
 
-  tray?.addEventListener('dragover', (e) => {
-    e.preventDefault();
-    if (e.dataTransfer) e.dataTransfer.dropEffect = 'move';
+  // BOTÕES ZEN: ESPIAR & FILTRO DE BORDAS
+  ghostToggleBtn?.addEventListener('click', () => {
+    showGhost = !showGhost;
+    playZenTone('snap');
+    render();
+  });
+
+  edgeFilterBtn?.addEventListener('click', () => {
+    filterEdges = !filterEdges;
+    playZenTone('snap');
+    render();
   });
 
   // NOVO JOGO
@@ -701,7 +880,10 @@
   }
 
   // Event Listeners dos Controles
-  startBtn?.addEventListener('click', newGame);
+  startBtn?.addEventListener('click', () => {
+    playZenTone('snap');
+    newGame();
+  });
 
   scene?.addEventListener('change', () => {
     if (sceneThumb) {
@@ -716,6 +898,7 @@
     capsule.addEventListener('click', () => {
       diffCapsules.forEach(c => c.classList.toggle('is-active', c === capsule));
       size = Number(capsule.dataset.diff) || 3;
+      playZenTone('snap');
       newGame();
     });
   });
