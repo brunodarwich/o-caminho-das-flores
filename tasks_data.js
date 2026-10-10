@@ -404,7 +404,8 @@ window.TASKS_DATA = {
       "indicators": [
         "Aba Explorar (#explorar) adicionada ao menu de navegação do portal",
         "Three.js r128 localmente integrado e renderizando mapa branco infinito com iluminação e fog suave",
-        "Sprite de Ariel renderizado com sombra suave, animação de passos (bobbing/flip) e controle manual funcional (WASD, toque e D-pad mobile)"
+        "Sprite de Ariel renderizado com sombra suave, animação de passos (bobbing/flip) e controle manual funcional (WASD, toque e D-pad mobile)",
+        "Modo tela toda (100vw x 100dvh) responsivo no desktop e mobile com HUD glassmorphism, câmera adaptativa e sem scroll"
       ],
       "audit_confirmed": true,
       "created_at": "2026-10-10",

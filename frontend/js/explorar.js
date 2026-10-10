@@ -10,6 +10,8 @@
   // Three.js Core
   let scene, camera, renderer, clock;
   let groundPlane, raycaster, mousePointer;
+  let camOffsetY = 7.5;
+  let camOffsetZ = 9.5;
 
   // Ariel & Entidades
   let arielGroup, arielMesh, shadowMesh, clickMarkerMesh;
@@ -212,6 +214,9 @@
       });
     }
 
+    // Botão de Tela Cheia (Fullscreen API)
+    setupFullscreen();
+
     // D-Pad Mobile
     dpadButtons = document.querySelectorAll('[data-dpad]');
     dpadButtons.forEach(btn => {
@@ -235,6 +240,50 @@
 
     // Resize
     window.addEventListener('resize', onWindowResize);
+    window.addEventListener('orientationchange', () => {
+      setTimeout(onWindowResize, 120);
+    });
+
+    if (window.ResizeObserver && container) {
+      const resizeObserver = new ResizeObserver(() => {
+        onWindowResize();
+      });
+      resizeObserver.observe(container);
+    }
+  }
+
+  function setupFullscreen() {
+    const fullscreenBtn = document.getElementById('explorar-fullscreen-btn');
+    if (!fullscreenBtn) return;
+
+    const updateFsState = () => {
+      const isFs = !!(document.fullscreenElement || document.webkitFullscreenElement);
+      const fsIcon = document.getElementById('fullscreen-icon');
+      const fsLabel = document.getElementById('fullscreen-label');
+      if (fsIcon) fsIcon.textContent = isFs ? '✕' : '⛶';
+      if (fsLabel) fsLabel.textContent = isFs ? 'Sair' : 'Tela cheia';
+      fullscreenBtn.setAttribute('title', isFs ? 'Sair do modo tela cheia' : 'Modo tela cheia');
+      setTimeout(onWindowResize, 80);
+    };
+
+    fullscreenBtn.addEventListener('click', async () => {
+      try {
+        if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+          const target = document.documentElement;
+          if (target.requestFullscreen) await target.requestFullscreen();
+          else if (target.webkitRequestFullscreen) await target.webkitRequestFullscreen();
+        } else {
+          if (document.exitFullscreen) await document.exitFullscreen();
+          else if (document.webkitExitFullscreen) await document.webkitExitFullscreen();
+        }
+      } catch (err) {
+        console.warn('Fullscreen request:', err);
+      }
+      updateFsState();
+    });
+
+    document.addEventListener('fullscreenchange', updateFsState);
+    document.addEventListener('webkitfullscreenchange', updateFsState);
   }
 
   function onKeyDown(e) {
@@ -263,12 +312,16 @@
 
   function onPointerDown(e) {
     if (!isRunning) return;
-    // Se o clique foi no D-Pad ou em botões da UI, ignora
-    if (e.target.closest('.explorar-dpad') || e.target.closest('.explorar-action-btn')) return;
+    // Se o clique foi no D-Pad ou em qualquer elemento interativo do HUD, ignora o raycast no chão
+    if (e.target.closest('.explorar-dpad, .explorar-action-btn, .explorar-title-badge, .explorar-hints-pill, .explorar-hud-top, .explorar-hud-bottom')) {
+      return;
+    }
 
     const rect = container.getBoundingClientRect();
-    mousePointer.x = ((e.clientX - rect.left) / container.clientWidth) * 2 - 1;
-    mousePointer.y = -((e.clientY - rect.top) / container.clientHeight) * 2 + 1;
+    if (rect.width === 0 || rect.height === 0) return;
+
+    mousePointer.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+    mousePointer.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
 
     raycaster.setFromCamera(mousePointer, camera);
     const intersects = raycaster.intersectObject(groundPlane);
@@ -287,11 +340,34 @@
 
   function onWindowResize() {
     if (!container || !renderer || !camera) return;
-    const width = container.clientWidth;
-    const height = container.clientHeight;
-    camera.aspect = width / height;
+    const width = container.clientWidth || window.innerWidth;
+    const height = container.clientHeight || window.innerHeight;
+    if (width === 0 || height === 0) return;
+
+    const aspect = width / height;
+    camera.aspect = aspect;
+
+    // Enquadramento dinâmico: mobile vertical x tablet x desktop panorâmico
+    if (aspect < 0.85) {
+      // Mobile portrait (smartphone na vertical)
+      camera.fov = 48;
+      camOffsetY = 8.6;
+      camOffsetZ = 11.0;
+    } else if (aspect < 1.25) {
+      // Tablet ou tela quase quadrada
+      camera.fov = 44;
+      camOffsetY = 8.0;
+      camOffsetZ = 10.2;
+    } else {
+      // Desktop widescreen / notebook
+      camera.fov = 40;
+      camOffsetY = 7.5;
+      camOffsetZ = 9.5;
+    }
+
     camera.updateProjectionMatrix();
-    renderer.setSize(width, height);
+    renderer.setSize(width, height, false);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   }
 
   function updateAriel(delta) {
@@ -402,8 +478,8 @@
   function updateCamera(instant = false) {
     if (!camera || !arielGroup) return;
     const targetCamX = arielGroup.position.x;
-    const targetCamZ = arielGroup.position.z + 9.5;
-    const targetCamY = 7.5;
+    const targetCamZ = arielGroup.position.z + camOffsetZ;
+    const targetCamY = camOffsetY;
 
     if (instant) {
       camera.position.set(targetCamX, targetCamY, targetCamZ);
@@ -412,7 +488,7 @@
       // Suavização zen (lerp)
       camera.position.x += (targetCamX - camera.position.x) * 0.08;
       camera.position.z += (targetCamZ - camera.position.z) * 0.08;
-      camera.lookAt(camera.position.x, 1.0, camera.position.z - 9.5);
+      camera.lookAt(camera.position.x, 1.0, camera.position.z - camOffsetZ);
     }
   }
 
@@ -431,10 +507,15 @@
     if (!isInitialized) {
       initScene();
     }
-    if (isRunning) return;
+    if (isRunning) {
+      onWindowResize();
+      return;
+    }
     isRunning = true;
     clock.start();
     onWindowResize();
+    setTimeout(onWindowResize, 60);
+    setTimeout(onWindowResize, 250);
     renderLoop();
   }
 
@@ -453,6 +534,11 @@
   });
 
   // Listener para pausar quando sair da aba
+  window.addEventListener('explorar:hidden', () => {
+    stop();
+  });
+
+  // Listener para pausar quando sair da aba ou aba oculta
   document.addEventListener('visibilitychange', () => {
     if (document.hidden) stop();
     else if (location.hash === '#explorar') start();

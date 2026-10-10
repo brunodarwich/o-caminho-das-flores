@@ -581,7 +581,7 @@
     if (trayPieces.length === 0) {
       const emptyMsg = document.createElement('div');
       emptyMsg.className = 'puzzle-tray-completed-msg';
-      emptyMsg.innerHTML = '<span aria-hidden="true">🌸</span><p>Todas as peças encaixadas com perfeição!</p>';
+      emptyMsg.innerHTML = '<span aria-hidden="true">🌸</span><p>Quebra-cabeça concluído!</p>';
       tray.appendChild(emptyMsg);
     } else {
       // Filtro de bordas

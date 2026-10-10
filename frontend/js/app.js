@@ -40,6 +40,8 @@
     activeView = viewName;
 
     header?.classList.toggle('reader-active', viewName === 'leitor');
+    header?.classList.toggle('explorar-active', viewName === 'explorar');
+    document.body?.classList.toggle('view-explorar-active', viewName === 'explorar');
 
     views.forEach(view => {
       const isActive = view.dataset.view === viewName;
@@ -62,7 +64,11 @@
 
     if (viewName === 'leitor') window.dispatchEvent(new CustomEvent('reader:shown'));
     if (viewName === 'quebra-cabeca') window.dispatchEvent(new CustomEvent('puzzle:shown'));
-    if (viewName === 'explorar') window.dispatchEvent(new CustomEvent('explorar:shown'));
+    if (viewName === 'explorar') {
+      window.dispatchEvent(new CustomEvent('explorar:shown'));
+    } else {
+      window.dispatchEvent(new CustomEvent('explorar:hidden'));
+    }
   }
 
   function navigate(name) {

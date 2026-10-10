@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#101a1b">
-  <meta name="description" content="Leia O Caminho das Flores, explore o universo da história e monte um quebra-cabeça com a arte original.">
+  <meta name="description" content="Webtoon autoral de Bruno Darwich e Raíssa Rocha. Leia os capítulos online, conheça os personagens e explore o universo da história.">
   <title>O Caminho das Flores — Webtoon Oficial</title>
   
   <!-- Fontes do Google: Cormorant Garamond (Display nobre editorial) & Plus Jakarta Sans (Interface moderna e focada) -->
@@ -45,9 +45,8 @@
         </div>
       </nav>
       
-      <!-- Right Side Poetic Motto (Desktop) / Mobile Toggle -->
+      <!-- Right Side Mobile Toggle -->
       <div class="header-right">
-        <span class="header-quote">Pequenas histórias. Grandes florescimentos. 🌿</span>
         <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav" aria-label="Abrir menu">
           <span></span><span></span><span></span>
         </button>
@@ -65,38 +64,32 @@
       <div class="hero-banner-wrap">
         <div class="hero-shell content-width">
           <div class="hero-copy-top">
-            <span class="hero-eyebrow">UMA HISTÓRIA PARA SENTIR COM CALMA</span>
-            <h1 class="hero-heading">Um refúgio entre<br>histórias e flores</h1>
-            <p class="hero-subtext">Acompanhe Ariel em uma jornada de descoberta e presença.</p>
+            <span class="hero-eyebrow">WEBTOON INDEPENDENTE</span>
+            <h1 class="hero-heading">O Caminho<br>das Flores</h1>
+            <p class="hero-subtext">Uma história em quadrinhos sobre botânica, encontros e a busca pela rara Flor do Luar.</p>
           </div>
 
           <div class="hero-copy-bottom">
             <div class="hero-buttons">
               <a class="btn-hero-primary" href="#leitor" data-open-chapter="1">
-                <span class="btn-leaf-icon" aria-hidden="true">🌿</span> Ler o primeiro capítulo <span class="btn-chevron" aria-hidden="true">›</span>
+                <span class="btn-leaf-icon" aria-hidden="true">🌿</span> Ler Capítulo 1 <span class="btn-chevron" aria-hidden="true">›</span>
               </a>
               <a class="btn-hero-secondary" href="#wiki">
-                Explorar a Wiki <span class="btn-chevron">›</span>
+                Conhecer o Universo <span class="btn-chevron">›</span>
               </a>
-            </div>
-            
-            <div class="hero-flourish">
-              <span class="flourish-line"></span>
-              <span class="flourish-text">Histórias que florescem por dentro.</span>
-              <span class="flourish-line"></span>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Seção Comece sua jornada -->
+      <!-- Seção de Capítulos -->
       <section class="journey-section content-width">
         <div class="journey-header">
-          <p class="section-kicker">A SUA JORNADA COMEÇA AQUI</p>
+          <p class="section-kicker">LEITURA ONLINE</p>
           <div class="section-divider">
             <span class="divider-line"></span>
             <span class="divider-leaf">🌿</span>
-            <h2>Comece sua jornada</h2>
+            <h2>Capítulos</h2>
             <span class="divider-leaf">🌿</span>
             <span class="divider-line"></span>
           </div>
@@ -109,7 +102,7 @@
             <button class="journey-card" type="button" data-open-chapter="1" aria-label="Abrir Capítulo 1: Céu Azul">
               <div class="journey-card-cover">
                 <img src="assets/covers/cover-cap-1.png" alt="Capa Capítulo 1: Céu Azul" class="journey-cover-img" loading="lazy">
-                <span class="chapter-sequence" aria-hidden="true">01 <span>COMECE AQUI</span></span>
+                <span class="chapter-sequence" aria-hidden="true">01 <span>CAPÍTULO 1</span></span>
               </div>
               <div class="journey-card-pill">
                 <span class="pill-leaf">🌿</span>
@@ -122,7 +115,7 @@
             <button class="journey-card" type="button" data-open-chapter="2" aria-label="Abrir Capítulo 2: A Vizinha">
               <div class="journey-card-cover">
                 <img src="assets/covers/cover-cap-2.png" alt="Capa Capítulo 2: A Vizinha" class="journey-cover-img" loading="lazy">
-                <span class="chapter-sequence" aria-hidden="true">02 <span>CONTINUE A HISTÓRIA</span></span>
+                <span class="chapter-sequence" aria-hidden="true">02 <span>CAPÍTULO 2</span></span>
               </div>
               <div class="journey-card-pill">
                 <span class="pill-leaf">🌿</span>
@@ -132,9 +125,9 @@
             </button>
           </div>
           
-          <!-- Poetic Side Quote (Desktop) -->
+          <!-- Crédito Autoral Sutil (Desktop) -->
           <aside class="journey-side-quote">
-            <p>Mais flores.<br>Mais histórias.<br>Sempre adiante. 🌿</p>
+            <p>Roteiro e arte por<br>Bruno Darwich e<br>Raíssa Rocha. 🌿</p>
           </aside>
         </div>
       </section>
@@ -168,24 +161,12 @@
         <button id="share-button" class="reader-icon-action-btn" type="button" aria-label="Compartilhar capítulo" title="Compartilhar">↗</button>
       </div>
 
-      <!-- Container do Leitor com Citações Laterais -->
+      <!-- Container do Leitor -->
       <div class="reader-stage-wrapper">
-        <aside class="reader-floating-poetry poetry-left" aria-hidden="true">
-          <span class="poetry-leaf-mark">🌿</span>
-          <p>HÁ MAIS VIDA<br>NOS PEQUENOS<br>CAMINHOS.</p>
-          <span class="poetry-sub-rule"></span>
-        </aside>
-
         <!-- Coluna de Painéis Contínuos (Zero Gap) -->
         <div class="reader-canvas-column">
           <div class="reader-page" id="reader-page" aria-label="Painéis da webtoon em rolagem contínua"></div>
         </div>
-
-        <aside class="reader-floating-poetry poetry-right" aria-hidden="true">
-          <span class="poetry-leaf-mark">🌿</span>
-          <p>TODA FLOR<br>CONTA UMA<br>HISTÓRIA.</p>
-          <span class="poetry-sub-rule"></span>
-        </aside>
       </div>
 
       <!-- Rodapé de Navegação do Leitor -->
@@ -207,11 +188,11 @@
 
     <!-- ==================== TELA 3: QUEBRA-CABEÇA ==================== -->
     <section class="view content-width" id="view-quebra-cabeca" data-view="quebra-cabeca" hidden>
-      <!-- Cabeçalho Poético (Desktop) / Compacto no Mobile -->
+      <!-- Cabeçalho -->
       <div class="puzzle-header-block">
-        <p class="section-kicker">UMA PAUSA ENTRE CAPÍTULOS</p>
-        <h1 class="puzzle-main-title">Um momento para montar e respirar</h1>
-        <p class="puzzle-subtitle">Escolha uma cena e encontre seu ritmo.</p>
+        <p class="section-kicker">MINIGAME</p>
+        <h1 class="puzzle-main-title">Quebra-Cabeça</h1>
+        <p class="puzzle-subtitle">Escolha uma cena e monte as peças.</p>
       </div>
 
       <!-- Barra de Ferramentas e Configuração do Jogo -->
@@ -288,44 +269,46 @@
           <div class="puzzle-tray" id="puzzle-tray" aria-label="Bandeja de peças disponíveis"></div>
         </div>
 
-        <!-- 3. Sidebar Decorativa e Poética (Desktop) -->
+        <!-- 3. Painel Lateral de Dicas (Desktop) -->
         <aside class="puzzle-controls-panel">
           <div class="puzzle-inspiration-quote">
-            <p>"Às vezes, as melhores descobertas estão nos detalhes mais simples."</p>
-          </div>
-          <div class="puzzle-wooden-plaque" aria-hidden="true">
-            <p>Respire.<br>Encaixe.<br>Floresça. 🌸</p>
+            <p>Dica: use o filtro de bordas ou o modo espiar para se orientar na montagem.</p>
           </div>
         </aside>
       </div>
     </section>
 
     <!-- ==================== TELA 4: EXPLORAR (THREE.JS 2.5D) ==================== -->
-    <section class="view content-width" id="view-explorar" data-view="explorar" hidden>
-      <!-- Cabeçalho Poético -->
-      <div class="explorar-header-block">
-        <p class="section-kicker">UM PASSO PELO CAMINHO</p>
-        <h1 class="explorar-main-title">Caminhe com Ariel <span class="title-leaf">🧭</span></h1>
-        <p class="explorar-subtitle">Explore o espaço em branco, descubra novos caminhos e encontre seu ritmo com calma.</p>
-      </div>
-
-      <!-- Arena 3D de Exploração -->
+    <section class="view view-fullscreen" id="view-explorar" data-view="explorar" hidden>
+      <!-- Arena 3D de Exploração (Preenche 100% da viewport) -->
       <div class="explorar-arena-wrapper">
         <div class="explorar-canvas-shell" id="explorar-canvas-container">
           <canvas id="explorar-canvas" aria-label="Espaço 3D de exploração com Ariel"></canvas>
           
-          <!-- Badge Flutuante de Coordenadas / Status Zen -->
-          <div class="explorar-zen-badge">
-            <span class="zen-dot"></span>
-            <span>Ariel em movimento livre</span>
+          <!-- HUD Flutuante Superior -->
+          <div class="explorar-hud-top">
+            <!-- Badge / Título Zen -->
+            <div class="explorar-title-badge">
+              <span class="zen-dot"></span>
+              <span class="explorar-badge-title">Caminhe com Ariel</span>
+              <span class="explorar-badge-sep">•</span>
+              <span class="explorar-badge-mode">Modo livre</span>
+            </div>
+
+            <!-- Ações Rápidas (Centralizar e Tela Cheia) -->
+            <div class="explorar-top-actions">
+              <button type="button" class="explorar-action-btn" id="explorar-center-btn" title="Centralizar câmera em Ariel" aria-label="Centralizar câmera em Ariel">
+                <span class="action-btn-icon">⌖</span>
+                <span class="action-btn-text">Centralizar</span>
+              </button>
+              <button type="button" class="explorar-action-btn" id="explorar-fullscreen-btn" title="Alternar modo tela cheia" aria-label="Alternar tela cheia">
+                <span class="action-btn-icon" id="fullscreen-icon">⛶</span>
+                <span class="action-btn-text" id="fullscreen-label">Tela cheia</span>
+              </button>
+            </div>
           </div>
 
-          <!-- Botão Flutuante de Recentralizar -->
-          <button type="button" class="explorar-action-btn" id="explorar-center-btn" title="Centralizar câmera em Ariel" aria-label="Centralizar câmera em Ariel">
-            <span>⌖</span> Centralizar
-          </button>
-
-          <!-- D-Pad Virtual Touch para Dispositivos Móveis -->
+          <!-- D-Pad Virtual Touch para Mobile & Tablet (Canto Inferior Direito) -->
           <div class="explorar-dpad" aria-label="Controles virtuais de movimento" role="group">
             <button type="button" class="dpad-btn dpad-up" data-dpad="up" aria-label="Mover para cima">▲</button>
             <div class="dpad-middle-row">
@@ -335,27 +318,30 @@
             </div>
             <button type="button" class="dpad-btn dpad-down" data-dpad="down" aria-label="Mover para baixo">▼</button>
           </div>
-        </div>
 
-        <!-- Barra Inferior de Dicas e Teclas -->
-        <div class="explorar-footer-hints">
-          <div class="hint-group">
-            <span class="hint-label">Teclado:</span>
-            <div class="key-capsules">
-              <kbd class="key-badge">W</kbd>
-              <kbd class="key-badge">A</kbd>
-              <kbd class="key-badge">S</kbd>
-              <kbd class="key-badge">D</kbd>
-              <span class="key-separator">ou</span>
-              <kbd class="key-badge">▲</kbd>
-              <kbd class="key-badge">◀</kbd>
-              <kbd class="key-badge">▼</kbd>
-              <kbd class="key-badge">▶</kbd>
+          <!-- HUD Flutuante Inferior (Dicas e Atalhos Minimalistas) -->
+          <div class="explorar-hud-bottom">
+            <div class="explorar-hints-pill" id="explorar-hints-pill">
+              <div class="hint-group hint-keys">
+                <span class="hint-label">Teclas:</span>
+                <div class="key-capsules">
+                  <kbd class="key-badge">W</kbd>
+                  <kbd class="key-badge">A</kbd>
+                  <kbd class="key-badge">S</kbd>
+                  <kbd class="key-badge">D</kbd>
+                  <span class="key-separator">ou</span>
+                  <kbd class="key-badge">▲</kbd>
+                  <kbd class="key-badge">◀</kbd>
+                  <kbd class="key-badge">▼</kbd>
+                  <kbd class="key-badge">▶</kbd>
+                </div>
+              </div>
+              <div class="hint-separator" aria-hidden="true"></div>
+              <div class="hint-group hint-touch">
+                <span class="hint-icon">🖱️ / 👆</span>
+                <span class="hint-text">Clique ou toque no chão para andar</span>
+              </div>
             </div>
-          </div>
-          <div class="hint-group hint-touch">
-            <span class="hint-icon">🖱️ / 👆</span>
-            <span class="hint-text">Clique ou toque no chão para onde deseja caminhar</span>
           </div>
         </div>
       </div>
@@ -365,16 +351,16 @@
     <section class="view content-width" id="view-wiki" data-view="wiki" hidden>
       <!-- Cabeçalho da Wiki -->
       <div class="wiki-header-block">
-        <p class="section-kicker">DESCUBRA O UNIVERSO</p>
-        <h1 class="wiki-main-title">Explore o universo das flores <span class="title-leaf">🌿</span></h1>
-        <p class="wiki-subtitle">Personagens, lugares e plantas que florescem nesta história.</p>
+        <p class="section-kicker">ENCICLOPÉDIA</p>
+        <h1 class="wiki-main-title">Guia do Universo</h1>
+        <p class="wiki-subtitle">Personagens, botânica e cenários de O Caminho das Flores.</p>
       </div>
 
       <!-- Barra de Busca e Filtros em Pílulas -->
       <div class="wiki-filter-bar">
         <div class="wiki-search-box">
           <span class="search-glass-icon" aria-hidden="true">🔍</span>
-          <input id="wiki-search" type="search" placeholder="Buscar na Wiki..." aria-label="Buscar na enciclopédia" autocomplete="off">
+          <input id="wiki-search" type="search" placeholder="Buscar personagens, plantas ou locais..." aria-label="Buscar na enciclopédia" autocomplete="off">
           <span class="search-leaf-ornament" aria-hidden="true">🌿</span>
         </div>
 
@@ -407,8 +393,7 @@
   <footer class="site-footer">
     <div class="footer-inner content-width">
       <a href="#inicio" class="footer-brand-title">O Caminho das Flores</a>
-      <span class="footer-creator-text">Uma webtoon autoral de Bruno Darwich</span>
-      <span class="footer-zen-motto">Pequenas histórias. Grandes florescimentos. <i>🌿</i></span>
+      <span class="footer-creator-text">Uma webtoon autoral de Bruno Darwich e Raíssa Rocha</span>
     </div>
   </footer>
 

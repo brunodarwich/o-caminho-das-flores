@@ -1,23 +1,23 @@
 {
   "project": {
     "name": "O Caminho das Flores — Plataforma Webtoon",
-    "last_updated": "2026-09-27",
+    "last_updated": "2026-10-10",
     "currency_primary": "BRL",
     "currency_secondary": "USD"
   },
   "kpis": {
-    "active_users_daily": 8,
-    "active_users_monthly": 8,
+    "active_users_daily": 9,
+    "active_users_monthly": 9,
     "total_signups": 0,
     "mrr_brl": 0.0,
     "mrr_usd": 0.0,
     "checkout_conversion_rate": 0.0,
-    "activation_rate": 20.0
+    "activation_rate": 22.0
   },
   "funnel": [
     {
       "step": "Descoberta / Visitantes",
-      "count": 8,
+      "count": 9,
       "conversion_percentage": 100.0
     },
     {
@@ -27,7 +27,7 @@
     },
     {
       "step": "Ativação (Aha! Moment)",
-      "count": 16,
+      "count": 18,
       "conversion_percentage": 200.0
     },
     {
@@ -74,6 +74,47 @@
     }
   ],
   "recent_events": [
+    {
+      "event_name": "wiki_entry_viewed",
+      "payload": {
+        "entry_id": "ariel",
+        "category": "Personagens"
+      },
+      "recorded_at": "2026-10-10T14:58:59.336916+00:00"
+    },
+    {
+      "event_name": "puzzle_game_completed",
+      "payload": {
+        "image_id": "fruto_da_luz",
+        "difficulty_level": "facil",
+        "elapsed_seconds": 45
+      },
+      "recorded_at": "2026-10-10T14:58:59.316177+00:00"
+    },
+    {
+      "event_name": "reader_chapter_completed",
+      "payload": {
+        "chapter_id": 1,
+        "time_spent_seconds": 95
+      },
+      "recorded_at": "2026-10-10T14:58:59.293698+00:00"
+    },
+    {
+      "event_name": "reader_chapter_started",
+      "payload": {
+        "chapter_id": 1,
+        "chapter_title": "Céu Azul"
+      },
+      "recorded_at": "2026-10-10T14:58:59.270757+00:00"
+    },
+    {
+      "event_name": "chapter_finished",
+      "payload": {
+        "chapter_id": 1,
+        "read_time_seconds": 120
+      },
+      "recorded_at": "2026-10-10T14:58:59.245823+00:00"
+    },
     {
       "event_name": "wiki_entry_viewed",
       "payload": {
