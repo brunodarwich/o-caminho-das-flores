@@ -28,6 +28,12 @@
   let walkClock = 0;
   let idleClock = 0;
 
+  // Animação de Múltiplos Frames (Sprite Loop)
+  const walkTextures = [];
+  let currentFrameIndex = 0;
+  let frameTimer = 0;
+  const FRAME_STEP_INTERVAL = 0.16; // Intervalo de troca de frame (~160ms)
+
   // Teclado
   const keys = {
     up: false,
@@ -138,26 +144,37 @@
     shadowMesh.position.y = 0.02;
     arielGroup.add(shadowMesh);
 
-    // Sprite Billboard de Ariel
+    // Sprite Billboard de Ariel (Suporte a múltiplos frames de caminhada)
     const textureLoader = new THREE.TextureLoader();
-    textureLoader.load('assets/sprites/ariel-front.png', (texture) => {
-      texture.generateMipmaps = true;
-      texture.minFilter = THREE.LinearMipmapLinearFilter;
-      texture.magFilter = THREE.LinearFilter;
+    const framePaths = [
+      'assets/sprites/ariel-walk-1.png',
+      'assets/sprites/ariel-walk-2.png'
+    ];
 
-      const arielGeo = new THREE.PlaneGeometry(ARIEL_WIDTH, ARIEL_HEIGHT);
-      const arielMat = new THREE.MeshBasicMaterial({
-        map: texture,
-        transparent: true,
-        alphaTest: 0.02,
-        side: THREE.DoubleSide,
-        depthWrite: false
+    let loadedCount = 0;
+    framePaths.forEach((path, idx) => {
+      textureLoader.load(path, (tex) => {
+        tex.generateMipmaps = true;
+        tex.minFilter = THREE.LinearMipmapLinearFilter;
+        tex.magFilter = THREE.LinearFilter;
+        walkTextures[idx] = tex;
+        loadedCount++;
+
+        if (loadedCount === 1 && !arielMesh) {
+          const arielGeo = new THREE.PlaneGeometry(ARIEL_WIDTH, ARIEL_HEIGHT);
+          const arielMat = new THREE.MeshBasicMaterial({
+            map: tex,
+            transparent: true,
+            alphaTest: 0.02,
+            side: THREE.DoubleSide,
+            depthWrite: false
+          });
+          arielMesh = new THREE.Mesh(arielGeo, arielMat);
+          arielMesh.position.y = BASE_Y;
+          arielMesh.rotation.x = -0.36;
+          arielGroup.add(arielMesh);
+        }
       });
-      arielMesh = new THREE.Mesh(arielGeo, arielMat);
-      arielMesh.position.y = BASE_Y;
-      // Inclinado suavemente para encarar a câmera 2.5D
-      arielMesh.rotation.x = -0.36;
-      arielGroup.add(arielMesh);
     });
 
     // Marcador de clique/toque no chão
@@ -330,6 +347,20 @@
 
       if (isMoving) {
         walkClock += delta * 12;
+
+        // Loop de troca de frames (Sprite Animation Loop)
+        if (walkTextures.length > 1) {
+          frameTimer += delta;
+          if (frameTimer >= FRAME_STEP_INTERVAL) {
+            frameTimer = 0;
+            currentFrameIndex = (currentFrameIndex + 1) % walkTextures.length;
+            if (walkTextures[currentFrameIndex] && arielMesh.material.map !== walkTextures[currentFrameIndex]) {
+              arielMesh.material.map = walkTextures[currentFrameIndex];
+              arielMesh.material.needsUpdate = true;
+            }
+          }
+        }
+
         // Pulo rítmico de passo
         const stepHop = Math.abs(Math.sin(walkClock)) * 0.14;
         arielMesh.position.y = BASE_Y + stepHop;
@@ -342,7 +373,15 @@
           shadowMesh.scale.set(sScale, sScale, sScale);
         }
       } else {
-        // Idle zen: respiração suave e postura ereta
+        // Idle zen: volta ao frame base de repouso
+        if (currentFrameIndex !== 0 && walkTextures[0]) {
+          currentFrameIndex = 0;
+          frameTimer = 0;
+          arielMesh.material.map = walkTextures[0];
+          arielMesh.material.needsUpdate = true;
+        }
+
+        // Respiração suave e postura ereta
         idleClock += delta * 2.2;
         arielMesh.position.y = BASE_Y + Math.sin(idleClock) * 0.025;
         arielMesh.rotation.z = 0;
