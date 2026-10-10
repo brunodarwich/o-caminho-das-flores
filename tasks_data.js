@@ -5,9 +5,9 @@ window.TASKS_DATA = {
     "version": "1.0.0",
     "last_updated": "2026-10-10",
     "metrics": {
-      "total_tasks": 24,
-      "completed_tasks": 23,
-      "progress_percentage": 95.8
+      "total_tasks": 25,
+      "completed_tasks": 24,
+      "progress_percentage": 96.0
     }
   },
   "milestones": [
@@ -423,6 +423,23 @@ window.TASKS_DATA = {
         "Loop contínuo de 4 frames (1 > 2 > 3 > 2 > 1 > 2...) com cadência ágil (~85ms)",
         "12 insetos espalhados pelo mapa 2.5D com flutuação suave, sombras projetadas e flip horizontal",
         "Validação visual aprovada pelo criador"
+      ],
+      "audit_confirmed": true,
+      "created_at": "2026-10-10",
+      "completed_at": "2026-10-10"
+    },
+    {
+      "id": "TASK-025",
+      "title": "Inserção de arbustos (mato-1 e mato-2) espalhados pelo mapa 2.5D",
+      "description": "Recorte e integração de mato-1 e mato-2 em sprites transparentes no frontend/assets/sprites/, distribuição de 28 arbustos pelo terreno em grupos orgânicos e isolados, com sombras de contato no solo, balanço suave de vento (brisa zen) e reação elástica de farfalhar quando Ariel passa perto.",
+      "status": "done",
+      "milestone": "m4_frontend_ui",
+      "tier": "tier2_fast",
+      "indicators": [
+        "mato-1 e mato-2 recortados com canal alfa preservado em frontend/assets/sprites/",
+        "28 instâncias de arbustos distribuídas em raios curto, médio e longo no mapa de explorar",
+        "Sombra de contato suave e alinhamento de base no solo (y = 0)",
+        "Animação procedimental de brisa e interação elástica de farfalhar ao contato com Ariel"
       ],
       "audit_confirmed": true,
       "created_at": "2026-10-10",

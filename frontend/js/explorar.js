@@ -43,6 +43,49 @@
     { x: 0.8, z: 15.2, y: 1.35 }
   ];
 
+  // Arbustos / Matos
+  const bushTextures = [];
+  const bushes = [];
+  let bushesGroup;
+  const BUSH_CONFIGS = [
+    { path: 'assets/sprites/mato-1.png', aspect: 4.287, baseHeight: 0.52 },
+    { path: 'assets/sprites/mato-2.png', aspect: 2.803, baseHeight: 0.64 }
+  ];
+  const BUSH_SPAWN_POINTS = [
+    // Próximos de Ariel (início)
+    { x: -2.4, z: -1.6, type: 0, scale: 0.95, flip: false },
+    { x: 3.1, z: 1.6, type: 1, scale: 1.05, flip: true },
+    { x: -1.6, z: 3.4, type: 1, scale: 0.88, flip: false },
+    { x: 3.6, z: -2.9, type: 0, scale: 1.1, flip: false },
+    // Agrupamentos orgânicos naturais
+    { x: -5.2, z: -3.8, type: 0, scale: 1.15, flip: true },
+    { x: -4.4, z: -3.4, type: 1, scale: 0.9, flip: false },
+    { x: 6.4, z: 3.6, type: 1, scale: 1.2, flip: false },
+    { x: 7.2, z: 4.1, type: 0, scale: 0.95, flip: true },
+    { x: -6.7, z: 5.9, type: 0, scale: 1.0, flip: false },
+    { x: -7.4, z: 6.5, type: 1, scale: 0.85, flip: true },
+    // Média distância
+    { x: 1.4, z: -7.6, type: 1, scale: 1.0, flip: false },
+    { x: -3.2, z: -8.4, type: 0, scale: 1.1, flip: true },
+    { x: 8.6, z: -4.6, type: 0, scale: 1.2, flip: false },
+    { x: 9.9, z: -5.3, type: 1, scale: 0.9, flip: true },
+    { x: -9.8, z: -2.1, type: 1, scale: 1.1, flip: false },
+    { x: 5.2, z: 9.4, type: 0, scale: 1.05, flip: true },
+    { x: -2.7, z: 11.2, type: 1, scale: 1.25, flip: false },
+    { x: 2.2, z: 13.6, type: 0, scale: 0.9, flip: false },
+    // Longa distância (mapa infinito)
+    { x: 12.8, z: 1.6, type: 1, scale: 1.1, flip: true },
+    { x: 14.2, z: -7.2, type: 0, scale: 1.15, flip: false },
+    { x: -12.7, z: 5.6, type: 0, scale: 1.0, flip: true },
+    { x: -14.2, z: -6.2, type: 1, scale: 1.2, flip: false },
+    { x: -8.7, z: 14.2, type: 1, scale: 0.95, flip: true },
+    { x: 9.2, z: 15.2, type: 0, scale: 1.05, flip: false },
+    { x: 16.2, z: 8.2, type: 1, scale: 1.1, flip: false },
+    { x: -16.8, z: 11.2, type: 0, scale: 1.2, flip: true },
+    { x: -5.8, z: -14.6, type: 1, scale: 1.0, flip: false },
+    { x: 11.2, z: -13.2, type: 0, scale: 1.15, flip: true }
+  ];
+
   // Movimentação & Estado
   const speed = 4.8;
   const velocity = new THREE.Vector3();
@@ -217,6 +260,9 @@
 
     // Inicializa insetos com loop de asas espalhados pelo mapa
     initInsects(textureLoader);
+
+    // Inicializa arbustos espalhados pelo mapa
+    initBushes(textureLoader);
 
     setupEvents();
     isInitialized = true;
@@ -639,6 +685,111 @@
     }
   }
 
+  function initBushes(textureLoader) {
+    bushesGroup = new THREE.Group();
+    scene.add(bushesGroup);
+
+    const shadowTex = createShadowTexture();
+    let loadedCount = 0;
+
+    BUSH_CONFIGS.forEach((cfg, idx) => {
+      textureLoader.load(cfg.path, (tex) => {
+        tex.generateMipmaps = true;
+        tex.minFilter = THREE.LinearMipmapLinearFilter;
+        tex.magFilter = THREE.LinearFilter;
+        bushTextures[idx] = tex;
+        loadedCount++;
+
+        if (loadedCount === BUSH_CONFIGS.length && bushes.length === 0) {
+          spawnBushes(shadowTex);
+        }
+      });
+    });
+  }
+
+  function spawnBushes(shadowTex) {
+    BUSH_SPAWN_POINTS.forEach((pt, index) => {
+      const cfg = BUSH_CONFIGS[pt.type];
+      const tex = bushTextures[pt.type];
+      if (!tex) return;
+
+      const bushSubGroup = new THREE.Group();
+      bushSubGroup.position.set(pt.x, 0, pt.z);
+      bushesGroup.add(bushSubGroup);
+
+      const h = cfg.baseHeight * pt.scale;
+      const w = h * cfg.aspect;
+
+      // Sombra de contato no chão
+      const shadowGeo = new THREE.PlaneGeometry(w * 0.85, 0.42 * pt.scale);
+      const shadowMat = new THREE.MeshBasicMaterial({
+        map: shadowTex,
+        transparent: true,
+        opacity: 0.3,
+        depthWrite: false
+      });
+      const shadow = new THREE.Mesh(shadowGeo, shadowMat);
+      shadow.rotation.x = -Math.PI / 2;
+      shadow.position.y = 0.015;
+      bushSubGroup.add(shadow);
+
+      // Sprite do arbusto
+      const bushGeo = new THREE.PlaneGeometry(w, h);
+      const bushMat = new THREE.MeshBasicMaterial({
+        map: tex,
+        transparent: true,
+        alphaTest: 0.02,
+        side: THREE.DoubleSide,
+        depthWrite: false
+      });
+      const mesh = new THREE.Mesh(bushGeo, bushMat);
+      mesh.position.y = (h / 2) * 0.95; // Base assenta perfeitamente no chão
+      mesh.rotation.x = -0.36; // Mesma inclinação isométrica de Ariel
+      if (pt.flip) mesh.scale.x = -1;
+      bushSubGroup.add(mesh);
+
+      bushes.push({
+        group: bushSubGroup,
+        mesh: mesh,
+        x: pt.x,
+        z: pt.z,
+        swaySpeed: 1.2 + (index % 5) * 0.25,
+        swayPhase: index * 0.9,
+        rustleVelocity: 0,
+        rustleAngle: 0
+      });
+    });
+  }
+
+  function updateBushes(delta) {
+    if (!bushes.length) return;
+    const time = clock ? clock.getElapsedTime() : 0;
+
+    for (let i = 0; i < bushes.length; i++) {
+      const b = bushes[i];
+
+      // Balanço suave da brisa
+      const windSway = Math.sin(time * b.swaySpeed + b.swayPhase) * 0.022;
+
+      // Reação elástica de farfalhar quando Ariel passa perto
+      if (arielGroup && isMoving) {
+        const dx = b.x - arielGroup.position.x;
+        const dz = b.z - arielGroup.position.z;
+        const dist = Math.hypot(dx, dz);
+        if (dist < 0.95) {
+          const pushDir = dx < 0 ? -1 : 1;
+          b.rustleVelocity += (pushDir * 0.07 - b.rustleAngle) * 0.16;
+        }
+      }
+
+      b.rustleVelocity *= 0.88;
+      b.rustleAngle += b.rustleVelocity;
+      b.rustleAngle *= 0.92;
+
+      b.mesh.rotation.z = windSway + b.rustleAngle;
+    }
+  }
+
   function updateCamera(instant = false) {
     if (!camera || !arielGroup) return;
     const targetCamX = arielGroup.position.x;
@@ -662,6 +813,7 @@
 
     updateAriel(delta);
     updateInsects(delta);
+    updateBushes(delta);
     updateCamera();
     renderer.render(scene, camera);
 
